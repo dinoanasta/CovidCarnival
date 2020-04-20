@@ -2,9 +2,54 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+    <title>CovidCarnival</title>
+    <link rel="stylesheet" href="style.css">
 
+    <style>
+        /* This style section is here to make the canvas more obvious on the
+           page.  It is white on a light gray page background, with a thin
+           black border.  Also, turn off text selection to avoid having
+           selection interfere with mouse action. */
+        body {
+            background-color: #AAAAAA;
+        }
+        canvas {
+            background-color: white;
+            display: block;
+        }
+        #canvasholder {
+            border:5px solid black;
+            float: left; /* This makes the border exactly fit the canvas. */
+        }
+    </style>
+
+    <script>
+        var canvas;
+        var graphics;
+
+        function init(){
+            try {
+                canvas = document.getElementById("canvas");
+                graphics = canvas.getContext("2d");
+            } catch (e) {
+                document.getElementById("canvasholder").innerHTML =
+                    "<p>Canvas graphics is not supported.<br>" +
+                    "An error occurred while initializing graphics.</p>";
+                return;
+            }
+            graphics.fillStyle = "white";
+            graphics.fillRect(0, 0, canvas.width, canvas.height);
+        }
+    </script>
+</head>
+<body onload="init()">
+    <h1 class="neon" data-text="COVID CARNIVAL"> COVID CARNIVAL </h1>
+
+    <div id="canvasholder">
+        <canvas id="canvas" width="800" height="600">
+            <!-- This message is shown on the page if the browser doesn't support the canvas element. -->
+            Canvas not supported.
+        </canvas>
+    </div>
 </body>
 </html>
