@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Nosifer&display=swap');
 
+body{
+    font-family: 'Nosifer', cursive;
+}
+
 .neon{
     position: absolute;
     top:35%;
@@ -7,8 +11,8 @@
     transform: translate(-50%, -50%);
     margin: 0;
     padding: 0 20px;
-    font-size: 8em;
-    color: #00f1f1;
+    font-size: 6em;
+    color: #ffffff;
     text-shadow: 0 0 20px #ff005b;
 }
 
