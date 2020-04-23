@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Physics</title>
+</head>
+<body>
+
+<script src = "js/three.js"></script>
+    <script src = "js/OrbitControls.js"></script>
+    <script src = "js/physi.js"></script>
+    <script>
+
+
+        Physijs.scripts.worker =  'js/physijs_worker.js';
+        //Physijs.scripts.ammo = 'js/ammo.js';
+
+        var renderer = new THREE.WebGLRenderer({antialias:true});
+        var camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000 );
+        // var scene = new THREE.Scene();
+         var scene = new Physijs.Scene;
+         scene.setGravity(new THREE.Vector3(0,-10,0));
+
+        renderer.setSize( window.innerWidth, window.innerHeight );
+        document.body.appendChild( renderer.domElement );
+
+        renderer.setClearColor(0xFFFFFF); //0x07E2E9
+        var light;  // A light shining from the direction of the camera; moves with the camera.
+        light = new THREE.DirectionalLight();
+        light.position.set(10,10,1);
+        scene.add(light);
+
+        // var axes = new THREE.AxesHelper(30);
+        // scene.add(axes);
+        // var landGeo = new THREE.PlaneGeometry(60,60,32);
+        // var landMat = new THREE.MeshLambertMaterial({color: 0x11fa46});
+        // var land = new Physijs.BoxMesh(landGeo,landMat);
+        // land.rotation.x = -0.5*Math.PI;
+        // scene.add(land);
+
+        var Balls = new THREE.Object3D();
+        var geometry = new THREE.SphereGeometry(5,20,20);
+        var r,g,b;
+        var x = 0;
+        for(var i = 0; i < 30; i++)
+        {
+            r = 0.9999*Math.random();
+            g = 0.9999*Math.random();
+            b = 0.9999*Math.random();
+            var colours = new THREE.Color(r,g,b);
+            var material = new THREE.MeshPhongMaterial( { color: colours } );
+            //0x04159F
+            var sphere = new Physijs.SphereMesh( geometry, material );
+            sphere.rotation.x = -0.5*Math.PI;
+            sphere.position.x = x;
+            sphere.position.y= 50*Math.random();
+            Balls[i] = sphere;
+            x += 5;
+        }
+
+        for(var i = 0; i < 30; i++)
+        {
+         scene.add(Balls[i]);
+        }
+
+        // var geometry = new THREE.SphereGeometry(5,20,20);
+        // var material = new THREE.MeshPhongMaterial( { color: 0xfa1111} ); //0x04159F
+        // var sphere = new Physijs.SphereMesh( geometry, material );
+        // sphere.rotation.x = -0.5*Math.PI;
+        // sphere.position.x = 25;
+        // sphere.position.y= 5;
+        // scene.add(sphere);
+
+        // var geometry2 = new THREE.SphereGeometry(5,20,20);
+        // var material2 = new THREE.MeshPhongMaterial( { color: 0x04159f} ); //0x04159F
+        // var sphere2 = new Physijs.SphereMesh( geometry2, material2 );
+        // sphere2.rotation.x = -0.5*Math.PI;
+        // sphere2.position.x = -25;
+        // sphere2.position.y= 5;
+        // scene.add(sphere2);
+
+        function CreateGrassland () {
+            var surfaceMaterial = new THREE.MeshLambertMaterial({map: THREE.ImageUtils.loadTexture('textures/grass.jpg')});
+            var surfaceGeometry = new THREE.PlaneGeometry(300,200,100,100);
+            var ground = new Physijs.createMaterial(surfaceMaterial,0.1,50);
+            var value = 0;
+
+            // noise.seed(Math.random());
+
+            // for(var i=0;i<surfaceGeometry.vertices.length;i++) {
+            //     var vertex = surfaceGeometry.vertices[i];
+            //     if((vertex.x%10==0 | vertex.y%10 == 0))
+            //     {
+            //       value = 10;
+            //     }
+            //     else {
+            //      value = 0;
+            //     }
+            //     // value = noise.simplex2(vertex.x/100,vertex.y/100);
+            //     // vertex.z = Math.abs(value)*25;
+            //     vertex.z = value;
+            // }
+
+            var groundShape = new Physijs.HeightfieldMesh(surfaceGeometry,surfaceMaterial,0,100,100);
+            groundShape.rotation.x = -0.5*Math.PI;
+            return groundShape;
+        }
+
+        scene.add(CreateGrassland());
+
+        camera.position.x = 0;
+        camera.position.y = 50;
+        camera.position.z = 50;
+        camera.lookAt(scene.position);
+
+        var controls=new THREE.OrbitControls(camera,renderer.domElement);
+        var count = 0;
+
+        var animate = function () {
+            count +=1;
+
+            scene.simulate();
+            requestAnimationFrame( animate );
+            // sphere.rotation.x += 0.01;
+            // sphere.rotation.y += 0.01;
+            controls.update();
+            // sphere2.translateX(0.01);
+            // sphere.translateX(-0.01);
+            //
+            // sphere2.rotation.x += 0.1;
+            // sphere2.rotation.y += 0.1;
+            renderer.render( scene, camera );
+        };
+
+        animate();
+        </script>
+</body>
+</html>
