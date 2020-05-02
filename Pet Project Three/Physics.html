@@ -9,6 +9,7 @@
 <script src = "js/three.js"></script>
     <script src = "js/OrbitControls.js"></script>
     <script src = "js/physi.js"></script>
+    <script src = "js/GLTFLoader.js"></script>
     <script>
 
 
@@ -16,12 +17,13 @@
         //Physijs.scripts.ammo = 'js/ammo.js';
 
         var renderer = new THREE.WebGLRenderer({antialias:true});
-        var camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000 );
+        var camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 10000 );
         // var scene = new THREE.Scene();
          var scene = new Physijs.Scene;
          scene.setGravity(new THREE.Vector3(0,-10,0));
 
-        renderer.setSize( window.innerWidth, window.innerHeight );
+        // renderer.setSize( 1000, 800);
+        renderer.setSize(window.innerWidth,window.innerHeight);
         document.body.appendChild( renderer.domElement );
 
         renderer.setClearColor(0xFFFFFF); //0x07E2E9
@@ -37,6 +39,65 @@
         // var land = new Physijs.BoxMesh(landGeo,landMat);
         // land.rotation.x = -0.5*Math.PI;
         // scene.add(land);
+
+        // var loader = new THREE.GLTFLoader();
+        // var light2 = new THREE.AmbientLight();
+
+        // loader.load("models/scene.gltf", function (object) {
+        //     let wolf = object.scene.children[0];
+        //     wolf.rotation.x = -0.5*Math.PI;
+        //     wolf.position.y = 5;
+        //     wolf.position.z = 5;
+        //     wolf.scale.set(10,10,10);
+        //     scene.add(wolf);
+        // });
+
+        var textureURLs = [  // URLs of the six faces of the cube map
+
+            "red/bkg1_right1.png",   // Note:  The order in which
+                "red/bkg1_left2.png",   //   the images are listed is
+                "red/bkg1_top3.png",   //   important!
+                "red/bkg1_bottom4.png",
+                "red/bkg1_back6.png",
+                "red/bkg1_front5.png"
+        ];
+
+        //  "blue/bkg1_right.png",   // Note:  The order in which
+        // "blue/bkg1_left.png",   //   the images are listed is
+        //     "blue/bkg1_top.png",   //   important!
+        //     "blue/bkg1_bottom.png",
+        //     "blue/bkg1_back.png",
+        //     "blue/bkg1_front.png"
+
+        // "lightblue/right.png",   // Note:  The order in which
+        //     "lightblue/left.png",   //   the images are listed is
+        //     "lightblue/top.png",   //   important!
+        //     "lightblue/bot.png",
+        //     "lightblue/back.png",
+        //     "lightblue/front.png"
+
+        // "red/bkg1_right1.png",   // Note:  The order in which
+        //     "red/bkg1_left2.png",   //   the images are listed is
+        //     "red/bkg1_top3.png",   //   important!
+        //     "red/bkg1_bottom4.png",
+        //     "red/bkg1_back6.png",
+        //     "red/bkg1_front5.png"
+
+        var materials = [];
+        for (var i = 0; i < 6; i++) {
+            var texture = new THREE.TextureLoader().load( textureURLs[i] );
+            materials.push( new THREE.MeshBasicMaterial( {
+                color: "white",  // Color will be multiplied by texture color.
+                side: THREE.DoubleSide,  // IMPORTANT: To see the inside of the cube,
+                                         //            back faces must be rendered!
+                map: texture
+            } ) );
+
+        }
+
+        cube = new THREE.Mesh( new THREE.CubeGeometry(10000,10000,10000),
+            materials );
+        scene.add(cube);
 
         var Balls = new THREE.Object3D();
         var geometry = new THREE.SphereGeometry(5,20,20);
@@ -111,7 +172,7 @@
         camera.position.x = 0;
         camera.position.y = 50;
         camera.position.z = 50;
-        camera.lookAt(scene.position);
+        camera.lookAt(cube.position);
 
         var controls=new THREE.OrbitControls(camera,renderer.domElement);
         var count = 0;
