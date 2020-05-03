@@ -200,12 +200,13 @@
     scene.add(planet);
 
     var textureURLs = [  // URLs of the six faces of the cube map
-        "CubeMaps/skybox (1)/right.png",   // Note:  The order in which
-        "CubeMaps/skybox (1)/left.png",   //   the images are listed is
-        "CubeMaps/skybox (1)/top.png",   //   important!
-        "CubeMaps/skybox (1)/bottom.png",
-        "CubeMaps/skybox (1)/back.png",
-        "CubeMaps/skybox (1)/front.png",
+        // right, left, top, bottom, front, back
+        "CubeMaps/lightblue/right.png",   // Note:  The order in which
+        "CubeMaps/lightblue/left.png",   //   the images are listed is
+        "CubeMaps/lightblue/top.png",   //   important!
+        "CubeMaps/lightblue/bot.png",
+        "CubeMaps/lightblue/front.png",
+        "CubeMaps/lightblue/back.png",
     ];
     var materials = [];
     for (var i = 0; i < 6; i++) {

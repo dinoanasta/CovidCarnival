@@ -114,7 +114,7 @@
             var sphere = new Physijs.SphereMesh( geometry, material );
             sphere.rotation.x = -0.5*Math.PI;
             sphere.position.x = x;
-            sphere.position.y= 50*Math.random();
+            sphere.position.y= 50*Math.random() + 30;
             Balls[i] = sphere;
             x += 5;
         }
