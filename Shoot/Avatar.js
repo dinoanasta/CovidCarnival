@@ -1,5 +1,5 @@
 function createAvatar(){
-    let pos = {x: 0, y:9, z: 80};
+    avatarPosition = {x: 0, y:9, z: 80};
     let scale = {x: 5, y: 16, z: 5};
     let quat = {x: 0, y: 0, z: 0, w: 1};
     let mass = 0;
@@ -12,7 +12,7 @@ function createAvatar(){
         })
     );
 
-    avatarObject.position.set(pos.x, pos.y, pos.z);
+    avatarObject.position.set(avatarPosition.x, avatarPosition.y, avatarPosition.z);
     avatarObject.scale.set(scale.x, scale.y, scale.z);
 
     avatarObject.castShadow = true;
@@ -24,7 +24,7 @@ function createAvatar(){
     //Ammojs Section
     let transform = new Ammo.btTransform();
     transform.setIdentity();
-    transform.setOrigin(new Ammo.btVector3(pos.x, pos.y, pos.z));
+    transform.setOrigin(new Ammo.btVector3(avatarPosition.x, avatarPosition.y, avatarPosition.z));
     transform.setRotation(new Ammo.btQuaternion(quat.x, quat.y, quat.z, quat.w));
     let motionState = new Ammo.btDefaultMotionState(transform);
 
@@ -86,5 +86,9 @@ function moveAvatar(){
         ms.setWorldTransform(tmpTrans);
 
     }
+    
+    avatarPosition.x = tmpPos.x;
+    avatarPosition.y = tmpPos.y;
+    avatarPosition.z = tmpPos.z;
 
 }

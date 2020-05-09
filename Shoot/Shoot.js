@@ -1,15 +1,50 @@
+function onMouseMove(event){
+
+    // mouseCoords.set(
+    //     (event.clientX*2)/window.innerWidth -1,
+    //     -(2*event.clientY)/window.innerHeight +1
+    // );
+
+    mouseCoords.set(
+        event.clientX - window.screenLeft,
+        event.clientY - window.screenTop
+    );
+
+    let a = mouseCoords.x;
+    let b = -mouseCoords.y;
+
+    let avatarHead = new THREE.Vector3(avatarPosition.x, avatarPosition.y+5, avatarPosition.z);
+
+    let points = [];
+    points.push(avatarHead);
+    points.push(new THREE.Vector3(a, b, -1000));
+
+    let geometry = new THREE.BufferGeometry().setFromPoints(points);
+
+    //threeJS section
+     laser = new THREE.Line(
+        geometry,
+        new THREE.MeshStandardMaterial({
+            color: "red"
+        })
+    )
+
+    scene.add(laser);
+}
+
 function onMouseDown(event){
 
-
     let sound = document.getElementById("raygun");
-    sound.play();
+    // /sound.play();
 
     mouseCoords.set(
         (event.clientX/window.innerWidth)*2 -1,
         -(event.clientY/window.innerHeight)*2 +1
     );
 
-    raycaster.setFromCamera(mouseCoords, camera);
+    let avatarHead = new THREE.Vector3(avatarPosition.x, avatarPosition.y+5, avatarPosition.z);
+
+    raycaster.set(avatarHead, new THREE.Vector3(mouseCoords.x, mouseCoords.y, -10).normalize());
 
     //Create ball and shoot it
     tmpPos.copy(raycaster.ray.direction);

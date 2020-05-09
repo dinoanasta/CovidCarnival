@@ -1,10 +1,15 @@
 //variable declaration section
+let controls;
+
+let laser
+
 let physicsWorld, scene, camera, renderer, rigidBodies = [], tmpTrans = null
 
 let ballObject = null, moveDirection = { left: 0, right: 0, forward: 0, back: 0 }
 
 let windMeter
 
+let avatarPosition
 let avatarObject = null,
     AvatarMoveDirection = { left: 0, right: 0, forward: 0, back: 0 },
     tmpPos = new THREE.Vector3(), tmpQuat = new THREE.Quaternion();
@@ -21,7 +26,6 @@ const FLAGS = { CF_KINEMATIC_OBJECT: 2 }
 
 Ammo().then(start)
 function start (){
-
     tmpTrans = new Ammo.btTransform();
     ammoTmpPos = new Ammo.btVector3();
     ammoTmpQuat = new Ammo.btQuaternion();
@@ -38,6 +42,7 @@ function start (){
 
     setupEventHandlers();
     renderFrame();
+
 }
 
 function setupPhysicsWorld(){
@@ -124,7 +129,6 @@ function setupGraphics(){
 
 }
 
-
 function renderFrame(){
 
     let deltaTime = clock.getDelta();
@@ -144,6 +148,7 @@ function setupEventHandlers(){
     window.addEventListener( 'keydown', handleKeyDown, false);
     window.addEventListener( 'keyup', handleKeyUp, false);
     window.addEventListener('mousedown', onMouseDown, false);
+    window.addEventListener('mousemove', onMouseMove, false);
 }
 
 
