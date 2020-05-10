@@ -1,3 +1,24 @@
+// function createAvatar(){
+//     astro = new THREE.Geometry();
+//     let GLTFGeometry = new THREE.BufferGeometry();
+//     astros = [];
+//     astroObject;
+//     meshes = [];
+//
+//     let manager = new THREE.LoadingManager();
+//     manager.onLoad = init();
+//
+//     loader = new THREE.GLTFLoader(manager);
+//     loader.load("../Models/New Models/astronaut/scene.gltf", (gltf) =>{
+//         gltf.scene.traverse(function (child) {
+//             if(child.isMesh){
+//                 GLTFGeometry = child.geometry;
+//                 astros.push(GLTFGeometry);
+//             }
+//         })
+//     })
+// }
+
 function createAvatar(){
     avatarPosition = {x: 0, y:9, z: 80};
     let scale = {x: 5, y: 16, z: 5};

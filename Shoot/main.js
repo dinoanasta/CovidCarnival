@@ -1,7 +1,14 @@
 //variable declaration section
 let controls;
 
+let astro
+var astros
+var astroObject
+var meshes
+
 let laser
+
+let Loader
 
 let physicsWorld, scene, camera, renderer, rigidBodies = [], tmpTrans = null
 

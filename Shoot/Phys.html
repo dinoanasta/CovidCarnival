@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="../js/three.js"></script>
+    <script src="../js/physi.js"></script>
+
+    <div id="viewport"></div>
+
+    <script src="PhysiPlatform.js"></script>
+    <script src="PhysiShoot.js"></script>
+    <script src="PhysiAvatar.js"></script>
+    <script src="PhysiMain.js"></script>
+
+
+    <audio src="../Resources/Textures/Dino/sound2.mp3" id="raygun"></audio>
+
+
+    <script>
+        function init(){
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize( window.innerWidth, window.innerHeight );
+            document.getElementById( 'viewport' ).appendChild( renderer.domElement );
+
+
+            setupScene();
+            setupEventHandlers();
+            createStallPlatform();
+            createAvatar();
+
+            animate();
+        };
+    </script>
+
+</head>
+
+<body onload="init()">
+</body>
+
+</html>
