@@ -1,6 +1,4 @@
 function createStallPlatform(){
-    let platform = new Physijs.Scene();
-
     // Base
     let basePos = {x: 0, y: 0, z: 0};
     let baseScale = {x: 100, y: 2, z: 200};
@@ -17,8 +15,6 @@ function createStallPlatform(){
 
     base.castShadow = true;
     base.receiveShadow = true;
-
-    platform.add(base);
 
     //Shooter Barrier
     let shooterBarrierPos = {x: 0, y: 5, z: 60};
@@ -38,9 +34,7 @@ function createStallPlatform(){
     shooterBarrier.castShadow = true;
     shooterBarrier.receiveShadow = true;
 
-    platform.add(shooterBarrier);
+    scene.add(shooterBarrier);
 
-    //Roof
-
-    scene.add(platform);
+    scene.add(base);
 }

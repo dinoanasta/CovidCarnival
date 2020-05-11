@@ -42,7 +42,7 @@
             renderer.setSize(window.innerWidth,window.innerHeight);
             document.body.appendChild(renderer.domElement);
 
-            var cube=new THREE.CubeGeometry(7,7,7);
+            var cubeMap=new THREE.CubeGeometry(7,7,7);
             var material=new THREE.MeshBasicMaterial({color:0xff0000});
             var cubeobj=new Physijs.BoxMesh(cube,material);
 

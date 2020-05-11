@@ -2,11 +2,9 @@
 <html>
 
 <head>
+    <title>SHOOT</title>
     <script src="../js/three.js"></script>
     <script src="../js/physi.js"></script>
-
-<!--    <div id="viewport"></div>-->
-
     <script src="PhysiPlatform.js"></script>
     <script src="PhysiShoot.js"></script>
     <script src="PhysiAvatar.js"></script>
@@ -19,16 +17,11 @@
     <div id="viewport"></div>
     <script>
         function init(){
-            // renderer = new THREE.WebGLRenderer({ antialias: true });
-            // renderer.setSize( window.innerWidth, window.innerHeight );
-            //document.getElementById( 'viewport' ).appendChild( renderer.domElement );
-
             renderer = new THREE.WebGLRenderer( { antialias: true } );
-            renderer.setClearColor( 0xbfd1e5 );
+            renderer.setClearColor( 0x00a0a0 );
             renderer.setPixelRatio( window.devicePixelRatio);
             renderer.setSize( window.innerWidth-50, window.innerHeight-50);
             document.getElementById( 'viewport' ).appendChild( renderer.domElement );
-
 
             setupScene();
             setupEventHandlers();

@@ -199,7 +199,7 @@
     planet.position.y = 1000;
     scene.add(planet);
 
-    var textureURLs = [  // URLs of the six faces of the cube map
+    var textureURLs = [  // URLs of the six faces of the cubeMap map
         "CubeMaps/skybox (1)/right.png",   // Note:  The order in which
         "CubeMaps/skybox (1)/left.png",   //   the images are listed is
         "CubeMaps/skybox (1)/top.png",   //   important!
@@ -212,14 +212,14 @@
         var texture = new THREE.TextureLoader().load( textureURLs[i] );
         materials.push( new THREE.MeshBasicMaterial( {
             color: "white",  // Color will be multiplied by texture color.
-            side: THREE.DoubleSide,  // IMPORTANT: To see the inside of the cube,
+            side: THREE.DoubleSide,  // IMPORTANT: To see the inside of the cubeMap,
                                      //            back faces must be rendered!
             map: texture
         } ) );
 
     }
 
-    cube = new THREE.Mesh( new THREE.CubeGeometry(10000,10000,10000),
+    cubeMap = new THREE.Mesh( new THREE.CubeGeometry(10000,10000,10000),
         materials );
     scene.add(cube);
 
@@ -303,7 +303,7 @@
     //     scene.add(wolf);
     // });
 
-    // var textureURLs = [  // URLs of the six faces of the cube map
+    // var textureURLs = [  // URLs of the six faces of the cubeMap map
     //
     //     "red/bkg1_right1.png",   // Note:  The order in which
     //     "red/bkg1_left2.png",   //   the images are listed is
@@ -339,16 +339,16 @@
     //     var texture = new THREE.TextureLoader().load( textureURLs[i] );
     //     materials.push( new THREE.MeshBasicMaterial( {
     //         color: "white",  // Color will be multiplied by texture color.
-    //         side: THREE.DoubleSide,  // IMPORTANT: To see the inside of the cube,
+    //         side: THREE.DoubleSide,  // IMPORTANT: To see the inside of the cubeMap,
     //                                  //            back faces must be rendered!
     //         map: texture
     //     } ) );
     //
     // }
     //
-    // cube = new THREE.Mesh( new THREE.CubeGeometry(10000,10000,10000),
+    // cubeMap = new THREE.Mesh( new THREE.CubeGeometry(10000,10000,10000),
     //     materials );
-    // scene.add(cube);
+    // scene.add(cubeMap);
     animate();
 </script>
 </body>

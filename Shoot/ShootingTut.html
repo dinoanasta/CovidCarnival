@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -200,9 +199,7 @@
         var ballRadius = 0.4;
         var ball = new Physijs.SphereMesh(
             new THREE.SphereGeometry( ballRadius, 100, 100 ),
-            new THREE.MeshStandardMaterial({
-                map: new THREE.TextureLoader().load('../Resources/Textures/Dino/trippy2.jpeg'),
-            }),
+            ballMaterial,
             ballMass
         );
 

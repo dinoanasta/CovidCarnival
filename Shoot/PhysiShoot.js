@@ -1,28 +1,26 @@
+function moveLaser (mouseCoords){
+    avatarHead.set(avatar.position.x, avatar.position.y + 5, avatar.position.z);
+
+    rayx = mouseCoords.x*100;
+    rayy = mouseCoords.y*100;
+
+
+    rayDirection.set(rayx,rayy, -100).normalize();
+
+    let direction = new THREE.Vector3().subVectors(rayDirection, avatarHead);
+
+    laser.position.copy(avatarHead);
+    laser.setDirection(rayDirection);
+    laser.setLength(direction.length()+10, 0, 0);
+}
+
 function onMouseMove(event){
-
-    // mouseCoords.set(
-    //     (event.clientX*2)/window.innerWidth -1,
-    //     -(2*event.clientY)/window.innerHeight +1
-    // );
-
     mouseCoords.set(
         (event.clientX / window.innerWidth) * 2 - 1,
         -(event.clientY / window.innerHeight) * 2 + 1
     );
 
-    avatarHead.set(avatar.position.x, avatar.position.y + 5, avatar.position.z);
 
-    rayx = mouseCoords.x*50;
-    rayy = mouseCoords.y*50;
-
-    rayDirection.set(rayx,rayy, -100).normalize();
-
-    let direction = new THREE.Vector3().sub(rayDirection, avatarHead);
-
-    laser.position.copy(avatarHead);
-    laser.setDirection(rayDirection);
-    laser.setLength(direction.length(), 0, 0);
-    laser.set
 }
 
 function onMouseDown(event) {
@@ -45,10 +43,12 @@ function onMouseDown(event) {
         1
     )
 
+    scene.add(ball);
+
     avatarHead.set(avatar.position.x, avatar.position.y + 5, avatar.position.z);
 
-    rayx = mouseCoords.x*50;
-    rayy = mouseCoords.y*50;
+    rayx = mouseCoords.x*100;
+    rayy = mouseCoords.y*100;
 
     rayDirection.set(rayx,rayy, -100);
 
@@ -57,14 +57,14 @@ function onMouseDown(event) {
     ball.castShadow = true;
     ball.receiveShadow = true;
 
-    ball.position.copy(raycaster.ray.direction);
-    ball.position.add(raycaster.ray.origin);
-
-    scene.add(ball);
+    ball.position.copy(raycaster.ray.origin);
+    ball.position.add(raycaster.ray.direction);
 
     pos.copy( raycaster.ray.direction );
-    ball.setLinearVelocity( new THREE.Vector3( pos.x, pos.y, pos.z ) );
+    ball.setLinearVelocity(pos);
 
+
+    ball.__dirtyPosition = true;
 }
 
 
