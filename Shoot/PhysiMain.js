@@ -1,6 +1,6 @@
 'use strict';
 
-Physijs.scripts.worker = '../js/physijs_worker.js';
+Physijs.scripts.worker = 'physijs_worker.js';
 Physijs.scripts.ammo = '../js/ammo.js';
 
 //Scene and setup
@@ -24,10 +24,10 @@ let avatar;
 let AvatarMoveDirection = { left: 0, right: 0, forward: 0, back: 0 };
 
 //Shooting
+let ball;
 let avatarHead = new THREE.Vector3();
 let rayx, rayy;
 let rayDirection = new THREE.Vector3();
-
 let laser;
 
 function setupScene() {
@@ -36,7 +36,7 @@ function setupScene() {
     //Gravity:
     let xGrav = Math.random() * 40 - 20;
 
-    scene.setGravity = new THREE.Vector3(xGrav, -10, 0);
+    scene.setGravity(new THREE.Vector3(0, -10, 0));
 
     if (xGrav > 0) {
         xDir = "right";
@@ -70,7 +70,7 @@ function setupScene() {
 
     //Add directional light from camera
     let dirLight = new THREE.DirectionalLight(0xffaaff, 1);
-    dirLight.castShadow = true;
+    dirLight.position.set( -10, 18, 5 );
     camera.add(dirLight);
 
     laser = new THREE.ArrowHelper(new THREE.Vector3(0,0,-50), avatarHead,30, 0xff0000, 0, 0 );
@@ -79,12 +79,12 @@ function setupScene() {
     //CubeMap
     var textureURLs = [  // URLs of the six faces of the cube map
         // right, left, top, bottom, front, back
-        "../Resources/CubeMaps/red/bkg1_right1.png",   // Note:  The order in which
-        "../Resources/CubeMaps/red/bkg1_left2.png",   //   the images are listed is
-        "../Resources/CubeMaps/red/bkg1_top3.png",   //   important!
-        "../Resources/CubeMaps/red/bkg1_bottom4.png",
-        "../Resources/CubeMaps/red/bkg1_front5.png",
-        "../Resources/CubeMaps/red/bkg1_back6.png"
+        "../Resources/CubeMaps/red/bkg3_right1.png",   // Note:  The order in which
+        "../Resources/CubeMaps/red/bkg3_left2.png",   //   the images are listed is
+        "../Resources/CubeMaps/red/bkg3_top3.png",   //   important!
+        "../Resources/CubeMaps/red/bkg3_bottom4.png",
+        "../Resources/CubeMaps/red/bkg3_front5.png",
+        "../Resources/CubeMaps/red/bkg3_back6.png"
     ];
     var materials = [];
     for (var i = 0; i < 6; i++) {
@@ -189,9 +189,8 @@ function onWindowResize() {
     renderer.setSize( window.innerWidth, window.innerHeight );
 
 }
-
+//
 function animate(){
-
     requestAnimationFrame(animate);
     moveAvatar();
     moveLaser(mouseCoords);
@@ -199,6 +198,15 @@ function animate(){
 }
 
 function render(){
+     scene.simulate();
     renderer.render( scene, camera);
-    scene.simulate();
 }
+
+// function render() {
+//     requestAnimationFrame(render);
+//     moveAvatar();
+//     moveLaser(mouseCoords);
+//     scene.simulate();
+//     renderer.render( scene, camera);
+//
+// }

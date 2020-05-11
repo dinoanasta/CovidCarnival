@@ -43,8 +43,6 @@ function onMouseDown(event) {
         1
     )
 
-    scene.add(ball);
-
     avatarHead.set(avatar.position.x, avatar.position.y + 5, avatar.position.z);
 
     rayx = mouseCoords.x*100;
@@ -57,14 +55,17 @@ function onMouseDown(event) {
     ball.castShadow = true;
     ball.receiveShadow = true;
 
-    ball.position.copy(raycaster.ray.origin);
-    ball.position.add(raycaster.ray.direction);
+    ball.position.copy(raycaster.ray.direction);
+    scene.add(ball);
+    ball.position.add(raycaster.ray.origin);
+
+    scene.add(ball);
 
     pos.copy( raycaster.ray.direction );
-    ball.setLinearVelocity(pos);
+    pos.multiplyScalar( 2 );
+    ball.setLinearVelocity( new THREE.Vector3( pos.x, pos.y, pos.z ) );
 
-
-    ball.__dirtyPosition = true;
+    //ball.__dirtyPosition = true;
 }
 
 

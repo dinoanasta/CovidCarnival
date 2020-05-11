@@ -3,7 +3,7 @@ function createAvatar(){
     avatar = new Physijs.BoxMesh(
         new THREE.BoxGeometry(),
         new THREE.MeshStandardMaterial({
-            map: new THREE.TextureLoader().load('../Resources/Textures/Dino/bluefoil.jpg'),
+            map: new THREE.TextureLoader().load('../Resources/Textures/Dino/red.jpg'),
         }),
         0
     );

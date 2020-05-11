@@ -1,4 +1,23 @@
 function createStallPlatform(){
+    //RandomGravityTester
+    let randPos = {x: 0, y: 50, z: -100};
+    let randScale = {x: 10, y: 10, z: 10};
+
+    let rand = new Physijs.BoxMesh(
+        new THREE.BoxGeometry(),
+        new THREE.MeshStandardMaterial({
+            map: new THREE.TextureLoader().load('../Resources/Textures/Dino/neontexture1.jpg'),
+        }),
+        10
+    );
+    rand.position.set(randPos.x, randPos.y, randPos.z);
+    rand.scale.set(randScale.x, randScale.y, randScale.z);
+
+    rand.castShadow = true;
+    rand.receiveShadow = true;
+    
+    scene.add(rand);
+    
     // Base
     let basePos = {x: 0, y: 0, z: 0};
     let baseScale = {x: 100, y: 2, z: 200};
@@ -15,6 +34,8 @@ function createStallPlatform(){
 
     base.castShadow = true;
     base.receiveShadow = true;
+
+    scene.add(base);
 
     //Shooter Barrier
     let shooterBarrierPos = {x: 0, y: 5, z: 60};
@@ -35,6 +56,4 @@ function createStallPlatform(){
     shooterBarrier.receiveShadow = true;
 
     scene.add(shooterBarrier);
-
-    scene.add(base);
 }
