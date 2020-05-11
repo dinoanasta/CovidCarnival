@@ -1,6 +1,6 @@
 function createStallPlatform(){
     //RandomGravityTester
-    let randPos = {x: 0, y: 50, z: -100};
+    let randPos = {x: 0, y: 50, z: -70};
     let randScale = {x: 10, y: 10, z: 10};
 
     let rand = new Physijs.BoxMesh(

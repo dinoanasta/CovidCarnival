@@ -1,5 +1,5 @@
 function moveLaser (mouseCoords){
-    avatarHead.set(avatar.position.x, avatar.position.y + 5, avatar.position.z);
+    avatarHead.set(avatar.position.x, avatar.position.y + 20, avatar.position.z);
 
     rayx = mouseCoords.x*100;
     rayy = mouseCoords.y*100;
@@ -11,7 +11,7 @@ function moveLaser (mouseCoords){
 
     laser.position.copy(avatarHead);
     laser.setDirection(rayDirection);
-    laser.setLength(direction.length()+10, 0, 0);
+    laser.setLength(direction.length()+100, 0, 0);
 }
 
 function onMouseMove(event){
@@ -40,10 +40,10 @@ function onMouseDown(event) {
         new THREE.MeshStandardMaterial({
             map: new THREE.TextureLoader().load('../Resources/Textures/Dino/trippy2.jpeg'),
         }),
-        1
+        10
     )
 
-    avatarHead.set(avatar.position.x, avatar.position.y + 5, avatar.position.z);
+    avatarHead.set(avatar.position.x, avatar.position.y +20, avatar.position.z);
 
     rayx = mouseCoords.x*100;
     rayy = mouseCoords.y*100;
@@ -55,9 +55,12 @@ function onMouseDown(event) {
     ball.castShadow = true;
     ball.receiveShadow = true;
 
-    ball.position.copy(raycaster.ray.direction);
-    scene.add(ball);
-    ball.position.add(raycaster.ray.origin);
+    // ball.position.copy(raycaster.ray.direction);
+    // ball.position.add(raycaster.ray.origin)
+
+    //let shootFrom = new THREE.Vector3(avatarHead.x, avatarHead.y+6, avatarHead.z)
+
+    ball.position.copy(avatarHead);
 
     scene.add(ball);
 

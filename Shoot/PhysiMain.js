@@ -1,6 +1,6 @@
 'use strict';
 
-Physijs.scripts.worker = 'physijs_worker.js';
+Physijs.scripts.worker = '../js/physijs_worker.js';
 Physijs.scripts.ammo = '../js/ammo.js';
 
 //Scene and setup
@@ -36,7 +36,7 @@ function setupScene() {
     //Gravity:
     let xGrav = Math.random() * 40 - 20;
 
-    scene.setGravity(new THREE.Vector3(0, -10, 0));
+    scene.setGravity(new THREE.Vector3(xGrav, -10, 0));
 
     if (xGrav > 0) {
         xDir = "right";
@@ -112,71 +112,43 @@ function setupEventHandlers(){
 }
 
 function handleKeyDown(event){
-        let keyCode = event.keyCode;
-        switch(keyCode){
-            //Ball
-            case 87: //W: FORWARD
-                moveDirection.forward = 1
-                break;
-            case 83: //S: BACK
-                moveDirection.back = 1
-                break;
-            case 65: //A: LEFT
-                moveDirection.left = 1
-                break;
-            case 68: //D: RIGHT
-                moveDirection.right = 1
-                break;
-
-            //Avatar
-            case 38: //↑: FORWARD
-                AvatarMoveDirection.forward = 1
-                break;
-            case 40: //↓: BACK
-                AvatarMoveDirection.back = 1
-                break;
-            case 37: //←: LEFT
-                AvatarMoveDirection.left = 1
-                break;
-            case 39: //→: RIGHT
-                AvatarMoveDirection.right = 1
-                break;
-        }
-
+    let keyCode = event.keyCode;
+    switch(keyCode){
+        //Avatar
+        case 38: //↑: FORWARD
+            AvatarMoveDirection.forward = 1
+            break;
+        case 40: //↓: BACK
+            AvatarMoveDirection.back = 1
+            break;
+        case 37: //←: LEFT
+            AvatarMoveDirection.left = 1
+            break;
+        case 39: //→: RIGHT
+            AvatarMoveDirection.right = 1
+            break;
     }
+
+}
 
 function handleKeyUp(event){
-        let keyCode = event.keyCode;
-        switch(keyCode){
-            //Ball
-            case 87: //FORWARD
-                moveDirection.forward = 0
-                break;
-            case 83: //BACK
-                moveDirection.back = 0
-                break;
-            case 65: //LEFT
-                moveDirection.left = 0
-                break;
-            case 68: //RIGHT
-                moveDirection.right = 0
-                break;
-
-            //Avatar
-            case 38: //↑: FORWARD
-                AvatarMoveDirection.forward = 0
-                break;
-            case 40: //↓: BACK
-                AvatarMoveDirection.back = 0
-                break;
-            case 37: //←: LEFT
-                AvatarMoveDirection.left = 0
-                break;
-            case 39: //→: RIGHT
-                AvatarMoveDirection.right = 0
-                break;
-        }
+    let keyCode = event.keyCode;
+    switch(keyCode){
+        //Avatar
+        case 38: //↑: FORWARD
+            AvatarMoveDirection.forward = 0
+            break;
+        case 40: //↓: BACK
+            AvatarMoveDirection.back = 0
+            break;
+        case 37: //←: LEFT
+            AvatarMoveDirection.left = 0
+            break;
+        case 39: //→: RIGHT
+            AvatarMoveDirection.right = 0
+            break;
     }
+}
 
 function onWindowResize() {
 
@@ -190,23 +162,22 @@ function onWindowResize() {
 
 }
 //
-function animate(){
-    requestAnimationFrame(animate);
-    moveAvatar();
-    moveLaser(mouseCoords);
-    render();
-}
-
-function render(){
-     scene.simulate();
-    renderer.render( scene, camera);
-}
-
-// function render() {
-//     requestAnimationFrame(render);
+// function animate(){
+//     requestAnimationFrame(animate);
 //     moveAvatar();
 //     moveLaser(mouseCoords);
-//     scene.simulate();
-//     renderer.render( scene, camera);
-//
+//     render();
 // }
+//
+// function render(){
+//      scene.simulate();
+//     renderer.render( scene, camera);
+// }
+
+function render() {
+    requestAnimationFrame(render);
+    moveAvatar();
+    moveLaser(mouseCoords);
+    scene.simulate();
+    renderer.render( scene, camera);
+}
