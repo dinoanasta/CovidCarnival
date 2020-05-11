@@ -5,7 +5,7 @@
     <script src="../js/three.js"></script>
     <script src="../js/physi.js"></script>
 
-    <div id="viewport"></div>
+<!--    <div id="viewport"></div>-->
 
     <script src="PhysiPlatform.js"></script>
     <script src="PhysiShoot.js"></script>
@@ -16,10 +16,17 @@
     <audio src="../Resources/Textures/Dino/sound2.mp3" id="raygun"></audio>
 
 
+    <div id="viewport"></div>
     <script>
         function init(){
-            renderer = new THREE.WebGLRenderer({ antialias: true });
-            renderer.setSize( window.innerWidth, window.innerHeight );
+            // renderer = new THREE.WebGLRenderer({ antialias: true });
+            // renderer.setSize( window.innerWidth, window.innerHeight );
+            //document.getElementById( 'viewport' ).appendChild( renderer.domElement );
+
+            renderer = new THREE.WebGLRenderer( { antialias: true } );
+            renderer.setClearColor( 0xbfd1e5 );
+            renderer.setPixelRatio( window.devicePixelRatio);
+            renderer.setSize( window.innerWidth-50, window.innerHeight-50);
             document.getElementById( 'viewport' ).appendChild( renderer.domElement );
 
 

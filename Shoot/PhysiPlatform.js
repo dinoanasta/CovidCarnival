@@ -39,5 +39,8 @@ function createStallPlatform(){
     shooterBarrier.receiveShadow = true;
 
     platform.add(shooterBarrier);
+
+    //Roof
+
     scene.add(platform);
 }

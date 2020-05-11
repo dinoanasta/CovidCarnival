@@ -6,30 +6,23 @@ function onMouseMove(event){
     // );
 
     mouseCoords.set(
-        event.clientX - window.screenLeft,
-        event.clientY - window.screenTop
+        (event.clientX / window.innerWidth) * 2 - 1,
+        -(event.clientY / window.innerHeight) * 2 + 1
     );
 
-    let a = mouseCoords.x;
-    let b = -mouseCoords.y;
+    avatarHead.set(avatar.position.x, avatar.position.y + 5, avatar.position.z);
 
-    let avatarHead = new THREE.Vector3(avatarPosition.x, avatarPosition.y+5, avatarPosition.z);
+    rayx = mouseCoords.x*50;
+    rayy = mouseCoords.y*50;
 
-    let points = [];
-    points.push(avatarHead);
-    points.push(new THREE.Vector3(a, b, -1000));
+    rayDirection.set(rayx,rayy, -100).normalize();
 
-    let geometry = new THREE.BufferGeometry().setFromPoints(points);
+    let direction = new THREE.Vector3().sub(rayDirection, avatarHead);
 
-    //threeJS section
-    laser = new THREE.Line(
-        geometry,
-        new THREE.MeshStandardMaterial({
-            color: "red"
-        })
-    )
-
-    scene.add(laser);
+    laser.position.copy(avatarHead);
+    laser.setDirection(rayDirection);
+    laser.setLength(direction.length(), 0, 0);
+    laser.set
 }
 
 function onMouseDown(event) {
@@ -42,33 +35,35 @@ function onMouseDown(event) {
         -(event.clientY / window.innerHeight) * 2 + 1
     );
 
-    let avatarHead = new THREE.Vector3(avatarPosition.x, avatarPosition.y + 5, avatarPosition.z);
-
-    raycaster.set(avatarHead, new THREE.Vector3(mouseCoords.x, mouseCoords.y, -10).normalize());
-    let radius = 10;
+    let ballRadius = 3;
 
     let ball = new Physijs.SphereMesh(
-        new THREE.SphereGeometry(radius, 100, 100),
+        new THREE.SphereGeometry(ballRadius, 50, 50),
         new THREE.MeshStandardMaterial({
             map: new THREE.TextureLoader().load('../Resources/Textures/Dino/trippy2.jpeg'),
         }),
-        30
+        1
     )
+
+    avatarHead.set(avatar.position.x, avatar.position.y + 5, avatar.position.z);
+
+    rayx = mouseCoords.x*50;
+    rayy = mouseCoords.y*50;
+
+    rayDirection.set(rayx,rayy, -100);
+
+    raycaster.set(avatarHead, rayDirection);
 
     ball.castShadow = true;
     ball.receiveShadow = true;
 
-    pos.copy(raycaster.ray.direction);
-    pos.add(raycaster.ray.origin);
+    ball.position.copy(raycaster.ray.direction);
+    ball.position.add(raycaster.ray.origin);
 
     scene.add(ball);
 
-    scene.__dirtyPosition = true;
-
     pos.copy( raycaster.ray.direction );
-    pos.multiplyScalar( 80 );
-
-    ball.setLinearVelocity(new THREE.Vector3(pos.x, pos.y, pos.z));
+    ball.setLinearVelocity( new THREE.Vector3( pos.x, pos.y, pos.z ) );
 
 }
 
