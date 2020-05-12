@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+<title>Three.js Bouncing Balls</title>
+<style>
+    html, body {
+        margin: 0;  /* Make sure that there is no margin around the canvas */
+        overflow: hidden;  /* Make sure we don't get scroll bars. */
+    }
+    canvas {
+        display: block; /* The default display, inline, would add a small margin below the canvas */
+    }
+</style>
+<script src="three.js"></script>
+<script src="TrackballControls.js"></script>
+<script>
+
+/* This program shows an animation of a number of small, randomly
+ * colored balls bouncing around inside a cube.  The cube is shown
+ * as a transparent box. The user can rotate the view of the scene 
+ * the mouse.  The canvas in which the scene is drawn occupies the
+ * entire browser window, and the animation runs continuously. 
+ * 
+ * (Note:  The balls do not bounce off each other; balls just pass through
+ * other balls.)
+ */
+
+"use strict";
+
+var scene, camera, renderer;  // Three.js rendering basics.
+
+var cube;
+
+var canvas;  // The canvas on which the renderer will draw.
+             // This will be created by the renderer, and it will
+             // be added to the body of the page.  When the window is
+             // resized, the canvas will also be resized so that it
+             // always fills the window.
+             
+var controls;  // an object of type TrackballControls, which handles rotation of the view, using the mouse.
+
+var cameraAndLight;  // Object holding both camera and light.  The
+                     // light shines from the direction of the camera.
+
+var balls = [];   // An array of objects, each object has data for one bouncing ball.
+                  // balls[i].obj is the three.js object; balls[i].x, balls[i].y, balls[i].z
+                  // give the position of its center; balls[i].dx, balls[i].dy, balls[i].dz
+                  // give the components of its velocity in units per second, and
+                  // balls[i].radius is the radius of the ball.
+
+var pyramids = [];
+                  
+var ballHolder;   // An object of type THREE.Object3D that will be the parent of all
+                  // all the spheres in the scene graph.  This is used only to make
+                  // it easier to use a Raycaster for user input.
+
+var pyramidHolder = new THREE.Object3D(); // An object to be the parent of all the pyramids.
+
+var BALL_COUNT = 15;   // Number of balls to be created.
+var BALL_RADIUS = 1.5; // Radius for each balls (the size of the box that contains them is 20).
+
+/**
+ *  Creates the bouncing balls and the translucent cube in which the balls bounce,
+ *  and adds them to the scene.  A light that shines from the direction of the
+ *  camera's view is also bundled with the camera and added to the scene.
+ */
+function createWorld() {
+
+    renderer.setClearColor("white");  // black background
+    scene = new THREE.Scene();
+    camera = new THREE.PerspectiveCamera(30, window.innerWidth/window.innerHeight, 0.1, 500);
+
+    /* Add the camera and a light to the scene, linked into one object. */
+    var light = new THREE.DirectionalLight();
+    light.position.set(0,0,1);
+    camera.position.set(25,40,50);
+    camera.lookAt(scene.position);
+    camera.add(light);
+    scene.add(camera);
+    
+    /* Add a bit of ambient light, to brighten things up */
+    scene.add(new THREE.AmbientLight( 0x101010 ));
+
+    /* Create and add the transparent cube to the scene */
+    cube = new THREE.Mesh(
+        new THREE.BoxGeometry(20,20,20),
+        new THREE.MeshPhongMaterial( {
+            polygonOffset: true,  // will make sure the edges are visible.
+            polygonOffsetUnits: 1,
+            polygonOffsetFactor: 1,
+            color: "white",
+            specular: 0x202020,
+            transparent: true,
+            opacity: 0.3
+        } )
+    );
+    scene.add(cube);
+
+    /* Create and add a wireframe cube to the scene, to show the edges of the cube. */
+    scene.add(new THREE.EdgesHelper(cube, 0xffffff)); // Shows a white wireframe without the diagonal edges.
+
+    // Add cubemap texture
+    var textureURLs = [  // URLs of the six faces of the cube map
+        "bkg/blue/bkg1_right.png",   // Note:  The order in which
+        "bkg/blue/bkg1_left.png",   //   the images are listed is
+        "bkg/blue/bkg1_top.png",   //   important!
+        "bkg/blue/bkg1_bot.png",
+        "bkg/blue/bkg1_front.png",
+        "bkg/blue/bkg1_back.png"
+    ];
+
+    var texture = THREE.ImageUtils.loadTextureCube( textureURLs );
+
+    var shader = THREE.ShaderLib[ "cube" ]; // contains the required shaders
+    shader.uniforms[ "tCube" ].value = texture; // data for the shaders
+
+    var material = new THREE.ShaderMaterial( {
+        // A ShaderMaterial uses custom vertex and fragment shaders.
+        fragmentShader: shader.fragmentShader,
+        vertexShader: shader.vertexShader,
+        uniforms: shader.uniforms,
+        depthWrite: false,
+        side: THREE.BackSide
+    } );
+
+    var skybox = new THREE.Mesh( new THREE.BoxGeometry( 100, 100, 100 ), material );
+    scene.add(skybox);
+    
+    /* Create some balls and add them to the ballHolder */
+    ballHolder = new THREE.Object3D();  // An object to be the parent of all the balls.
+
+    var geom = new THREE.SphereGeometry(BALL_RADIUS,20,12);  // Geometry will be reused for all the balls.
+    for (var i = 0; i < BALL_COUNT; i++) {
+        var ball = {};  // object will contain a sphere plus its position and velocity info
+        balls.push(ball);
+        
+        var r,g,b;  // Random color components for the ball, giving a pastel color.
+        r = 0.5+0.5*Math.random();
+        g = 0.5+0.5*Math.random();
+        b = 0.5+0.5*Math.random();
+        
+        ball.obj = new THREE.Mesh( 
+            geom, 
+            new THREE.MeshLambertMaterial( {
+                color: new THREE.Color(r,g,b)
+            })
+        );
+
+        ball.radius = BALL_RADIUS;
+        ball.x = (20-2*BALL_RADIUS)*Math.random() - BALL_RADIUS;   // set random ball position
+        ball.y = (20-2*BALL_RADIUS)*Math.random() - BALL_RADIUS;   // set random ball position
+        ball.z = (20-2*BALL_RADIUS)*Math.random() - BALL_RADIUS;   // set random ball position
+        ball.dx = Math.random() * 5 + 3;  // set random ball velocity, in units per second
+        ball.dy = Math.random() * 5 + 3;
+        ball.dz = Math.random() * 5 + 3;
+        if (Math.random() < 0.5)
+            ball.dx = -ball.dx;
+        if (Math.random() < 0.5)
+            ball.dy = -ball.dy;
+        if (Math.random() < 0.5)
+            ball.dz = -ball.dz;
+
+        ball.obj.position.set( ball.x, ball.y, ball.z);
+        ballHolder.add(ball.obj);
+    }
+    
+    /* Now, add the ballHolder to the scene */
+    scene.add(ballHolder);
+
+}
+
+let raycaster = new THREE.Raycaster();
+let mouse = new THREE.Vector2();
+
+function doMouse(event) {
+    mouse.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+    mouse.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
+
+    // update the picking ray with the camera and mouse position
+    raycaster.setFromCamera( mouse, camera );
+
+    // calculate objects intersecting the picking ray
+
+    let ballIntersects = raycaster.intersectObjects(ballHolder.children);
+
+    //let index =
+
+    if(ballIntersects[0] != null){
+
+        ballHolder.remove(ballIntersects[0].object);
+        scene.add(ballHolder);
+
+        //let geom = new THREE.TetrahedronGeometry(1);
+        let geom = new THREE.TorusGeometry(0.4, 0.2, 100, 100);
+        for (var i = 0; i < 10; i++) {
+            var pyramid = {};
+            pyramids.push(pyramid);
+
+            pyramid.obj = new THREE.Mesh(
+                geom,
+                new THREE.MeshLambertMaterial( {
+                    color: ballIntersects[0].object.material.color
+                })
+            );
+
+            pyramid.radius = 0.2;
+
+            pyramid.x = ballIntersects[0].point['x'];   // set random pyramid position
+            pyramid.y = ballIntersects[0].point['y'];   // set random pyramid position
+            pyramid.z = ballIntersects[0].point['z'];   // set random pyramid position
+
+            pyramid.dx = Math.random() * 3 + 1;  // set random pyramid velocity, in units per second
+            pyramid.dy = Math.random() * 3 + 1;
+            pyramid.dz = Math.random() * 3 + 1;
+            if (Math.random() < 0.5)
+                pyramid.dx = -pyramid.dx;
+            if (Math.random() < 0.5)
+                pyramid.dy = -pyramid.dy;
+            if (Math.random() < 0.5)
+                pyramid.dz = -pyramid.dz;
+
+           // ballIntersects[0].point
+
+            //console.log(ballIntersects[0].point);
+
+            pyramid.obj.position.set( pyramid.x, pyramid.y, pyramid.z);
+            pyramidHolder.add(pyramid.obj);
+            //pyramidHolder.add(new THREE.EdgesHelper(pyramid.obj, 0x000000));
+        }
+        scene.add(pyramidHolder);
+    }
+
+    let pyramidIntersects = raycaster.intersectObjects(pyramidHolder.children);
+
+    if(pyramidIntersects[0] != null){
+        pyramidHolder.remove(pyramidIntersects[0].object);
+        scene.add(pyramidHolder);
+    }
+
+    render();
+}
+
+
+/**
+ *  Render the scene.  This is called for each frame of the animation, after updating
+ *  the position and velocity data of the balls.
+ */
+function render() {
+    renderer.render(scene, camera);
+}
+
+
+/**
+ *  When an animation is in progress, this function is called just before rendering each
+ *  frame of the animation.  In this case, the bouncing balls are moved by an amount
+ *  given by their velocity times the elapsed time since the last update.
+ */
+function updateForFrame() { 
+   var dt = clock.getDelta();  // time since last update, in milliseconds
+   for (var i = 0; i < balls.length; i++) {
+       var ball = balls[i];
+
+       /* update ball position based on ball velocity and elapsed time */
+       ball.x += ball.dx * dt;
+       ball.y += ball.dy * dt;
+       ball.z += ball.dz * dt;
+
+       var limit = 10 - ball.radius;
+
+       /* if ball has moved outside the cube, reflect it back into the cube */
+
+       // x-limits
+       if (ball.x > limit) {
+           ball.x -= 2*(ball.x - limit);
+           ball.dx = -Math.abs(ball.dx);
+       }
+       else if (ball.x < -limit) {
+           ball.x += 2*(-limit - ball.x);
+           ball.dx = Math.abs(ball.dx);
+       }
+
+       // y-limits
+       if (ball.y > limit) {
+           ball.y -= 2*(ball.y - limit);
+           ball.dy = -Math.abs(ball.dy);
+       }
+       else if (ball.y < -limit) {
+           ball.y += 2*(-limit - ball.y);
+           ball.dy = Math.abs(ball.dy);
+       }
+
+       // z-limits
+       if (ball.z > limit) {
+           ball.z -= 2*(ball.z - limit);
+           ball.dz = -Math.abs(ball.dz);
+       }
+       else if (ball.z < -limit) {
+           ball.z += 2*(-limit - ball.z);
+           ball.dz = Math.abs(ball.dz);
+       }
+
+       ball.obj.position.set(ball.x, ball.y, ball.z);
+   }
+
+    for (var i = 0; i < pyramids.length; i++) {
+        var pyramid = pyramids[i];
+
+        /* update ball position based on ball velocity and elapsed time */
+        pyramid.x += pyramid.dx * dt;
+        pyramid.y += pyramid.dy * dt;
+        pyramid.z += pyramid.dz * dt;
+
+        var limit = 9.5 - pyramid.radius;
+
+        /* if ball has moved outside the cube, reflect it back into the cube */
+
+        // x-limits
+        if (pyramid.x > limit) {
+            pyramid.x -= 2*(pyramid.x - limit);
+            pyramid.dx = -Math.abs(pyramid.dx);
+        }
+        else if (pyramid.x < -limit) {
+            pyramid.x += 2*(-limit - pyramid.x);
+            pyramid.dx = Math.abs(pyramid.dx);
+        }
+
+        // y-limits
+        if (pyramid.y > limit) {
+            pyramid.y -= 2*(pyramid.y - limit);
+            pyramid.dy = -Math.abs(pyramid.dy);
+        }
+        else if (pyramid.y < -limit) {
+            pyramid.y += 2*(-limit - pyramid.y);
+            pyramid.dy = Math.abs(pyramid.dy);
+        }
+
+        // z-limits
+        if (pyramid.z > limit) {
+            pyramid.z -= 2*(pyramid.z - limit);
+            pyramid.dz = -Math.abs(pyramid.dz);
+        }
+        else if (pyramid.z < -limit) {
+            pyramid.z += 2*(-limit - pyramid.z);
+            pyramid.dz = Math.abs(pyramid.dz);
+        }
+
+        pyramid.obj.rotateX(Math.random() * (0.03) + 0.04);
+        pyramid.obj.rotateY(Math.random() * (0.03) + 0.04);
+        pyramid.obj.rotateZ(Math.random() * (0.03) + 0.04);
+        pyramid.obj.position.set(pyramid.x, pyramid.y, pyramid.z);
+    }
+}
+
+
+//--------------------------- animation support -----------------------------------
+
+var clock;  // Keeps track of elapsed time of animation.
+
+/**
+ *  Update data for new frame, call render(), and arrange for the next call to this function.
+ */
+function doFrame() {
+    updateForFrame();
+    controls.update();
+    render();
+    requestAnimationFrame(doFrame); 
+}
+
+//----------------------- respond to window resizing -------------------------------
+
+/**
+ * When the window is resized, we need to adjust the aspect ratio of the camera.
+ * We also need to reset the size of the canvas that used by the renderer to
+ * match the new size of the window.
+ */
+ function doResize() {
+     camera.aspect = window.innerWidth / window.innerHeight;
+     camera.updateProjectionMatrix(); // Need to call this for the change in aspect to take effect.
+     renderer.setSize(window.innerWidth, window.innerHeight);
+ }
+
+
+//----------------------------------------------------------------------------------
+
+
+/**
+ *  This init() function is called when by the onload event when the document has loaded.
+ */
+function init() {
+    try {
+        try {
+            renderer = new THREE.WebGLRenderer( { 
+               antialias: true
+            } );
+        }
+        catch (e) { 
+            document.body.innerHTML="<h3><b>Sorry, WebGL is required but is not available.</b><h3>";
+            return;
+        }
+        canvas = renderer.domElement;  // The canvas was created by the renderer.
+        renderer.setSize(window.innerWidth, window.innerHeight);  // match size of canvas to window
+        window.addEventListener("resize", doResize, false);  // Set up handler for resize event
+        document.body.appendChild(canvas);  // The canvas must be added to the body of the page.
+        clock = new THREE.Clock(); // For keeping time during the animation.
+        createWorld();
+        controls = new THREE.TrackballControls(camera, canvas);  // note: TrackballControls require animation.
+        controls.noPan = true;   // Don't do panning with the right mouse button.
+        //controls.noZoom = true;  // Don't do zooming with middle mouse button.
+        canvas.addEventListener("mousedown",doMouse,false);
+
+        requestAnimationFrame(doFrame);  // Start the animation.
+
+
+    }
+    catch (e) {
+        document.body.innerHTML = "<h3><b>Sorry, an error occurred:<br>" + e + "</b></h3>";
+    }
+}
+
+</script>
+</head>
+<body onload="init()">
+</body>
+</html>

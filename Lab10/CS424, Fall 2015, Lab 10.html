@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
+<title>CS424, Fall 2015, Lab 10</title>
+<link rel="stylesheet" href="CS424,%20Fall%202015,%20Lab%2010_files/labs_print.css" type="text/css" media="print">
+<link rel="stylesheet" href="CS424,%20Fall%202015,%20Lab%2010_files/labs_screen.css" type="text/css" media="screen">
+</head>
+<body>
+<div class="content">
+
+<h2>CS 424: Computer Graphics, Fall 2015<br>
+Lab 10: More Three.js</h2>
+
+<div class="intro">
+
+<p>In this lab, you will work on a three.js application that uses two of its
+more interesting features: raycaster input and cubemap textures.  As your starting
+point for the lab, you should get a copy of the folder
+<a href="http://math.hws.edu/eck/cs424/f15/lab10/lab10-files/" style="white-space: pre">lab10-files</a>
+from <i style="white-space: pre">/classes/cs424</i>.  You will work on the
+file <a href="http://math.hws.edu/eck/cs424/f15/lab10/lab10-files/lab10.html">lab10.html</a>.  Currently, it shows
+some colored spheres bouncing inside a translucent box.  In the completed
+program, when the user clicks on a sphere, it will be removed (and possibly
+be replaced by several smaller spheres), and the scene will be enclosed in
+a skybox that is also reflected by the spheres.  Your program might not
+look exactly like mine, but here is a screenshot from my completed vesion:</p>
+
+<p class="np" align="center"><img src="CS424,%20Fall%202015,%20Lab%2010_files/lab10.png" style="border:2px solid black" height="353" width="376"></p>
+
+<p><b>This lab is due next Thursday, November 12.  If you have not changed anything outside
+of <i>lab10.html</i>, it's sufficient to copy that file into your homework folder.  If you
+are using a different cubemap texture, then you should submit your entire lab10 folder.</b></p>
+
+<p><b>Reminder: Your Blender work is due next Monday.  It should be in a folder named <i>blender</i> in
+your homework folder.  If you have extra time today, consider working on and improving your
+Blender projects!  (And if the only extra animation that you are adding to your Frosty project
+is falling snow, make sure that it looks and falls like snow.)</b></p>
+
+<p><b>Reminder:  You should let me know your definite plans for your final project tomorrow (November 6).
+You can send me an email or turn in something in writing in class.  A paragraph or two should be sufficient,
+but it should include a description of what you expect the project to consist of.</b></p>
+
+</div>
+
+<div class="section">
+<h3>Raycaster Input</h3>
+
+<p>You can do this part of the lab before or after the cubemap texture parts.</p>
+
+<p>Objects of type <i>THREE.Raycaster</i> can be used to let the user use the mouse to
+"pick" one of the objects in the scene.  You can read about raycasters and user input
+in <a href="http://math.hws.edu/graphicsbook/c5/s3.html#threejs.3.2">Section&nbsp;5.3.2</a>,
+and you could also check the <a href="http://threejs.org/docs/#Reference/Core/Raycaster">API&nbsp;documentation</a> online.</p>
+
+<p>You want to use a raycaster to respond to user mouse clicks.  The raycaster's
+<i>setFromCamera</i>() and <i>intersectObject</i>() methods can be
+used to determine which sphere, if any, the user clicked.  (The spheres in the program
+are all parented to a <i>THREE.Object3D</i> named <i>ballHolder</i>.  You can use
+<i>ballHolder</i> in a call to <i>raycaster.intersectObject</i>() to check for
+intersections with the spheres.  Or use <i>ballHolder.children</i> in a call
+to <i>raycaster.intersectObjects</i>().)</p>
+
+<p>You will need an event-handler for mouse clicks, typically defined as
+<i>function doMouseDown(evt)</i>.  That function should be added as an event listener
+to the canvas in the <i>init</i>() function, using</p>
+
+<pre class="code">canvas.addEventListener("mousedown",doMouse,false);
+</pre>
+
+<p class="np">See Section 5.3.2 for help with writing the function.
+In the event-handler function, if the user clicked a sphere, you should remove that
+sphere from the scene.  For full credit, you should also replace that sphere with
+something.  One possibility is two or more small white spheres, moving in different directions, 
+that the user can't remove by
+clicking, so that eventually, there will only be a bunch of white spheres remaining.  Another possibility is
+to use smaller clones of the removed sphere, and to make them removable by clicking.  (But you shouldn't
+keep dividing spheres into smaller pieces—when the user clicks one of the smaller
+spheres, it should just disappear.)  You might come up with a better possibility.</p>
+
+<p>When a sphere is removed from the scene, it should also really be removed from the array named <i>balls</i>.
+Otherwise, the program will keep updating the position of the sphere, even though it is no
+longer in the scene.  You will have to study the program to see how to do this; <i>balls</i>
+is an array of JavaScript objects, and the Three.js object for sphere number <i>i</i>
+is actually referenced in the array as <i>balls</i>[<i>i</i>].<i>obj</i>.  So, you will
+have to search for the location of the sphere in the array.  Note that
+the way to remove element number <i>i</i> from the JavaScript array <i>balls</i> is to
+call</p>
+
+<pre class="code">balls.splice( i, 1 ); // (The second parameter is a one.)
+</pre>
+
+
+
+</div>
+
+
+<div class="section">
+<h3>Skybox and Environment Map</h3>
+
+<p>Three.js support for cubemap textures is discussed in
+<a href="http://math.hws.edu/graphicsbook/c5/s3.html#threejs.3.4">Section&nbsp;5.3.4</a>
+and <a href="http://math.hws.edu/graphicsbook/c5/s3.html#threejs.3.5">Section&nbsp;5.3.5</a>
+in the textbook.  For a cubemap texture, you need six images, one for each side
+of a cube.  The folder named <a href="http://math.hws.edu/eck/cs424/f15/lab10/lab10-files/Coliseum/">Coliseum</a> in <i style="white-space: pre">lab10-files</i>
+contains the six images for a cubemap texture.  I got the images from
+</p>
+
+<p class="np" align="center"><a href="http://www.humus.name/index.php?page=Textures">http://www.humus.name/index.php?page=Textures</a></p>
+
+<p class="np">You can also use the Coliseum, or if you want something different, you could
+download another example from the above site.  (But note that I reduced the sizes of the
+Coliseum images to 512-by-512 to make them more suitable for use on the Web.  The original
+images can be quite large.)</p>
+
+<p>For this lab, you want to use the cubemap texture to make a skybox that surrounds
+the scene, and you want to apply it as an environment map to the spheres so that it
+looks as though they are reflecting the skybox.  Here is the sample code from
+Section&nbsp;5.3.4 for making a cubemap texture and applying it to a skybox cube.
+You just have to change the file names to adapt it for your own images:</p>
+
+<pre class="code">var textureURLs = [  // URLs of the six faces of the cube map 
+        "cubemap-textures/park/posx.jpg",   // Note:  The order in which
+        "cubemap-textures/park/negx.jpg",   //   the images are listed is
+        "cubemap-textures/park/posy.jpg",   //   important!
+        "cubemap-textures/park/negy.jpg",  
+        "cubemap-textures/park/posz.jpg",   
+        "cubemap-textures/park/negz.jpg"
+   ];
+
+var texture = THREE.ImageUtils.loadTextureCube( textureURLs );
+
+var shader = THREE.ShaderLib[ "cube" ]; // contains the required shaders
+shader.uniforms[ "tCube" ].value = texture; // data for the shaders
+var material = new THREE.ShaderMaterial( {
+        // A ShaderMaterial uses custom vertex and fragment shaders.
+    fragmentShader: shader.fragmentShader,
+    vertexShader: shader.vertexShader,
+    uniforms: shader.uniforms, 
+    depthWrite: false,
+    side: THREE.BackSide
+} );
+
+var skybox = new THREE.Mesh( new THREE.CubeGeometry( 100, 100, 100 ), material );
+</pre>
+
+<p>You can apply the same texture as an environment map to the spheres.  In fact, as explained in
+Section&nbsp;5.3.5, it is only necessary to assign the cubemap texture
+to the <i>envMap</i> property of the material that is used on the spheres.</p>
+
+</div>
+
+
+</div>
+
+
+</body></html>

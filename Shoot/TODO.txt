@@ -1,0 +1,30 @@
+--------------- Shooting ---------------
+
+-PointerLockControls
+https://developer.mozilla.org/en-US/docs/Web/API/Pointer_Lock_API
+https://threejs.org/docs/#examples/zh/controls/PointerLockControls
+-https://stackoverflow.com/questions/40776136/three-js-pointerlockcontrols-and-physisjs-collision-detection?rq=1
+
+-Add actual character model
+
+-Repeating textures for better quality
+
+--------------- Environment Avatar ---------------
+
+-Chase Cam third person viewer
+http://stemkoski.github.io/Three.js/Chase-Camera.html (Demo)
+https://github.com/stemkoski/stemkoski.github.com/blob/master/Three.js/Chase-Camera.html (Code)
+
+
+-Add actual character model and implement movement and hopefully animation
+
+--------------- Implement Difficulty Levels ---------------
+
+----- Level 1 -----
+Wind 0-15
+
+----- Level 2 -----
+Wind 10-25
+
+----- Level 3 -----
+Wind 20-35
