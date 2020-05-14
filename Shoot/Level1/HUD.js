@@ -93,21 +93,6 @@ function setupHUD(){
     HUDlight.position.set( -1, 1.75, 1 );
     HUDlight.position.multiplyScalar( 100 );
 
-
-    HUDlight.castShadow = true;
-
-    HUDlight.shadow.mapSize.width = 2048;
-    HUDlight.shadow.mapSize.height = 2048;
-
-    let d = 50;
-
-    HUDlight.shadow.camera.left = -d;
-    HUDlight.shadow.camera.right = d;
-    HUDlight.shadow.camera.top = d;
-    HUDlight.shadow.camera.bottom = -d;
-
-    HUDlight.shadow.camera.far = 13500;
-
     HUDcamera.add( HUDlight );
     HUD.add(HUDcamera);
 

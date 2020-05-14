@@ -1,16 +1,16 @@
 function moveLaser (mouseCoords){
-    avatarHead.set(avatar.position.x, avatar.position.y +10, avatar.position.z -10);
+    avatarHead.set(avatar.position.x, avatar.position.y +25, avatar.position.z-5);
 
     rayx = mouseCoords.x*100;
     rayy = mouseCoords.y*100;
 
     rayDirection.set(rayx,rayy, -100).normalize();
 
-    let direction = new THREE.Vector3().subVectors(rayDirection, avatarHead);
+    //let direction = new THREE.Vector3().subVectors(rayDirection, avatarHead);
 
     laser.position.copy(avatarHead);
     laser.setDirection(rayDirection);
-    laser.setLength(direction.length()+100, 0, 0);
+    laser.setLength(200, 0, 0);
 }
 
 function onMouseMove(event){
@@ -22,52 +22,54 @@ function onMouseMove(event){
 
 }
 
+let numBalls = 0;
+
 function onMouseDown(event) {
 
-    let sound = document.getElementById("raygun");
-    //sound.play();
+    if(numBalls < ammoCount){
+        let sound = document.getElementById("raygun");
+        //sound.play();
 
-    mouseCoords.set(
-        (event.clientX / window.innerWidth) * 2 - 1,
-        -(event.clientY / window.innerHeight) * 2 + 1
-    );
+        mouseCoords.set(
+            (event.clientX / window.innerWidth) * 2 - 1,
+            -(event.clientY / window.innerHeight) * 2 + 1
+        );
 
-    let ballRadius = 3;
+        let ballRadius = 3;
 
-    let ball = new Physijs.SphereMesh(
-        new THREE.SphereGeometry(ballRadius, 50, 50),
-        new THREE.MeshStandardMaterial({
-            map: new THREE.TextureLoader().load('../../Resources/Textures/Dino/trippy2.jpeg'),
-        }),
-        10
-    )
+        let ball = new Physijs.SphereMesh(
+            new THREE.SphereGeometry(ballRadius, 10, 10),
+            new THREE.MeshStandardMaterial({
+                map: new THREE.TextureLoader().load('../../Resources/Textures/Dino/trippy2.jpeg'),
+            }),
+            10
+        )
 
-    avatarHead.set(avatar.position.x, avatar.position.y +10, avatar.position.z -10);
+        avatarHead.set(avatar.position.x, avatar.position.y +25, avatar.position.z-5);
 
-    rayx = mouseCoords.x*100;
-    rayy = mouseCoords.y*100;
+        rayx = mouseCoords.x*100;
+        rayy = mouseCoords.y*100;
 
-    rayDirection.set(rayx,rayy, -100);
+        rayDirection.set(rayx,rayy, -100);
 
-    raycaster.set(avatarHead, rayDirection);
+        raycaster.set(avatarHead, rayDirection);
 
-    ball.castShadow = true;
-    ball.receiveShadow = true;
+        ball.castShadow = true;
+        ball.receiveShadow = true;
 
-    // ball.position.copy(raycaster.ray.direction);
-    // ball.position.add(raycaster.ray.origin)
+        ball.position.copy(avatarHead);
 
-    //let shootFrom = new THREE.Vector3(avatarHead.x, avatarHead.y+6, avatarHead.z)
+        scene.add(ball);
 
-    ball.position.copy(avatarHead);
+        pos.copy( raycaster.ray.direction );
+        pos.multiplyScalar( 2 );
+        ball.setLinearVelocity( new THREE.Vector3( pos.x, pos.y, pos.z ) );
 
-    scene.add(ball);
+        numBalls++;
+    }else{
+        alert("Out of ammo");
+    }
 
-    pos.copy( raycaster.ray.direction );
-    pos.multiplyScalar( 2 );
-    ball.setLinearVelocity( new THREE.Vector3( pos.x, pos.y, pos.z ) );
-
-    //ball.__dirtyPosition = true;
 }
 
 

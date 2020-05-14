@@ -1,59 +1,100 @@
 function createStallPlatform(){
-    //RandomGravityTester
-    let randPos = {x: 0, y: 50, z: -70};
-    let randScale = {x: 10, y: 10, z: 10};
+    let platformMat = new THREE.MeshStandardMaterial({
+        map: new THREE.TextureLoader().load('../../Resources/Textures/Dino/neontexture1.jpg'),
+        //transparent: true,
+        //opacity: 0.9
+    });
 
+    //RandomGravityTester
     let rand = new Physijs.BoxMesh(
-        new THREE.BoxGeometry(),
+        new THREE.BoxGeometry(10,10,10),
         new THREE.MeshStandardMaterial({
-            map: new THREE.TextureLoader().load('../../Resources/Textures/Dino/neontexture1.jpg'),
+            map: new THREE.TextureLoader().load('../../Resources/Textures/Dino/redfoil.jpg'),
         }),
         10
     );
-    rand.position.set(randPos.x, randPos.y, randPos.z);
-    rand.scale.set(randScale.x, randScale.y, randScale.z);
-
+    rand.position.set(0, 50,-70);
     rand.castShadow = true;
     rand.receiveShadow = true;
-    
     scene.add(rand);
     
     // Base
-    let basePos = {x: 0, y: 0, z: 0};
-    let baseScale = {x: 100, y: 2, z: 200};
-
+    let baseSize = {width: 100, height: 2, depth:200}
     let base = new Physijs.BoxMesh(
-        new THREE.BoxGeometry(),
-        new THREE.MeshStandardMaterial({
-            map: new THREE.TextureLoader().load('../../Resources/Textures/Dino/neontexture1.jpg'),
-        }),
+        new THREE.BoxGeometry(100, 2, 200),
+        platformMat,
         0
     );
-    base.position.set(basePos.x, basePos.y, basePos.z);
-    base.scale.set(baseScale.x, baseScale.y, baseScale.z);
-
+    //base.position.set(0,0,0);
     base.castShadow = true;
     base.receiveShadow = true;
 
-    scene.add(base);
-
     //Shooter Barrier
-    let shooterBarrierPos = {x: 0, y: 5, z: 60};
-    let shooterBarrierScale = {x: 100, y: 10, z: 20};
-
+    let shooterBarrierSize = {width: 90, height: 10, depth:20};
     let shooterBarrier = new Physijs.BoxMesh(
-        new THREE.BoxGeometry(),
+        new THREE.BoxGeometry(90,10,20),
         new THREE.MeshStandardMaterial({
-            map: new THREE.TextureLoader().load('../../Resources/Textures/Dino/neontexture1.jpg'),
+            map: new THREE.TextureLoader().load('../../Resources/Textures/Dino/red.jpg'),
         }),
         0
     );
-
-    shooterBarrier.position.set(shooterBarrierPos.x, shooterBarrierPos.y, shooterBarrierPos.z);
-    shooterBarrier.scale.set(shooterBarrierScale.x, shooterBarrierScale.y, shooterBarrierScale.z);
-
+    shooterBarrier.position.set(0, shooterBarrierSize.height/2 + baseSize.height/2, 60);
     shooterBarrier.castShadow = true;
     shooterBarrier.receiveShadow = true;
+    base.add(shooterBarrier);
 
-    scene.add(shooterBarrier);
+    //Far
+    let farSize = {width: 100, height: 50, depth:5};
+    let far = new Physijs.BoxMesh(
+        new THREE.CubeGeometry(100,50,5),
+        platformMat,
+        0
+    )
+    far.position.set(0, farSize.height - farSize.height/2 + baseSize.height/2, farSize.depth - farSize.depth/2 - baseSize.depth/2);
+    far.castShadow = true;
+    far.receiveShadow = true;
+
+    //Near wall
+    let nearSize = {width: 100, height: 15, depth:5};
+    let near = new Physijs.BoxMesh(
+        new THREE.CubeGeometry(100,15,5),
+        platformMat,
+        0
+    )
+    near.position.set(0, nearSize.height/2 + baseSize.height/2, -nearSize.depth/2 + baseSize.depth/2);
+    near.castShadow = true;
+    near.receiveShadow = true;
+
+    //Left Panel
+    let leftSize = {width: 5, height: 50, depth:200};
+    let left = new Physijs.BoxMesh(
+        new THREE.CubeGeometry(5,50,200),
+        platformMat,
+        0
+    )
+    left.position.set(leftSize.width/2 - baseSize.width/2, leftSize.height/2 + baseSize.height/2, 0);
+    left.castShadow = true;
+    left.receiveShadow = true;
+
+    //Right Panel
+    let rightSize = {width: 5, height: 50, depth:200};
+    let right = new Physijs.BoxMesh(
+        new THREE.CubeGeometry(5,50,200),
+        platformMat,
+        0
+    )
+    right.position.set(-rightSize.width/2  + baseSize.width/2, rightSize.height/2 + baseSize.height/2, 0);
+    right.castShadow = true;
+    right.receiveShadow = true;
+
+    //Add all panels to base
+    base.add( far );
+    base.add(near);
+    base.add(left);
+    base.add(right);
+
+
+    //Add base to scene
+    scene.add(base);
+
 }

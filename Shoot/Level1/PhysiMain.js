@@ -3,6 +3,9 @@
 Physijs.scripts.worker = '../../js/physijs_worker.js';
 //Physijs.scripts.ammo = '../../js/ammo.js';
 
+//Level Specific
+let ammoCount = 10;
+
 //Scene and setup
 let windowHalfX = window.innerWidth / 2;
 let windowHalfY = window.innerHeight / 2;
@@ -21,7 +24,9 @@ let xDir, xStrength;
 
 //Avatar
 let avatar;
-let AvatarMoveDirection = { left: 0, right: 0, forward: 0, back: 0 };
+let AvatarMoveDirection = { x: 0, z: 0 };
+let movementBoundaries = {leftX : -40, rightX:40, frontZ: -10, backZ: 10};
+let avatarLocalPos = {x:0, z:0};
 
 //Shooting
 let ball;
@@ -33,10 +38,11 @@ let laser;
 function setupScene() {
     scene = new Physijs.Scene;
 
-    //Gravity:
+    //Set gravity:
+    //Random x gravity creates a "wind" like effect
     let xGrav = Math.random() * 40 - 20;
 
-    scene.setGravity(new THREE.Vector3(xGrav, -10, 0));
+    scene.setGravity(new THREE.Vector3(xGrav, -9.8, 0));
 
     if (xGrav > 0) {
         xDir = "right";
@@ -57,22 +63,58 @@ function setupScene() {
     camera = new THREE.PerspectiveCamera(
         60,
         window.innerWidth / window.innerHeight,
-        0.2,
-        10000
+        0.5,
+        1000
     );
     camera.position.set(0, 60, 150);
     camera.lookAt(new THREE.Vector3(0, 0, 0));
     scene.add(camera);
 
     //Add ambient light
-    let ambientLight = new THREE.AmbientLight(0xffffff, 0.6);
+    let ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
     scene.add(ambientLight);
 
-    //Add directional light from camera
-    let dirLight = new THREE.DirectionalLight(0xffaaff, 1);
-    dirLight.position.set( -10, 18, 5 );
-    camera.add(dirLight);
+    //Add point light from camera
+    let camLight = new THREE.PointLight(0xffaaff, 0.5);
+    camLight.position.set(0, 60, 150);
+    camLight.castShadow = true;
+    camera.add(camLight);
+    camLight.shadow.mapSize.width = 512;  // default
+    camLight.shadow.mapSize.height = 512; // default
+    camLight.shadow.camera.near = 0.5;    // default
+    camLight.shadow.camera.far = 500;     // default
 
+    //Add point light from right
+    let rightLight = new THREE.PointLight(0xffaaff, 0.5);
+    rightLight.position.set(60, 80, 110);
+    rightLight.castShadow = true;
+    scene.add(rightLight);
+    rightLight.shadow.mapSize.width = 512;  // default
+    rightLight.shadow.mapSize.height = 512; // default
+    rightLight.shadow.camera.near = 0.5;    // default
+    rightLight.shadow.camera.far = 500;     // default
+
+    //Add point light from left
+    let leftLight = new THREE.PointLight(0xffaaff, 0.5);
+    leftLight.position.set(-60, 80, 110);
+    leftLight.castShadow = true;
+    scene.add(leftLight);
+    leftLight.shadow.mapSize.width = 512;  // default
+    leftLight.shadow.mapSize.height = 512; // default
+    leftLight.shadow.camera.near = 0.5;    // default
+    leftLight.shadow.camera.far = 500;     // default
+
+    //Add point light from directly above
+    let topLight = new THREE.PointLight(0xffaaff, 0.3);
+    topLight.position.set(0, 100, 0);
+    topLight.castShadow = true;
+    scene.add(topLight);
+    topLight.shadow.mapSize.width = 512;  // default
+    topLight.shadow.mapSize.height = 512; // default
+    topLight.shadow.camera.near = 0.5;    // default
+    topLight.shadow.camera.far = 500;     // default
+
+    //Add laser like aiming helper
     laser = new THREE.ArrowHelper(new THREE.Vector3(0,0,-50), avatarHead,30, 0xff0000, 0, 0 );
     scene.add( laser );
 
@@ -91,14 +133,13 @@ function setupScene() {
         var texture = new THREE.TextureLoader().load( textureURLs[i] );
         materials.push( new THREE.MeshBasicMaterial( {
             color: "white",  // Color will be multiplied by texture color.
-            side: THREE.DoubleSide,  // IMPORTANT: To see the inside of the cube, back faces must be rendered!
+            side: THREE.BackSide,  // IMPORTANT: To see the inside of the cube, back faces must be rendered!
             map: texture
         } ) );
 
     }
-
-    cubeMap = new THREE.Mesh( new THREE.BoxGeometry(10000,10000,10000),
-        materials );
+    cubeMap = new THREE.Mesh(
+        new THREE.BoxGeometry(1000,1000,1000), materials );
     scene.add(cubeMap);
 }
 
@@ -115,17 +156,17 @@ function handleKeyDown(event){
     let keyCode = event.keyCode;
     switch(keyCode){
         //Avatar
-        case 87: //↑: FORWARD
-            AvatarMoveDirection.forward = 1
+        case 87: //W: FORWARD
+            AvatarMoveDirection.z = -1
             break;
-        case 83: //↓: BACK
-            AvatarMoveDirection.back = 1
+        case 83: //S: BACK
+            AvatarMoveDirection.z = 1
             break;
-        case 65: //←: LEFT
-            AvatarMoveDirection.left = 1
+        case 65: //A: LEFT
+            AvatarMoveDirection.x = -1
             break;
-        case 68: //→: RIGHT
-            AvatarMoveDirection.right = 1
+        case 68: //: RIGHT
+            AvatarMoveDirection.x = 1
             break;
     }
 
@@ -136,16 +177,16 @@ function handleKeyUp(event){
     switch(keyCode){
         //Avatar
         case 87: //↑: FORWARD
-            AvatarMoveDirection.forward = 0
+            AvatarMoveDirection.z = 0
             break;
         case 83: //↓: BACK
-            AvatarMoveDirection.back = 0
+            AvatarMoveDirection.z = 0
             break;
         case 65: //←: LEFT
-            AvatarMoveDirection.left = 0
+            AvatarMoveDirection.x = 0
             break;
         case 68: //→: RIGHT
-            AvatarMoveDirection.right = 0
+            AvatarMoveDirection.x = 0
             break;
     }
 }
