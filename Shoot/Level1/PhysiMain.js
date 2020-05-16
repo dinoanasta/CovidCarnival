@@ -46,16 +46,33 @@ function setupScene() {
 
     if (xGrav > 0) {
         xDir = "right";
+
+        //Coded By Razeen - Creates HTML Image of wind arrow
+        let windElement = document.createElement('img');
+        let src = '../../Resources/Textures/Razeen/arrow.png';
+        windElement.setAttribute('src', src);
+        let HUD = document.getElementById("dir");
+        HUD.appendChild(windElement);
     } else if (xGrav < 0) {
+        //Coded By Razeen - Creates HTML Image of wind arrow
         xDir = "left";
+        let windElement = document.createElement('img');
+        console.log(windElement);
+        let src = '../../Resources/Textures/Razeen/arrowleft.png';
+        windElement.setAttribute('src', src);
+        let HUD = document.getElementById("dir");
+        HUD.appendChild(windElement);
     }
 
     if (Math.abs(xGrav) >= 14) {
         xStrength = "strong";
+        document.getElementById('weight').innerHTML = xStrength;
     } else if (Math.abs(xGrav) <= 6) {
         xStrength = "weak";
+        document.getElementById('weight').innerHTML = xStrength;
     } else if (Math.abs(xGrav) > 6 && Math.abs(xGrav) < 14) {
         xStrength = "average";
+        document.getElementById('weight').innerHTML = xStrength;
     }
     console.log(xGrav, xDir, xStrength);
 
@@ -202,6 +219,9 @@ function onWindowResize() {
     renderer.setSize( window.innerWidth, window.innerHeight );
 
 }
+
+
+
 //
 // function animate(){
 //     requestAnimationFrame(animate);

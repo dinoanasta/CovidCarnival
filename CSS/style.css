@@ -1,0 +1,124 @@
+.body {
+    background: url("../Resources/Textures/Razeen/abstract2.jpg");
+    background-size: cover;
+}
+
+@font-face {
+    src: url("../Fonts/you-murderer/youmurdererbb_reg.ttf");
+    font-family: ym;
+}
+
+@font-face {
+    src: url("../Fonts/welcome-to-texas/WelcometoTexas.ttf");
+    font-family: texas;
+}
+
+#HUD-Left {
+   position: absolute;
+    text-align: center;
+    z-index: 100;
+    top: -20px;
+    width: 100%;
+    right: 100px;
+    display: block;
+}
+
+#ball_count {
+    font-family: ym;
+    color: red;
+    font-size: 70px;
+    line-height: 65px;
+    float: left;
+    padding: 0px 0px 0px 2%;
+}
+
+#ball_count_header {
+    font-family: ym;
+    color: red;
+    font-size: 70px;
+    line-height: 65px;
+    float: left;
+    padding: 0px 0px 0px 10%;
+}
+
+#HUD-Right {
+    position: absolute;
+    text-align: center;
+    z-index: 100;
+    top: -20px;
+    right: 100px;
+    width: 100%;
+    display: block;
+}
+
+#Wind {
+    font-family: ym;
+    color: red;
+    font-size: 70px;
+    line-height: 65px;
+    float: right;
+    padding: 0px 0px 0px 2%;
+}
+
+#weight {
+    font-family: ym;
+    color: red;
+    font-size: 70px;
+    line-height: 65px;
+    float: right;
+    padding: 0px 0px 0px 2%;
+}
+
+#dir{
+    position: absolute;
+    text-align: center;
+    z-index: 100;
+    top: 100px;
+    left: 500px;
+    width: 100%;
+    display: block;
+}
+
+#Score {
+    position: absolute;
+    text-align: center;
+    z-index: 100;
+    bottom: 450px;
+    right: 20px;
+    width: 100%;
+    display: block;
+
+    font-family: ym;
+    color: red;
+    font-size: 70px;
+    line-height: 65px;
+    padding: 0px 0px 0px 2%;
+}
+
+#Game_Over {
+    position: absolute;
+    text-align: center;
+    z-index: 100;
+    bottom: 200px;
+    right: 20px;
+    width: 100%;
+    display: block;
+
+    font-family: texas;
+    color: white;
+    font-size: 80px;
+    line-height: 65px;
+    padding: 0px 0px 0px 2%;
+}
+
+#Buttons {
+
+    position: absolute;
+    text-align: center;
+    z-index: 100;
+    bottom: 100px;
+    right: 20px;
+    width: 100%;
+    display: block;
+}
+

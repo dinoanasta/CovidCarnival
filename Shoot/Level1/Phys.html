@@ -3,6 +3,30 @@
 
 <head>
     <title>SHOOT</title>
+    <link rel = "stylesheet", href="../../CSS/style.css">
+    <div id = "HUD-Left">
+        <h1 id = "ball_count_header">Ammo Left:</h1>
+        <h1 id = "ball_count">10</h1>
+    </div>
+    <div id = "HUD-Right">
+        <h1 id = "weight">None</h1>
+        <h1 id = "Wind">Wind:</h1>
+    </div>
+    <div id = "dir">
+    </div>
+    <div id = "HUD_Centre">
+        <h1 id = "Score">Score: 0</h1>
+    </div>
+    <div id = "Game_Over">
+    </div>
+    <div id = "Buttons">
+       <a href = "Phys.html">
+         <button>Restart Game</button>
+       </a>
+        <a href = "../../Circus%20Environment/Environment.html">
+            <button>Quit Game</button>
+        </a>
+    </div>
     <script src="../../js/three.js"></script>
     <script src="../../js/physi.js"></script>
     <script src="../../js/GLTFLoader.js"></script>
@@ -38,6 +62,7 @@
 </head>
 
 <body onload="init()">
+
 </body>
 
 </html>
