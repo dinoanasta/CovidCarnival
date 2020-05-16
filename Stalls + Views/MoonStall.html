@@ -20,7 +20,7 @@
 
 <canvas id = "myCanvas"></canvas>
 
-<script src = "js/three.js"></script>
+<script src = "../js/three.js"></script>
 <script>
 
 
@@ -69,7 +69,7 @@
     function makeMoon(){
 
         var moonGeo = new THREE.SphereGeometry(75,200,200);
-        var moonMat = new THREE.MeshBasicMaterial({ map : textureLoader.load('Resources/Textures/Mikayla/moon7.jfif')});
+        var moonMat = new THREE.MeshBasicMaterial({ map : textureLoader.load('../Resources/Textures/Mikayla/moon7.jfif')});
 
         var moon = new THREE.Mesh(moonGeo,moonMat);
         moon.position.y = 300;
@@ -133,14 +133,12 @@
         stall.position.z = -300;
         stall.rotation.y = -Math.PI/8;
         stall.rotation.x = Math.PI/8;
-
-
     }
 
     function makeRoof(){
 
         var geometry = new THREE.ConeGeometry(350,75,4);
-        var material = new THREE.MeshBasicMaterial({ map : textureLoader.load('Resources/Textures/Mikayla/images.jfif')});
+        var material = new THREE.MeshBasicMaterial({ map : textureLoader.load('../Resources/Textures/Mikayla/moon7.jfif')});
 
         return new THREE.Mesh(geometry,material);
     }
@@ -148,7 +146,7 @@
     function makeWall2(){
 
         var geoWall = new THREE.CubeGeometry(400,300,10);
-        var matWall = new THREE.MeshBasicMaterial({ map : textureLoader.load('Resources/Textures/Mikayla/download2.png')});
+        var matWall = new THREE.MeshBasicMaterial({ map : textureLoader.load('../Resources/Textures/Mikayla/download2.png')});
 
         return new THREE.Mesh(geoWall,matWall);
     }
@@ -156,7 +154,7 @@
     function makeWall(){
 
         var geoWall = new THREE.CubeGeometry(300,300,10);
-        var matWall = new THREE.MeshBasicMaterial({ map : textureLoader.load('Resources/Textures/Mikayla/download2.png')});
+        var matWall = new THREE.MeshBasicMaterial({ map : textureLoader.load('../Resources/Textures/Mikayla/download2.png')});
 
         return new THREE.Mesh(geoWall,matWall);
     }

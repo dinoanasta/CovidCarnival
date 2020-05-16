@@ -4,13 +4,13 @@ function moveLaser (mouseCoords){
     rayx = mouseCoords.x*100;
     rayy = mouseCoords.y*100;
 
-    rayDirection.set(rayx,rayy, -100).normalize();
+    rayDirection.set(rayx,rayy-40, -100).normalize();
 
     //let direction = new THREE.Vector3().subVectors(rayDirection, avatarHead);
 
     laser.position.copy(avatarHead);
     laser.setDirection(rayDirection);
-    laser.setLength(200, 0, 0);
+    laser.setLength(200, 0.00001, 0.00001);
 }
 
 function onMouseMove(event){
@@ -24,7 +24,7 @@ function onMouseMove(event){
 
 let numBalls = 0;
 
-var b_count = 10; //Razeen
+var b_count = ammoCount; //Razeen
 function onMouseDown(event) {
 
     if(numBalls < ammoCount){
@@ -51,7 +51,7 @@ function onMouseDown(event) {
         rayx = mouseCoords.x*100;
         rayy = mouseCoords.y*100;
 
-        rayDirection.set(rayx,rayy, -100);
+        rayDirection.set(rayx,rayy - 40 , -100);
 
         raycaster.set(avatarHead, rayDirection);
 

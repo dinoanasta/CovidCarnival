@@ -11,7 +11,7 @@ function createStallPlatform(){
         new THREE.MeshStandardMaterial({
             map: new THREE.TextureLoader().load('../../Resources/Textures/Dino/redfoil.jpg'),
         }),
-        10
+        100
     );
     rand.position.set(0, 50,-70);
     rand.castShadow = true;
@@ -34,7 +34,7 @@ function createStallPlatform(){
     let shooterBarrier = new Physijs.BoxMesh(
         new THREE.BoxGeometry(90,10,20),
         new THREE.MeshStandardMaterial({
-            map: new THREE.TextureLoader().load('../../Resources/Textures/Dino/red.jpg'),
+            map: new THREE.TextureLoader().load('../../Resources/Textures/Dino/redfoil.jpg'),
         }),
         0
     );
@@ -92,7 +92,6 @@ function createStallPlatform(){
     base.add(near);
     base.add(left);
     base.add(right);
-
 
     //Add base to scene
     scene.add(base);

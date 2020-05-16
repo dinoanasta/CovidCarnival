@@ -13,6 +13,53 @@
     font-family: texas;
 }
 
+@import url('https://fonts.googleapis.com/css?family=Nosifer&display=swap');
+
+.neon{
+    font-family: 'Nosifer', cursive;
+    position: absolute;
+    margin-top: 20px;
+    margin-left: 500px;
+    padding: 0 20px;
+    font-size: 5em;
+    color: #ffffff;
+    text-shadow: 0 0 20px #ff005b;
+}
+
+.neon:after{
+
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 0 20px;
+    z-index: -1;
+    color: #ff005b;
+    filter: blur(15px);
+}
+
+.neon:before{
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40%;
+    height: 80%;
+    background: #fe3a80;
+    z-index: -2;
+    opacity: 0.4;
+    filter: blur(40px);
+}
+
+#HUD{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    /*margin-top: 300px;*/
+    background-color: rgba(0,0,0,0);
+}
+
 #HUD-Left {
    position: absolute;
     text-align: center;
@@ -57,6 +104,7 @@
     font-size: 70px;
     line-height: 65px;
     float: right;
+    alignment: center;
     padding: 0px 0px 0px 2%;
 }
 
@@ -69,14 +117,10 @@
     padding: 0px 0px 0px 2%;
 }
 
-#dir{
-    position: absolute;
-    text-align: center;
-    z-index: 100;
-    top: 100px;
-    left: 500px;
-    width: 100%;
-    display: block;
+#arrowIcon{
+    float: right;
+    margin-right: 200px;
+    margin-top: 100px;
 }
 
 #Score {

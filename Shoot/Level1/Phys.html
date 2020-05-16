@@ -4,29 +4,42 @@
 <head>
     <title>SHOOT</title>
     <link rel = "stylesheet", href="../../CSS/style.css">
-    <div id = "HUD-Left">
-        <h1 id = "ball_count_header">Ammo Left:</h1>
-        <h1 id = "ball_count">10</h1>
+    <div id="HUD">
+<!--        Game name -->
+        <h1 class="neon" data-text="COVID CARNIVAL"> COVID CARNIVAL </h1>
+
+<!--        Ammo -->
+        <div id = "HUD-Left">
+            <h1 id = "ball_count_header">Ammo Left:</h1>
+            <h1 id = "ball_count">10</h1>
+        </div>
+
+<!--        Wind Meter -->
+        <div id = "HUD-Right">
+            <h1 id = "weight">None</h1>
+            <h1 id = "Wind">Wind:</h1>
+        </div>
+        <img id="arrowIcon">
+
+<!--        Score -->
+        <div id = "HUD_Centre">
+            <h1 id = "Score">Score: 0</h1>
+        </div>
+
+        <div id = "Game_Over">
+        </div>
+
+<!--        Buttons -->
+        <div id = "Buttons">
+            <a href = "Phys.html">
+                <button>Restart Game</button>
+            </a>
+            <a href = "../../Circus%20Environment/Environment.html">
+                <button>Quit Game</button>
+            </a>
+        </div>
     </div>
-    <div id = "HUD-Right">
-        <h1 id = "weight">None</h1>
-        <h1 id = "Wind">Wind:</h1>
-    </div>
-    <div id = "dir">
-    </div>
-    <div id = "HUD_Centre">
-        <h1 id = "Score">Score: 0</h1>
-    </div>
-    <div id = "Game_Over">
-    </div>
-    <div id = "Buttons">
-       <a href = "Phys.html">
-         <button>Restart Game</button>
-       </a>
-        <a href = "../../Circus%20Environment/Environment.html">
-            <button>Quit Game</button>
-        </a>
-    </div>
+
     <script src="../../js/three.js"></script>
     <script src="../../js/physi.js"></script>
     <script src="../../js/GLTFLoader.js"></script>
@@ -35,9 +48,7 @@
     <script src="PhysiAvatar.js"></script>
     <script src="PhysiMain.js"></script>
 
-
     <audio src="../../Resources/Textures/Dino/sound2.mp3" id="raygun"></audio>
-
 
     <div id="viewport"></div>
     <script>
@@ -45,7 +56,7 @@
             renderer = new THREE.WebGLRenderer( { antialias: true } );
             renderer.setClearColor( 0x00a0a0 );
             renderer.setPixelRatio( window.devicePixelRatio);
-            renderer.setSize( window.innerWidth-50, window.innerHeight-50);
+            renderer.setSize( window.innerWidth, window.innerHeight);
             renderer.shadowMap.enabled = true;
             renderer.shadowMap.type = THREE.PCFSoftShadowMap;
             document.getElementById( 'viewport' ).appendChild( renderer.domElement );
@@ -54,11 +65,12 @@
             setupEventHandlers();
             createStallPlatform();
             createAvatar();
+            setLevel(level);
+            setLevel(level);
 
             render();
         };
     </script>
-
 </head>
 
 <body onload="init()">

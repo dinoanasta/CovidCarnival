@@ -46,8 +46,4 @@ function moveAvatar(){
             avatarLocalPos.z += moveZ;
         }
     }
-
-    //avatar.position.set(avatar.position.x + moveX, avatar.position.y, avatar.position.z + moveZ);
-
-    //avatar.__dirtyPosition = true;
 }

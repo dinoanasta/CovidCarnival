@@ -3,16 +3,20 @@
 Physijs.scripts.worker = '../../js/physijs_worker.js';
 //Physijs.scripts.ammo = '../../js/ammo.js';
 
-//Level Specific
-let ammoCount = 10;
+//HUD
+let HUD, arrowSource;
+let windElement;
+
+
+//Levels
+let level = "1";
+let ammoCount; //Num of balls
+let goal;   //How many targets they have to hit to win
+let gameLength; //How long the game lasts
 
 //Scene and setup
-let windowHalfX = window.innerWidth / 2;
-let windowHalfY = window.innerHeight / 2;
 let cubeMap;
-
 let renderer, scene, camera, box;
-
 let pos = new THREE.Vector3();
 
 //Mouse Coordinates and raycaster
@@ -20,7 +24,9 @@ let mouseCoords = new THREE.Vector2(),
     raycaster = new THREE.Raycaster();
 
 //Gravity variables
-let xDir, xStrength;
+let xGrav, xDir, xStrength,maxGrav, minGrav, sign;
+let yGrav;
+let signs = [1, -1];
 
 //Avatar
 let avatar;
@@ -37,44 +43,6 @@ let laser;
 
 function setupScene() {
     scene = new Physijs.Scene;
-
-    //Set gravity:
-    //Random x gravity creates a "wind" like effect
-    let xGrav = Math.random() * 40 - 20;
-
-    scene.setGravity(new THREE.Vector3(xGrav, -9.8, 0));
-
-    if (xGrav > 0) {
-        xDir = "right";
-
-        //Coded By Razeen - Creates HTML Image of wind arrow
-        let windElement = document.createElement('img');
-        let src = '../../Resources/Textures/Razeen/arrow.png';
-        windElement.setAttribute('src', src);
-        let HUD = document.getElementById("dir");
-        HUD.appendChild(windElement);
-    } else if (xGrav < 0) {
-        //Coded By Razeen - Creates HTML Image of wind arrow
-        xDir = "left";
-        let windElement = document.createElement('img');
-        console.log(windElement);
-        let src = '../../Resources/Textures/Razeen/arrowleft.png';
-        windElement.setAttribute('src', src);
-        let HUD = document.getElementById("dir");
-        HUD.appendChild(windElement);
-    }
-
-    if (Math.abs(xGrav) >= 14) {
-        xStrength = "strong";
-        document.getElementById('weight').innerHTML = xStrength;
-    } else if (Math.abs(xGrav) <= 6) {
-        xStrength = "weak";
-        document.getElementById('weight').innerHTML = xStrength;
-    } else if (Math.abs(xGrav) > 6 && Math.abs(xGrav) < 14) {
-        xStrength = "average";
-        document.getElementById('weight').innerHTML = xStrength;
-    }
-    console.log(xGrav, xDir, xStrength);
 
     //Add camera
     camera = new THREE.PerspectiveCamera(
@@ -132,7 +100,7 @@ function setupScene() {
     topLight.shadow.camera.far = 500;     // default
 
     //Add laser like aiming helper
-    laser = new THREE.ArrowHelper(new THREE.Vector3(0,0,-50), avatarHead,30, 0xff0000, 0, 0 );
+    laser = new THREE.ArrowHelper(new THREE.Vector3(0,0,-200).normalize(), avatarHead,200, 0xff0000, 0.0001, 0.0001 );
     scene.add( laser );
 
     //CubeMap
@@ -172,6 +140,19 @@ function setupEventHandlers(){
 function handleKeyDown(event){
     let keyCode = event.keyCode;
     switch(keyCode){
+        //Level
+        case 49:
+            level = "1";
+            setLevel(level);
+            break;
+        case 50:
+            level = "2";
+            setLevel(level);
+            break;
+        case 51:
+            level = "3";
+            setLevel(level);
+            break;
         //Avatar
         case 87: //W: FORWARD
             AvatarMoveDirection.z = -1
@@ -209,10 +190,6 @@ function handleKeyUp(event){
 }
 
 function onWindowResize() {
-
-    windowHalfX = window.innerWidth / 2;
-    windowHalfY = window.innerHeight / 2;
-
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
 
@@ -235,12 +212,128 @@ function onWindowResize() {
 //     renderer.render( scene, camera);
 // }
 
+function setLevel(lvl){
+  switch (lvl){
+      case "1": //Level 1
+          sign = signs[Math.floor(Math.random() * 2)];
+          console.log("Sign: " + sign);
+
+          console.log("Level: " + level);
+
+          ammoCount = 10;
+          goal = 5;
+          gameLength = 60;
+
+          maxGrav = 40;
+          minGrav = 20;
+
+          xGrav = sign * ((Math.random()*(maxGrav-minGrav)) + minGrav);
+
+          yGrav = -10;
+
+          scene.setGravity(new THREE.Vector3(xGrav, yGrav, 0));
+
+          if (xGrav > 0) {
+              xDir = "right";
+          } else if (xGrav < 0) {
+              xDir = "left";
+          }
+
+          if (minGrav < Math.abs(xGrav) &&  Math.abs(xGrav) < 26) {
+              xStrength = "weak";
+          } else if (26 < Math.abs(xGrav) &&  Math.abs(xGrav) < 34) {
+              xStrength = "average";1
+          } else if (34 < Math.abs(xGrav) &&  Math.abs(xGrav) < maxGrav) {
+              xStrength = "strong";
+          }
+          console.log(xGrav, xDir, xStrength);
+          break;
+      case "2": //Level 2
+          sign = signs[Math.floor(Math.random() * 2)];
+          console.log("Sign: " + sign);
+
+          console.log("Level: " + level);
+
+          ammoCount = 10;
+          goal = 5;
+          gameLength = 60;
+
+          maxGrav = 40;
+          minGrav = 20;
+
+          xGrav = sign * ((Math.random()*(maxGrav-minGrav)) + minGrav);
+
+          yGrav = -50;
+
+          scene.setGravity(new THREE.Vector3(xGrav, yGrav, 0));
+
+          if (xGrav > 0) {
+              xDir = "right";
+          } else if (xGrav < 0) {
+              xDir = "left";
+          }
+
+          if (minGrav < Math.abs(xGrav) &&  Math.abs(xGrav) < 26) {
+              xStrength = "weak";
+          } else if (26 < Math.abs(xGrav) &&  Math.abs(xGrav) < 34) {
+              xStrength = "average";1
+          } else if (34 < Math.abs(xGrav) &&  Math.abs(xGrav) < maxGrav) {
+              xStrength = "strong";
+          }
+          console.log(xGrav, xDir, xStrength);
+          break;
+      case "3":
+          sign = signs[Math.floor(Math.random() * 2)];
+          console.log("Sign: " + sign);
+
+          console.log("Level: " + level);
+
+          ammoCount = 10;
+          goal = 5;
+          gameLength = 60;
+
+          maxGrav = 40;
+          minGrav = 20;
+
+          xGrav = sign * ((Math.random()*(maxGrav-minGrav)) + minGrav);
+
+          yGrav = -100;
+
+          scene.setGravity(new THREE.Vector3(xGrav, yGrav, 0));
+
+          if (xGrav > 0) {
+              xDir = "right";
+          } else if (xGrav < 0) {
+              xDir = "left";
+          }
+
+          if (minGrav < Math.abs(xGrav) &&  Math.abs(xGrav) < 26) {
+              xStrength = "weak";
+          } else if (26 < Math.abs(xGrav) &&  Math.abs(xGrav) < 34) {
+              xStrength = "average";1
+          } else if (34 < Math.abs(xGrav) &&  Math.abs(xGrav) < maxGrav) {
+              xStrength = "strong";
+          }
+          console.log(xGrav, xDir, xStrength);
+          break;
+  }
+
+    document.getElementById('weight').innerHTML = xStrength;
+    windElement = document.getElementById("arrowIcon");
+    if (xDir == "right") {
+        arrowSource = '../../Resources/Textures/Razeen/arrow.png';
+    } else if (xDir == "left") {
+        arrowSource = '../../Resources/Textures/Razeen/arrowleft.png';
+    }
+
+    windElement.setAttribute('src', arrowSource);
+}
+
 function render() {
     requestAnimationFrame(render);
 
     moveAvatar();
     moveLaser(mouseCoords);
-
 
     scene.simulate();
     renderer.render( scene, camera);
