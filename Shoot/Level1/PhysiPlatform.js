@@ -1,4 +1,3 @@
-
 function createStallPlatform(){
     let platformMat = new THREE.MeshStandardMaterial({
         map: new THREE.TextureLoader().load('../../Resources/Textures/Dino/neontexture1.jpg'),
