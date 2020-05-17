@@ -38,6 +38,7 @@
     z-index: 1;
     background-color: rgba(0,0,0,0);
     visibility: visible;
+    user-select: none;
 }
 
 .stats{
@@ -148,6 +149,7 @@
     z-index: 1;
     background-color: rgba(128,0,0,0.6);
     visibility: hidden;
+    user-select: none;
 }
 
 #GameOverText{

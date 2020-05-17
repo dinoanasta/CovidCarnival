@@ -24,7 +24,7 @@ function onMouseDown(event) {
 
     if(numBalls < ammoCount){
         sound = document.getElementById("raygun");
-        sound.play();
+        //sound.play();
 
         mouseCoords.set(
             (event.clientX / window.innerWidth) * 2 - 1,

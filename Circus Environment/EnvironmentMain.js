@@ -23,8 +23,8 @@ var textureLoader = new THREE.TextureLoader();
 var loader = new THREE.GLTFLoader();
 
 //Moon stall
-let stall, moon;
-let stallHolder = new THREE.Object3D();
+let moonStall, moon;
+let stallHolder = new THREE.Group();
 
 function setupScene(){
     scene = new Physijs.Scene;
@@ -51,7 +51,13 @@ function setupScene(){
     scene.add(ambientLight)
 
     controls = new THREE.OrbitControls(camera,renderer.domElement);
-
+    controls.maxDistance = 2000;
+    controls.minPolarAngle = Math.PI / 4;
+    controls.maxPolarAngle = 3*Math.PI / 4;
+    controls.mouseButtons = {
+        MIDDLE: THREE.MOUSE.DOLLY,
+        RIGHT: THREE.MOUSE.ROTATE
+    }
 
     var textureURLs = [  // URLs of the six faces of the cubeMap map
 
@@ -73,7 +79,6 @@ function setupScene(){
         } ) );
 
     }
-
     cubeMap = new THREE.Mesh( new THREE.CubeGeometry(5000,5000,5000),
         materials );
     scene.add(cubeMap);
@@ -84,19 +89,26 @@ var mouse = new THREE.Vector2();
 var raycaster = new THREE.Raycaster();
 
 function doMouseDown(event) {
-    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-    mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
-    // update the picking ray with the camera and mouse position
-    raycaster.setFromCamera(mouse, camera);
+    if(event.button == 0){
+        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
-    // calculate objects intersecting the picking ray
+        // update the picking ray with the camera and mouse position
+        raycaster.setFromCamera(mouse, camera);
 
-    let intersects = raycaster.intersectObjects(scene.children);
+        let intersects = raycaster.intersectObjects(scene.children);
 
-    if (intersects[0] != null) {
-        alert("Working");
+        if (intersects[0].object == moonStall) {
+            document.getElementById("loadGame");
+            window.location.href = "../Shoot/Level1/Phys.html";
+        }
     }
+
+}
+
+function doMouseUp(event) {
+    console.log("lifted");
 }
 
 function updateFrame() {

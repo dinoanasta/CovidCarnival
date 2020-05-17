@@ -151,7 +151,7 @@ function setupScene() {
     duck.addEventListener( 'collision', function( other_object, relative_velocity, relative_rotation, contact_normal ) {
         if(other_object == ball){
             sound = document.getElementById("boom");
-            sound.play();
+            //sound.play();
 
             console.log("bang bang!");
             console.log(duck.position.y);

@@ -223,7 +223,7 @@ function loadModels(){
         //emissiveIntensity: 0.4,
         specular: 0xf0f0f0,
         color: 0x069AFA,
-        map: textureLoader.load("../Resources/Textures/Razeen/lblue.jpg")
+        map: textureLoader.load("../Resources/Textures/Dino/iridescent.jpg")
     });
 
     planet = new THREE.Mesh(planGeo,planMesh);

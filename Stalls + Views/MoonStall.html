@@ -43,7 +43,7 @@
 
     var textureLoader = new THREE.TextureLoader();
 
-    var stall = makeStall();
+    var moonStall = makeStall();
     stall.position.z = -300;
     makeMoon();
 
@@ -92,7 +92,7 @@
 
     function makeStall(){
 
-        var stall = makeWall2();
+        var moonStall = makeWall2();
 
         var wall = makeWall();
         wall.position.x = 200;
@@ -127,7 +127,7 @@
         return stall;
     }
 
-    function rotateStall(stall){
+    function rotateStall(moonStall){
 
         stall.position.y = 50;
         stall.position.z = -300;

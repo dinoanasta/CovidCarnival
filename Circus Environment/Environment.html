@@ -14,6 +14,7 @@
     <script src = "EnvironmentPlatform.js"></script>
     <script src = "Moonstall.js"></script>
     <script src = "Stalls.js"></script>
+    <a href = "../Shoot/Level1/Phys.html" id="loadGame"></a>
     <script>
         function init() {
             renderer = new THREE.WebGLRenderer({antialias:true});
@@ -30,6 +31,7 @@
             addMoonStall();
 
             window.addEventListener("mousedown",doMouseDown,false);
+            window.addEventListener("mouseup",doMouseUp,false);
 
             animate();
         }
