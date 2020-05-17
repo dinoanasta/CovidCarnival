@@ -212,46 +212,46 @@
     var loader = new THREE.GLTFLoader();
    // var light2 = new THREE.AmbientLight();
    //
-    loader.load("../Models/sci-fi_lantern/scene.gltf", function (object) {
-        let lantern = object.scene.children[0];
-        lantern.rotation.x = -0.5*Math.PI;
-        lantern.position.y = 20;
-        lantern.position.z = 220;
-        lantern.position.x = -225;
-        lantern.scale.set(15,15,15);
-        scene.add(lantern);
-    });
+   //  loader.load("../Models/sci-fi_lantern/scene.gltf", function (object) {
+   //      let lantern = object.scene.children[0];
+   //      lantern.rotation.x = -0.5*Math.PI;
+   //      lantern.position.y = 20;
+   //      lantern.position.z = 220;
+   //      lantern.position.x = -225;
+   //      lantern.scale.set(15,15,15);
+   //      scene.add(lantern);
+   //  });
    //
-    loader.load("../Models/low_poly_glowing_mushroom/scene.gltf", function (object) {
-        let shroom = object.scene.children[0];
-        shroom.rotation.x = -0.5*Math.PI;
-        shroom.position.x = 225;
-        shroom.position.y = 70;
-        shroom.position.z = 220;
-        shroom.scale.set(60,80,50);
-        scene.add(shroom);
-    });
+   //  loader.load("../Models/low_poly_glowing_mushroom/scene.gltf", function (object) {
+   //      let shroom = object.scene.children[0];
+   //      shroom.rotation.x = -0.5*Math.PI;
+   //      shroom.position.x = 225;
+   //      shroom.position.y = 70;
+   //      shroom.position.z = 220;
+   //      shroom.scale.set(60,80,50);
+   //      scene.add(shroom);
+   //  });
    //
-    loader.load("../Models/mushroom/scene.gltf", function (object) {
-        let shroom2 = object.scene.children[0];
-        shroom2.rotation.x = -0.5*Math.PI;
-        shroom2.position.x = 225;
-        shroom2.position.y = 100;
-        shroom2.position.z = -400;
-        shroom2.scale.set(60,80,50);
-        scene.add(shroom2);
-    });
+   //  loader.load("../Models/mushroom/scene.gltf", function (object) {
+   //      let shroom2 = object.scene.children[0];
+   //      shroom2.rotation.x = -0.5*Math.PI;
+   //      shroom2.position.x = 225;
+   //      shroom2.position.y = 100;
+   //      shroom2.position.z = -400;
+   //      shroom2.scale.set(60,80,50);
+   //      scene.add(shroom2);
+   //  });
    //
-    loader.load("../Models/subwoofer/scene.gltf", function (object) {
-        let speaker = object.scene.children[0];
-        speaker.rotation.x = -0.5*Math.PI;
-        speaker.rotation.z = 0.25*Math.PI;
-        speaker.position.x = -225;
-        speaker.position.y = 250;
-        speaker.position.z = -260;
-        speaker.scale.set(5,5,5);
-        scene.add(speaker);
-    });
+   //  loader.load("../Models/subwoofer/scene.gltf", function (object) {
+   //      let speaker = object.scene.children[0];
+   //      speaker.rotation.x = -0.5*Math.PI;
+   //      speaker.rotation.z = 0.25*Math.PI;
+   //      speaker.position.x = -225;
+   //      speaker.position.y = 250;
+   //      speaker.position.z = -260;
+   //      speaker.scale.set(5,5,5);
+   //      scene.add(speaker);
+   //  });
     var texturePlan = new THREE.TextureLoader().load("../Resources/Textures/Razeen/lblue.jpg");
     var planGeo = new THREE.SphereGeometry(300,450,450);
     var planMesh = new THREE.MeshPhongMaterial({
@@ -265,7 +265,7 @@
 
      var planet = new THREE.Mesh(planGeo,planMesh);
      planet.position.y = 800;
-    scene.add(planet);
+    // scene.add(planet);
 
     var textureURLs = [  // URLs of the six faces of the cubeMap map
 
@@ -280,34 +280,17 @@
     for (var i = 0; i < 6; i++) {
         var texture = new THREE.TextureLoader().load( textureURLs[i] );
         materials.push( new THREE.MeshBasicMaterial( {
-            color: "white",  // Color will be multiplied by texture color.
-            side: THREE.DoubleSide,  // IMPORTANT: To see the inside of the cubeMap,
-                                     //            back faces must be rendered!
+            color: "white",
+            side: THREE.DoubleSide,
+
             map: texture
         } ) );
 
     }
 
-    cubeMap = new THREE.Mesh( new THREE.CubeGeometry(5000,5000,5000),
-        materials );
-    scene.add(cubeMap);
-
-
-    // barriers[1].position.x = 0;
-    // barriers[1].position.y= 40;
-    // barriers[1].position.z = -480;
-    // barriers[1].rotation.z = 0.5*Math.PI;
-    // scene.add(barriers[1]);
-    //
-    // barriers[2].position.x = -480;
-    // barriers[2].position.y= 40;
-    // barriers[2].rotation.x = 0.5*Math.PI;
-    // scene.add(barriers[2]);
-    //
-    // barriers[3].position.x = 480;
-    // barriers[3].position.y= 40;
-    // barriers[3].rotation.x = 0.5*Math.PI;
-    // scene.add(barriers[3]);
+    // cubeMap = new THREE.Mesh( new THREE.CubeGeometry(5000,5000,5000),
+    //     materials );
+    // scene.add(cubeMap);
 
     camera.position.x = 0;
     camera.position.y = 100;
@@ -316,14 +299,34 @@
 
     var controls=new THREE.OrbitControls(camera,renderer.domElement);
 
-    function updateForFrame() {
+    //Ray Caster Code
+    var mouseCoords = new THREE.Vector2();
+    var raycaster = new THREE.Raycaster();
+
+    function doMouse(event) {
+        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+        // update the picking ray with the camera and mouse position
+        raycaster.setFromCamera(mouse, camera);
+
+        // calculate objects intersecting the picking ray
+
+        let intersects = raycaster.intersectObjects(scene.children);
+
+        if (intersects[0] != null) {
+           console.log('working');
+        }
+    }
+
+    function updateFrame() {
         planet.rotation.x += 0.1;
         planet.rotation.y += 0.1;
     }
 
     var animate = function () {
         frameNumber++;
-        updateForFrame();
+        updateFrame();
 
         if (frameNumber >= 30) {
             frameNumber = 0;
@@ -380,74 +383,13 @@
         controls.update();
         renderer.render( scene, camera );
     };
-
-    // var axes = new THREE.AxesHelper(30);
-    // scene.add(axes);
-    // var landGeo = new THREE.PlaneGeometry(60,60,32);
-    // var landMat = new THREE.MeshLambertMaterial({color: 0x11fa46});
-    // var land = new Physijs.BoxMesh(landGeo,landMat);
-    // land.rotation.x = -0.5*Math.PI;
-    // scene.add(land);
-
-    // var loader = new THREE.GLTFLoader();
-    // var light2 = new THREE.AmbientLight();
-
-    // loader.load("models/scene.gltf", function (object) {
-    //     let wolf = object.scene.children[0];
-    //     wolf.rotation.x = -0.5*Math.PI;
-    //     wolf.position.y = 5;
-    //     wolf.position.z = 5;
-    //     wolf.scale.set(10,10,10);
-    //     scene.add(wolf);
-    // });
-
-    // var textureURLs = [  // URLs of the six faces of the cubeMap map
-    //
-    //     "red/bkg1_right1.png",   // Note:  The order in which
-    //     "red/bkg1_left2.png",   //   the images are listed is
-    //     "red/bkg1_top3.png",   //   important!
-    //     "red/bkg1_bottom4.png",
-    //     "red/bkg1_back6.png",
-    //     "red/bkg1_front5.png"
-    // ];
-
-    //  "blue/bkg1_right.png",   // Note:  The order in which
-    // "blue/bkg1_left.png",   //   the images are listed is
-    //     "blue/bkg1_top.png",   //   important!
-    //     "blue/bkg1_bottom.png",
-    //     "blue/bkg1_back.png",
-    //     "blue/bkg1_front.png"
-
-    // "lightblue/right.png",   // Note:  The order in which
-    //     "lightblue/left.png",   //   the images are listed is
-    //     "lightblue/top.png",   //   important!
-    //     "lightblue/bot.png",
-    //     "lightblue/back.png",
-    //     "lightblue/front.png"
-
-    // "red/bkg1_right1.png",   // Note:  The order in which
-    //     "red/bkg1_left2.png",   //   the images are listed is
-    //     "red/bkg1_top3.png",   //   important!
-    //     "red/bkg1_bottom4.png",
-    //     "red/bkg1_back6.png",
-    //     "red/bkg1_front5.png"
-
-    // var materials = [];
-    // for (var i = 0; i < 6; i++) {
-    //     var texture = new THREE.TextureLoader().load( textureURLs[i] );
-    //     materials.push( new THREE.MeshBasicMaterial( {
-    //         color: "white",  // Color will be multiplied by texture color.
-    //         side: THREE.DoubleSide,  // IMPORTANT: To see the inside of the cubeMap,
-    //                                  //            back faces must be rendered!
-    //         map: texture
-    //     } ) );
-    //
-    // }
-    //
-    // cubeMap = new THREE.Mesh( new THREE.CubeGeometry(10000,10000,10000),
-    //     materials );
-    // scene.add(cubeMap);
     animate();
+
+    function init() {
+        window.addEventListener("mousedown",doMouse,false);
+        requestAnimationFrame(animate());
+    }
 </script>
+<script src = "Moonstall.js"></script>
 </body>
 </html>
