@@ -23,8 +23,6 @@ function onMouseMove(event){
 }
 
 let numBalls = 0;
-
-var b_count = ammoCount; //Razeen
 function onMouseDown(event) {
 
     if(numBalls < ammoCount){
@@ -62,38 +60,31 @@ function onMouseDown(event) {
 
         scene.add(ball);
 
-        //Razeen
-        b_count = b_count-1; //Reduces number of balls left for user to shoot
-        document.getElementById("ball_count").innerHTML = b_count; // changes ammo count on html
-
         pos.copy( raycaster.ray.direction );
         pos.multiplyScalar( 2 );
         ball.setLinearVelocity( new THREE.Vector3( pos.x, pos.y, pos.z ) );
 
         numBalls++;
+
+        //Razeen
+        document.getElementById("ballCountValue").innerHTML = ammoCount-numBalls; // changes ammo count on html
     }else{
         //alert("Out of ammo");
         //Razeen
         //     let m = document.querySelectorAll('h2'); //Checks if header exists
-            let Message = document.getElementById("Game_Over"); //Pulls Game_Over div from HTML doc
+        //     let Message = document.getElementById("Game_Over"); //Pulls Game_Over div from HTML doc
+        //
+        //     // if(m){ //If header exists, remove it
+        //     //   Message.removeChild(m);
+        //     // }
+        //
+        //     let message = document.createElement('h2'); // Creates a new Header Tag
+        //     let text = document.createTextNode("Game Over, Restart?");
+        //     message.appendChild(text);
+        //     Message.appendChild(message);
 
-            // if(m){ //If header exists, remove it
-            //   Message.removeChild(m);
-            // }
-
-            let message = document.createElement('h2'); // Creates a new Header Tag
-            let text = document.createTextNode("Game Over, Restart?");
-            message.appendChild(text);
-
-
-            Message.appendChild(message);
-            //
-            // var btn = document.createElement('button'); // Creates a return button
-            //
-            // var btnText = document.createTextNode("Restart Game");
-            // btn.appendChild(btnText);
-            // let BTN = document.getElementById("Game_Over_Button");//Pulls Game_Over div from HTML doc
-            // BTN.appendChild(btn);
+            document.getElementById("HUD").style.visibility = 'hidden';
+            document.getElementById("GameOverHUD").style.visibility = 'visible';
     }
 
 }

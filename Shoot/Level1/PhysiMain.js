@@ -36,6 +36,7 @@ let avatarLocalPos = {x:0, z:0};
 
 //Shooting
 let ball;
+let b_count;
 let avatarHead = new THREE.Vector3();
 let rayx, rayy;
 let rayDirection = new THREE.Vector3();
@@ -214,7 +215,9 @@ function onWindowResize() {
 
 function setLevel(lvl){
   switch (lvl){
-      case "1": //Level 1
+      case "1":
+          //Level 1
+
           sign = signs[Math.floor(Math.random() * 2)];
           console.log("Sign: " + sign);
 
@@ -248,13 +251,15 @@ function setLevel(lvl){
           }
           console.log(xGrav, xDir, xStrength);
           break;
-      case "2": //Level 2
+      case "2":
+          //Level 2
+
           sign = signs[Math.floor(Math.random() * 2)];
           console.log("Sign: " + sign);
 
           console.log("Level: " + level);
 
-          ammoCount = 10;
+          ammoCount = 5;
           goal = 5;
           gameLength = 60;
 
@@ -283,12 +288,14 @@ function setLevel(lvl){
           console.log(xGrav, xDir, xStrength);
           break;
       case "3":
+          //Level 3
+
           sign = signs[Math.floor(Math.random() * 2)];
           console.log("Sign: " + sign);
 
           console.log("Level: " + level);
 
-          ammoCount = 10;
+          ammoCount = 5;
           goal = 5;
           gameLength = 60;
 
@@ -318,8 +325,9 @@ function setLevel(lvl){
           break;
   }
 
-    document.getElementById('weight').innerHTML = xStrength;
-    windElement = document.getElementById("arrowIcon");
+    document.getElementById("ballCountValue").innerHTML = ammoCount;
+    document.getElementById('windStrength').innerHTML = xStrength;
+    windElement = document.getElementById("windIcon");
     if (xDir == "right") {
         arrowSource = '../../Resources/Textures/Razeen/arrow.png';
     } else if (xDir == "left") {
