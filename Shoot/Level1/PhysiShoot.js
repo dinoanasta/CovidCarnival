@@ -6,8 +6,6 @@ function moveLaser (mouseCoords){
 
     rayDirection.set(rayx,rayy-40, -100).normalize();
 
-    //let direction = new THREE.Vector3().subVectors(rayDirection, avatarHead);
-
     laser.position.copy(avatarHead);
     laser.setDirection(rayDirection);
     laser.setLength(200, 0.00001, 0.00001);
@@ -19,15 +17,14 @@ function onMouseMove(event){
         -(event.clientY / window.innerHeight) * 2 + 1
     );
     moveLaser(mouseCoords);
-
 }
 
 let numBalls = 0;
 function onMouseDown(event) {
 
     if(numBalls < ammoCount){
-        let sound = document.getElementById("raygun");
-        //sound.play();
+        sound = document.getElementById("raygun");
+        sound.play();
 
         mouseCoords.set(
             (event.clientX / window.innerWidth) * 2 - 1,
@@ -36,7 +33,7 @@ function onMouseDown(event) {
 
         let ballRadius = 3;
 
-        let ball = new Physijs.SphereMesh(
+        ball = new Physijs.SphereMesh(
             new THREE.SphereGeometry(ballRadius, 10, 10),
             new THREE.MeshStandardMaterial({
                 map: new THREE.TextureLoader().load('../../Resources/Textures/Dino/trippy2.jpeg'),
@@ -66,23 +63,8 @@ function onMouseDown(event) {
 
         numBalls++;
 
-        //Razeen
         document.getElementById("ballCountValue").innerHTML = ammoCount-numBalls; // changes ammo count on html
     }else{
-        //alert("Out of ammo");
-        //Razeen
-        //     let m = document.querySelectorAll('h2'); //Checks if header exists
-        //     let Message = document.getElementById("Game_Over"); //Pulls Game_Over div from HTML doc
-        //
-        //     // if(m){ //If header exists, remove it
-        //     //   Message.removeChild(m);
-        //     // }
-        //
-        //     let message = document.createElement('h2'); // Creates a new Header Tag
-        //     let text = document.createTextNode("Game Over, Restart?");
-        //     message.appendChild(text);
-        //     Message.appendChild(message);
-
             document.getElementById("HUD").style.visibility = 'hidden';
             document.getElementById("GameOverHUD").style.visibility = 'visible';
     }

@@ -19,6 +19,7 @@ let gameLength; //How long the game lasts
 let cubeMap;
 let renderer, scene, camera, box;
 let pos = new THREE.Vector3();
+let sound;
 
 //Mouse Coordinates and raycaster
 let mouseCoords = new THREE.Vector2(),
@@ -51,7 +52,7 @@ var realDuckModel;
 duck = new Physijs.BoxMesh(
     new THREE.BoxGeometry(7,7,7),
     new THREE.MeshStandardMaterial({
-        //map: new THREE.TextureLoader().load('../../Resources/Textures/Dino/redfoil.jpg'),
+        map: new THREE.TextureLoader().load('../../Resources/Textures/Dino/redfoil.jpg'),
     }),
     1
 );
@@ -61,25 +62,6 @@ duck.position.set(0, 25,-70);
 //rand.receiveShadow = true; disabling this to debug on my machine because its kak slow :/
 
 let loader = new THREE.GLTFLoader();
-    loader.load(
-        "../../Models/glTF/Duck.gltf",
-        function (object) {
-            object.scene.traverse( function( object ) {
-                if ( object.isMesh ) {
-                    //object.castShadow = true;
-                }
-            } );
-
-            duckModel = object.scene.children[0];
-
-            duckModel.position.set(duck.position.x, duck.position.y-4, duck.position.z);
-            duckModel.scale.set(0.05,0.05,0.05);
-
-            //duckModel.castShadow = true;
-            //duckModel.receiveShadow = true;
-            realDuckModel=duckModel.clone(true);
-        }
-    );
 
 
 function setupScene() {
@@ -146,14 +128,37 @@ function setupScene() {
 
     //adding a duck
     scene.add(duck);
-    scene.add(realDuckModel);
+
+    loader.load(
+        "../../Models/glTF/Duck.gltf",
+        function (object) {
+            object.scene.traverse( function( object ) {
+                if ( object.isMesh ) {
+                    //object.castShadow = true;
+                }
+            } );
+
+            realDuckModel = object.scene.children[0];
+
+            realDuckModel.position.set(duck.position.x, duck.position.y-4, duck.position.z);
+            realDuckModel.scale.set(0.05,0.05,0.05);
+
+            scene.add(realDuckModel);
+        }
+    );
+
     //duck.__dirtyPosition = true;
     duck.addEventListener( 'collision', function( other_object, relative_velocity, relative_rotation, contact_normal ) {
-        console.log("bang bang!");
-        console.log(duck.position.y);
-        duck.position.y=duck.position.y+500;
-        console.log(duck.position.y);
-        duck.__dirtyPosition=true;
+        if(other_object == ball){
+            sound = document.getElementById("boom");
+            sound.play();
+
+            console.log("bang bang!");
+            console.log(duck.position.y);
+            duck.position.y=duck.position.y+500;
+            console.log(duck.position.y);
+            duck.__dirtyPosition=true;
+        }
     });
 
     //CubeMap
@@ -180,7 +185,6 @@ function setupScene() {
         new THREE.BoxGeometry(1000,1000,1000), materials );
     scene.add(cubeMap);
 }
-
 
 function setupEventHandlers(){
     window.addEventListener( 'keydown', handleKeyDown, false);
@@ -250,21 +254,6 @@ function onWindowResize() {
 
 }
 
-
-
-//
-// function animate(){
-//     requestAnimationFrame(animate);
-//     moveAvatar();
-//     moveLaser(mouseCoords);
-//     render();
-// }
-//
-// function render(){
-//      scene.simulate();
-//     renderer.render( scene, camera);
-// }
-
 function setLevel(lvl){
   switch (lvl){
       case "1":
@@ -286,7 +275,7 @@ function setLevel(lvl){
 
           yGrav = -10;
 
-          scene.setGravity(new THREE.Vector3(xGrav*0, yGrav*0, 0)); //testing with no gravity...
+          scene.setGravity(new THREE.Vector3(xGrav, yGrav, 0)); //testing with no gravity...
 
           if (xGrav > 0) {
               xDir = "right";
@@ -413,6 +402,7 @@ function render() {
     duck.__dirtyRotation=true;
 
     frameRate++;
+
     scene.simulate();
     renderer.render( scene, camera);
 }
