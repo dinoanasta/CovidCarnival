@@ -53,12 +53,12 @@
     <div id="viewport"></div>
     <script>
         function init(){
-            renderer = new THREE.WebGLRenderer( { antialias: true } );
+            renderer = new THREE.WebGLRenderer( { antialias: false } ); //disabling antialias to debug on my machine because its kak slow :/
             renderer.setClearColor( 0x00a0a0 );
             renderer.setPixelRatio( window.devicePixelRatio);
             renderer.setSize( window.innerWidth, window.innerHeight);
-            renderer.shadowMap.enabled = true;
-            renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+            //renderer.shadowMap.enabled = true; disabling this option to debug on my machine because its kak slow :/
+           // renderer.shadowMap.type = THREE.PCFSoftShadowMap; disabling this option to debug on my machine because its kak slow :/
             document.getElementById( 'viewport' ).appendChild( renderer.domElement );
 
             setupScene();

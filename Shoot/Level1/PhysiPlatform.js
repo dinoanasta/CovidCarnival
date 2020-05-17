@@ -1,3 +1,5 @@
+
+
 function createStallPlatform(){
     let platformMat = new THREE.MeshStandardMaterial({
         map: new THREE.TextureLoader().load('../../Resources/Textures/Dino/neontexture1.jpg'),
@@ -5,19 +7,6 @@ function createStallPlatform(){
         //opacity: 0.9
     });
 
-    //RandomGravityTester
-    let rand = new Physijs.BoxMesh(
-        new THREE.BoxGeometry(10,10,10),
-        new THREE.MeshStandardMaterial({
-            map: new THREE.TextureLoader().load('../../Resources/Textures/Dino/redfoil.jpg'),
-        }),
-        100
-    );
-    rand.position.set(0, 50,-70);
-    rand.castShadow = true;
-    rand.receiveShadow = true;
-    scene.add(rand);
-    
     // Base
     let baseSize = {width: 100, height: 2, depth:200}
     let base = new Physijs.BoxMesh(
