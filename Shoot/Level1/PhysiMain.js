@@ -20,10 +20,12 @@ let cubeMap;
 let renderer, scene, camera, box;
 let pos = new THREE.Vector3();
 let sound;
+let loader = new THREE.GLTFLoader();
+let camType = "third";
 
 //Mouse Coordinates and raycaster
-let mouseCoords = new THREE.Vector2(),
-    raycaster = new THREE.Raycaster();
+let mouseCoords = new THREE.Vector2();
+let raycaster = new THREE.Raycaster();
 
 //Gravity variables
 let xGrav, xDir, xStrength, maxGrav, minGrav, sign;
@@ -32,9 +34,10 @@ let signs = [1, -1];
 
 //Avatar
 let avatar;
+let avatarPosition = new THREE.Vector3();
 let AvatarMoveDirection = { x: 0, z: 0 };
-let movementBoundaries = { leftX: -40, rightX: 40, frontZ: -10, backZ: 10 };
-let avatarLocalPos = { x: 0, z: 0 };
+let movementBoundaries = {leftX : -38, rightX:38, frontZ: -10, backZ: 10};
+let avatarLocalPos = {x:0, z:0};
 
 //Shooting
 let ball;
@@ -44,7 +47,13 @@ let rayx, rayy;
 let rayDirection = new THREE.Vector3();
 let laser;
 
-//ducks
+// Duck
+// let duck;
+// let duckModel;
+// let duckCoordinates;
+// let realDuckModelArray;
+// let duckArray;
+
 var duck;
 var duckModel;
 var realDuckModel;
@@ -53,7 +62,7 @@ duck = new Physijs.BoxMesh(
     new THREE.BoxGeometry(7, 7, 7),
     new THREE.MeshStandardMaterial({
         opacity: 0.0001,
-        transparent: true
+        // transparent: true
         //map: new THREE.TextureLoader().load('../../Resources/Textures/Dino/redfoil.jpg'),
     }),
     1
@@ -67,7 +76,7 @@ var duckCoordinates = [
     new THREE.Vector3(25, 15, -70),   //5
     new THREE.Vector3(-25, 30, -70),  //6
     new THREE.Vector3(-25, 45, -70),  //7
-    new THREE.Vector3(-25, 15, -70)   //8 
+    new THREE.Vector3(-25, 15, -70)   //8
 ];
 
 var realDuckModelArray = [
@@ -110,7 +119,6 @@ for (let x = 0; x < 9; x++) {
 //rand.castShadow = true; disabling this to debug on my machine because its kak slow :/
 //rand.receiveShadow = true; disabling this to debug on my machine because its kak slow :/
 
-let loader = new THREE.GLTFLoader();
 loader.load(
     "../../Models/glTF/Duck.gltf",
     function (object) {
@@ -135,10 +143,6 @@ loader.load(
     }
 );
 
-var score = 0;
-
-
-
 function setupScene() {
     scene = new Physijs.Scene;
 
@@ -149,6 +153,7 @@ function setupScene() {
         0.5,
         1000
     );
+
     camera.position.set(0, 60, 150);
     camera.lookAt(new THREE.Vector3(0, 0, 0));
     scene.add(camera);
@@ -201,33 +206,6 @@ function setupScene() {
     laser = new THREE.ArrowHelper(new THREE.Vector3(0, 0, -200).normalize(), avatarHead, 200, 0xff0000, 0.0001, 0.0001);
     scene.add(laser);
 
-    //adding a duck
-    for (let x = 0; x < 9; x++) {
-        scene.add(duckArray[x]);
-        scene.add(realDuckModelArray[x]);
-
-    }
-
-    // scene.add(duckArray[1]);
-
-    // scene.add(realDuckModelArray[1]);
-    //duck.__dirtyPosition = true;
-    for (let x = 0; x < 9; x++) {
-        duckArray[x].addEventListener('collision', function (other_object, relative_velocity, relative_rotation, contact_normal) {
-            if (other_object == ball) {
-                console.log("bang bang!");
-                console.log(duckArray[x].position.y);
-                duckArray[x].position.y = duckArray[x].position.y + 500;
-                realDuckModelArray[x].position.set(duckArray[x].position.x, duckArray[x].position.y + 4, duckArray[x].position.z);
-                console.log(duckArray[x].position.y);
-                duckArray[x].__dirtyPosition = true;
-                score++;
-                document.getElementById("Score").innerHTML = "Score: " + score;
-            }
-        });
-    }
-
-
     //CubeMap
     var textureURLs = [  // URLs of the six faces of the cube map
         // right, left, top, bottom, front, back
@@ -251,8 +229,29 @@ function setupScene() {
     cubeMap = new THREE.Mesh(
         new THREE.BoxGeometry(1000, 1000, 1000), materials);
     scene.add(cubeMap);
-}
 
+    //adding a duck
+    for (let x = 0; x < 9; x++) {
+        scene.add(duckArray[x]);
+        scene.add(realDuckModelArray[x]);
+        console.log(x);
+    }
+
+    for (let x = 0; x < 9; x++) {
+        duckArray[x].addEventListener('collision', function (other_object, relative_velocity, relative_rotation, contact_normal) {
+            if (other_object == ball) {
+                console.log("bang bang!");
+                console.log(duckArray[x].position.y);
+                duckArray[x].position.y = duckArray[x].position.y + 500;
+                realDuckModelArray[x].position.set(duckArray[x].position.x, duckArray[x].position.y + 4, duckArray[x].position.z);
+                console.log(duckArray[x].position.y);
+                duckArray[x].__dirtyPosition = true;
+                //score++;
+                // document.getElementById("Score").innerHTML = "Score: " + score;
+            }
+        });
+    }
+}
 
 function setupEventHandlers() {
     window.addEventListener('keydown', handleKeyDown, false);
@@ -288,9 +287,15 @@ function handleKeyDown(event) {
         case 65: //A: LEFT
             AvatarMoveDirection.x = -1
             break;
-        case 68: //: RIGHT
+        case 68: //D: RIGHT
             AvatarMoveDirection.x = 1
             break;
+        case 86: //V: Change camera view
+            if (camType == "first") {
+                camType = "third";
+            } else if (camType == "third") {
+                camType = "first";
+            }
     }
 
 }
@@ -322,21 +327,6 @@ function onWindowResize() {
 
 }
 
-
-
-//
-// function animate(){
-//     requestAnimationFrame(animate);
-//     moveAvatar();
-//     moveLaser(mouseCoords);
-//     render();
-// }
-//
-// function render(){
-//      scene.simulate();
-//     renderer.render( scene, camera);
-// }
-
 function setLevel(lvl) {
     switch (lvl) {
         case "1": //Level 1
@@ -356,7 +346,7 @@ function setLevel(lvl) {
 
             yGrav = -10;
 
-            scene.setGravity(new THREE.Vector3(xGrav * 0, yGrav * 0, 0)); //testing with no gravity...
+            scene.setGravity(new THREE.Vector3(xGrav, yGrav, 0)); //testing with no gravity...
 
             if (xGrav > 0) {
                 xDir = "right";
@@ -367,7 +357,8 @@ function setLevel(lvl) {
             if (minGrav < Math.abs(xGrav) && Math.abs(xGrav) < 26) {
                 xStrength = "weak";
             } else if (26 < Math.abs(xGrav) && Math.abs(xGrav) < 34) {
-                xStrength = "average"; 1
+                xStrength = "average";
+                1
             } else if (34 < Math.abs(xGrav) && Math.abs(xGrav) < maxGrav) {
                 xStrength = "strong";
             }
@@ -401,7 +392,8 @@ function setLevel(lvl) {
             if (minGrav < Math.abs(xGrav) && Math.abs(xGrav) < 26) {
                 xStrength = "weak";
             } else if (26 < Math.abs(xGrav) && Math.abs(xGrav) < 34) {
-                xStrength = "average"; 1
+                xStrength = "average";
+                1
             } else if (34 < Math.abs(xGrav) && Math.abs(xGrav) < maxGrav) {
                 xStrength = "strong";
             }
@@ -413,9 +405,9 @@ function setLevel(lvl) {
 
             console.log("Level: " + level);
 
-          ammoCount = 5;
-          goal = 5;
-          gameLength = 60;
+            ammoCount = 5;
+            goal = 5;
+            gameLength = 60;
 
             maxGrav = 40;
             minGrav = 20;
@@ -435,7 +427,8 @@ function setLevel(lvl) {
             if (minGrav < Math.abs(xGrav) && Math.abs(xGrav) < 26) {
                 xStrength = "weak";
             } else if (26 < Math.abs(xGrav) && Math.abs(xGrav) < 34) {
-                xStrength = "average"; 1
+                xStrength = "average";
+                1
             } else if (34 < Math.abs(xGrav) && Math.abs(xGrav) < maxGrav) {
                 xStrength = "strong";
             }
@@ -482,8 +475,7 @@ function render() {
         realDuckModelArray[3].position.z += 7;
         realDuckModelArray[6].position.z += 7;
 
-    }
-    else if (frameRate >= 30 && frameRate < 60) {
+    } else if (frameRate >= 30 && frameRate < 60) {
         //duck.rotation.y-=0.1;
         //realDuckModel.rotation.y-=0.1;
         //realDuckModel.position.z-=5;
@@ -528,6 +520,19 @@ function render() {
     duckArray[8].__dirtyPosition = true;
 
     frameRate++;
+
+    // avatarHead.set(avatarPosition.x, avatarPosition.y +25, avatarPosition.z-20);
+
+
+    if (camType == "first") {
+        //First person
+        camera.position.set(avatarHead.x, avatarHead.y + 1, avatarHead.z);
+        camera.lookAt(0, 15, 0);
+    } else if (camType == "third") {
+        //Third person
+        camera.position.set(avatarHead.x, avatarHead.y + 30, avatarHead.z + 50);
+        camera.lookAt(0, 10, 0);
+    }
 
     scene.simulate();
     renderer.render(scene, camera);

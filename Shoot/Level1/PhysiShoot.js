@@ -1,5 +1,5 @@
 function moveLaser (mouseCoords){
-    avatarHead.set(avatar.position.x, avatar.position.y +25, avatar.position.z-5);
+    avatarHead.set(avatarPosition.x, avatarPosition.y +25, avatarPosition.z-5);
 
     rayx = mouseCoords.x*100;
     rayy = mouseCoords.y*100;
@@ -41,7 +41,7 @@ function onMouseDown(event) {
             10
         )
 
-        avatarHead.set(avatar.position.x, avatar.position.y +25, avatar.position.z-5);
+        avatarHead.set(avatarPosition.x, avatarPosition.y +25, avatarPosition.z-5);
 
         rayx = mouseCoords.x*100;
         rayy = mouseCoords.y*100;
