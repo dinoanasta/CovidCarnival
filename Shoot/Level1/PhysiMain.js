@@ -8,7 +8,7 @@ let HUD, arrowSource;
 let windElement;
 
 //FrameRate
-let frameRate=0;
+let frameRate = 0;
 //Levels
 let level = "1";
 let ammoCount; //Num of balls
@@ -25,15 +25,15 @@ let mouseCoords = new THREE.Vector2(),
     raycaster = new THREE.Raycaster();
 
 //Gravity variables
-let xGrav, xDir, xStrength,maxGrav, minGrav, sign;
+let xGrav, xDir, xStrength, maxGrav, minGrav, sign;
 let yGrav;
 let signs = [1, -1];
 
 //Avatar
 let avatar;
 let AvatarMoveDirection = { x: 0, z: 0 };
-let movementBoundaries = {leftX : -40, rightX:40, frontZ: -10, backZ: 10};
-let avatarLocalPos = {x:0, z:0};
+let movementBoundaries = { leftX: -40, rightX: 40, frontZ: -10, backZ: 10 };
+let avatarLocalPos = { x: 0, z: 0 };
 
 //Shooting
 let ball;
@@ -48,37 +48,93 @@ var duckModel;
 var realDuckModel;
 
 duck = new Physijs.BoxMesh(
-    new THREE.BoxGeometry(7,7,7),
+    new THREE.BoxGeometry(7, 7, 7),
     new THREE.MeshStandardMaterial({
+        opacity: 0.0001,
+        transparent: true
         //map: new THREE.TextureLoader().load('../../Resources/Textures/Dino/redfoil.jpg'),
     }),
     1
 );
-duck.setCcdMotionThreshold(5);
-duck.position.set(0, 25,-70); 
+var duckCoordinates = [
+    new THREE.Vector3(0, 30, -70),    //0
+    new THREE.Vector3(0, 50, -70),    //1
+    new THREE.Vector3(0, 15, -70),    //2
+    new THREE.Vector3(25, 30, -70),   //3
+    new THREE.Vector3(25, 45, -70),   //4
+    new THREE.Vector3(25, 15, -70),   //5
+    new THREE.Vector3(-25, 30, -70),  //6
+    new THREE.Vector3(-25, 45, -70),  //7
+    new THREE.Vector3(-25, 15, -70)   //8 
+];
+
+var realDuckModelArray = [
+    new THREE.Mesh,
+    new THREE.Mesh,
+    new THREE.Mesh,
+    new THREE.Mesh,
+    new THREE.Mesh,
+    new THREE.Mesh,
+    new THREE.Mesh,
+    new THREE.Mesh,
+    new THREE.Mesh
+];
+
+var duckArray = [
+    duck.clone(true),
+    duck.clone(true),
+    duck.clone(true),
+    duck.clone(true),
+    duck.clone(true),
+    duck.clone(true),
+    duck.clone(true),
+    duck.clone(true),
+    duck.clone(true)
+];
+//duck.setCcdSweptSphereRadius(3);
+for (let x = 0; x < 9; x++) {
+    duckArray[x].position.set(duckCoordinates[x].x, duckCoordinates[x].y, duckCoordinates[x].z);
+}
+
+// duckArray[1].position.set(duckCoordinates[1].x, duckCoordinates[1].y, duckCoordinates[1].z);
+// duckArray[2].position.set(duckCoordinates[2].x, duckCoordinates[2].y, duckCoordinates[2].z);
+// duckArray[3].position.set(duckCoordinates[3].x, duckCoordinates[3].y, duckCoordinates[3].z);
+// duckArray[4].position.set(duckCoordinates[4].x, duckCoordinates[4].y, duckCoordinates[4].z);
+// duckArray[5].position.set(duckCoordinates[5].x, duckCoordinates[5].y, duckCoordinates[5].z);
+// duckArray[6].position.set(duckCoordinates[6].x, duckCoordinates[6].y, duckCoordinates[6].z);
+// duckArray[7].position.set(duckCoordinates[7].x, duckCoordinates[7].y, duckCoordinates[7].z);
+// duckArray[8].position.set(duckCoordinates[8].x, duckCoordinates[8].y, duckCoordinates[8].z);
+
 //rand.castShadow = true; disabling this to debug on my machine because its kak slow :/
 //rand.receiveShadow = true; disabling this to debug on my machine because its kak slow :/
 
 let loader = new THREE.GLTFLoader();
-    loader.load(
-        "../../Models/glTF/Duck.gltf",
-        function (object) {
-            object.scene.traverse( function( object ) {
-                if ( object.isMesh ) {
-                    //object.castShadow = true;
-                }
-            } );
+loader.load(
+    "../../Models/glTF/Duck.gltf",
+    function (object) {
+        object.scene.traverse(function (object) {
+            if (object.isMesh) {
+                //object.castShadow = true;
+            }
+        });
 
-            duckModel = object.scene.children[0];
+        duckModel = object.scene.children[0];
+        // duckModel.rotation.y=Math.Pi;
+        duckModel.position.set(duckArray[0].position.x, duckArray[0].position.y - 4, duckArray[0].position.z);
+        duckModel.scale.set(0.05, 0.05, 0.05);
 
-            duckModel.position.set(duck.position.x, duck.position.y-4, duck.position.z);
-            duckModel.scale.set(0.05,0.05,0.05);
-
-            //duckModel.castShadow = true;
-            //duckModel.receiveShadow = true;
-            realDuckModel=duckModel.clone(true);
+        //duckModel.castShadow = true;
+        //duckModel.receiveShadow = true;
+        for (let x = 0; x < 9; x++) {
+            realDuckModelArray[x] = duckModel.clone(true);
+            realDuckModelArray[x].position.set(duckArray[x].position.x, duckArray[x].position.y - 4, duckArray[x].position.z);
         }
-    );
+
+    }
+);
+
+var score = 0;
+
 
 
 function setupScene() {
@@ -140,20 +196,33 @@ function setupScene() {
     topLight.shadow.camera.far = 500;     // default
 
     //Add laser like aiming helper
-    laser = new THREE.ArrowHelper(new THREE.Vector3(0,0,-200).normalize(), avatarHead,200, 0xff0000, 0.0001, 0.0001 );
-    scene.add( laser );
+    laser = new THREE.ArrowHelper(new THREE.Vector3(0, 0, -200).normalize(), avatarHead, 200, 0xff0000, 0.0001, 0.0001);
+    scene.add(laser);
 
     //adding a duck
-    scene.add(duck);
-    scene.add(realDuckModel);
+    for (let x = 0; x < 9; x++) {
+        scene.add(duckArray[x]);
+        scene.add(realDuckModelArray[x]);
+
+    }
+
+    // scene.add(duckArray[1]);
+
+    // scene.add(realDuckModelArray[1]);
     //duck.__dirtyPosition = true;
-    duck.addEventListener( 'collision', function( other_object, relative_velocity, relative_rotation, contact_normal ) {
-        console.log("bang bang!");
-        console.log(duck.position.y);
-        duck.position.y=duck.position.y+500;
-        console.log(duck.position.y);
-        duck.__dirtyPosition=true;
-    });
+    for (let x = 0; x < 9; x++) {
+        duckArray[x].addEventListener('collision', function (other_object, relative_velocity, relative_rotation, contact_normal) {
+            console.log("bang bang!");
+            console.log(duckArray[x].position.y);
+            duckArray[x].position.y = duckArray[x].position.y + 500;
+            realDuckModelArray[x].position.set(duckArray[x].position.x, duckArray[x].position.y + 4, duckArray[x].position.z);
+            console.log(duckArray[x].position.y);
+            duckArray[x].__dirtyPosition = true;
+            score++;
+            document.getElementById("Score").innerHTML = "Score: " + score;
+        });
+    }
+
 
     //CubeMap
     var textureURLs = [  // URLs of the six faces of the cube map
@@ -167,31 +236,31 @@ function setupScene() {
     ];
     var materials = [];
     for (var i = 0; i < 6; i++) {
-        var texture = new THREE.TextureLoader().load( textureURLs[i] );
-        materials.push( new THREE.MeshBasicMaterial( {
+        var texture = new THREE.TextureLoader().load(textureURLs[i]);
+        materials.push(new THREE.MeshBasicMaterial({
             color: "white",  // Color will be multiplied by texture color.
             side: THREE.BackSide,  // IMPORTANT: To see the inside of the cube, back faces must be rendered!
             map: texture
-        } ) );
+        }));
 
     }
     cubeMap = new THREE.Mesh(
-        new THREE.BoxGeometry(1000,1000,1000), materials );
+        new THREE.BoxGeometry(1000, 1000, 1000), materials);
     scene.add(cubeMap);
 }
 
 
-function setupEventHandlers(){
-    window.addEventListener( 'keydown', handleKeyDown, false);
-    window.addEventListener( 'keyup', handleKeyUp, false);
+function setupEventHandlers() {
+    window.addEventListener('keydown', handleKeyDown, false);
+    window.addEventListener('keyup', handleKeyUp, false);
     window.addEventListener('mousedown', onMouseDown, false);
     window.addEventListener('mousemove', onMouseMove, false);
-    window.addEventListener( 'resize', onWindowResize, false );
+    window.addEventListener('resize', onWindowResize, false);
 }
 
-function handleKeyDown(event){
+function handleKeyDown(event) {
     let keyCode = event.keyCode;
-    switch(keyCode){
+    switch (keyCode) {
         //Level
         case 49:
             level = "1";
@@ -222,9 +291,9 @@ function handleKeyDown(event){
 
 }
 
-function handleKeyUp(event){
+function handleKeyUp(event) {
     let keyCode = event.keyCode;
-    switch(keyCode){
+    switch (keyCode) {
         //Avatar
         case 87: //↑: FORWARD
             AvatarMoveDirection.z = 0
@@ -245,7 +314,7 @@ function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
 
-    renderer.setSize( window.innerWidth, window.innerHeight );
+    renderer.setSize(window.innerWidth, window.innerHeight);
 
 }
 
@@ -264,111 +333,111 @@ function onWindowResize() {
 //     renderer.render( scene, camera);
 // }
 
-function setLevel(lvl){
-  switch (lvl){
-      case "1": //Level 1
-          sign = signs[Math.floor(Math.random() * 2)];
-          console.log("Sign: " + sign);
+function setLevel(lvl) {
+    switch (lvl) {
+        case "1": //Level 1
+            sign = signs[Math.floor(Math.random() * 2)];
+            console.log("Sign: " + sign);
 
-          console.log("Level: " + level);
+            console.log("Level: " + level);
 
-          ammoCount = 10;
-          goal = 5;
-          gameLength = 60;
+            ammoCount = 10;
+            goal = 5;
+            gameLength = 60;
 
-          maxGrav = 40;
-          minGrav = 20;
+            maxGrav = 40;
+            minGrav = 20;
 
-          xGrav = sign * ((Math.random()*(maxGrav-minGrav)) + minGrav);
+            xGrav = sign * ((Math.random() * (maxGrav - minGrav)) + minGrav);
 
-          yGrav = -10;
+            yGrav = -10;
 
-          scene.setGravity(new THREE.Vector3(xGrav*0, yGrav*0, 0)); //testing with no gravity...
+            scene.setGravity(new THREE.Vector3(xGrav * 0, yGrav * 0, 0)); //testing with no gravity...
 
-          if (xGrav > 0) {
-              xDir = "right";
-          } else if (xGrav < 0) {
-              xDir = "left";
-          }
+            if (xGrav > 0) {
+                xDir = "right";
+            } else if (xGrav < 0) {
+                xDir = "left";
+            }
 
-          if (minGrav < Math.abs(xGrav) &&  Math.abs(xGrav) < 26) {
-              xStrength = "weak";
-          } else if (26 < Math.abs(xGrav) &&  Math.abs(xGrav) < 34) {
-              xStrength = "average";1
-          } else if (34 < Math.abs(xGrav) &&  Math.abs(xGrav) < maxGrav) {
-              xStrength = "strong";
-          }
-          console.log(xGrav, xDir, xStrength);
-          break;
-      case "2": //Level 2
-          sign = signs[Math.floor(Math.random() * 2)];
-          console.log("Sign: " + sign);
+            if (minGrav < Math.abs(xGrav) && Math.abs(xGrav) < 26) {
+                xStrength = "weak";
+            } else if (26 < Math.abs(xGrav) && Math.abs(xGrav) < 34) {
+                xStrength = "average"; 1
+            } else if (34 < Math.abs(xGrav) && Math.abs(xGrav) < maxGrav) {
+                xStrength = "strong";
+            }
+            console.log(xGrav, xDir, xStrength);
+            break;
+        case "2": //Level 2
+            sign = signs[Math.floor(Math.random() * 2)];
+            console.log("Sign: " + sign);
 
-          console.log("Level: " + level);
+            console.log("Level: " + level);
 
-          ammoCount = 10;
-          goal = 5;
-          gameLength = 60;
+            ammoCount = 10;
+            goal = 5;
+            gameLength = 60;
 
-          maxGrav = 40;
-          minGrav = 20;
+            maxGrav = 40;
+            minGrav = 20;
 
-          xGrav = sign * ((Math.random()*(maxGrav-minGrav)) + minGrav);
+            xGrav = sign * ((Math.random() * (maxGrav - minGrav)) + minGrav);
 
-          yGrav = -50;
+            yGrav = -50;
 
-          scene.setGravity(new THREE.Vector3(xGrav, yGrav, 0));
+            scene.setGravity(new THREE.Vector3(xGrav, yGrav, 0));
 
-          if (xGrav > 0) {
-              xDir = "right";
-          } else if (xGrav < 0) {
-              xDir = "left";
-          }
+            if (xGrav > 0) {
+                xDir = "right";
+            } else if (xGrav < 0) {
+                xDir = "left";
+            }
 
-          if (minGrav < Math.abs(xGrav) &&  Math.abs(xGrav) < 26) {
-              xStrength = "weak";
-          } else if (26 < Math.abs(xGrav) &&  Math.abs(xGrav) < 34) {
-              xStrength = "average";1
-          } else if (34 < Math.abs(xGrav) &&  Math.abs(xGrav) < maxGrav) {
-              xStrength = "strong";
-          }
-          console.log(xGrav, xDir, xStrength);
-          break;
-      case "3":
-          sign = signs[Math.floor(Math.random() * 2)];
-          console.log("Sign: " + sign);
+            if (minGrav < Math.abs(xGrav) && Math.abs(xGrav) < 26) {
+                xStrength = "weak";
+            } else if (26 < Math.abs(xGrav) && Math.abs(xGrav) < 34) {
+                xStrength = "average"; 1
+            } else if (34 < Math.abs(xGrav) && Math.abs(xGrav) < maxGrav) {
+                xStrength = "strong";
+            }
+            console.log(xGrav, xDir, xStrength);
+            break;
+        case "3":
+            sign = signs[Math.floor(Math.random() * 2)];
+            console.log("Sign: " + sign);
 
-          console.log("Level: " + level);
+            console.log("Level: " + level);
 
-          ammoCount = 10;
-          goal = 5;
-          gameLength = 60;
+            ammoCount = 10;
+            goal = 5;
+            gameLength = 60;
 
-          maxGrav = 40;
-          minGrav = 20;
+            maxGrav = 40;
+            minGrav = 20;
 
-          xGrav = sign * ((Math.random()*(maxGrav-minGrav)) + minGrav);
+            xGrav = sign * ((Math.random() * (maxGrav - minGrav)) + minGrav);
 
-          yGrav = -100;
+            yGrav = -100;
 
-          scene.setGravity(new THREE.Vector3(xGrav, yGrav, 0));
+            scene.setGravity(new THREE.Vector3(xGrav, yGrav, 0));
 
-          if (xGrav > 0) {
-              xDir = "right";
-          } else if (xGrav < 0) {
-              xDir = "left";
-          }
+            if (xGrav > 0) {
+                xDir = "right";
+            } else if (xGrav < 0) {
+                xDir = "left";
+            }
 
-          if (minGrav < Math.abs(xGrav) &&  Math.abs(xGrav) < 26) {
-              xStrength = "weak";
-          } else if (26 < Math.abs(xGrav) &&  Math.abs(xGrav) < 34) {
-              xStrength = "average";1
-          } else if (34 < Math.abs(xGrav) &&  Math.abs(xGrav) < maxGrav) {
-              xStrength = "strong";
-          }
-          console.log(xGrav, xDir, xStrength);
-          break;
-  }
+            if (minGrav < Math.abs(xGrav) && Math.abs(xGrav) < 26) {
+                xStrength = "weak";
+            } else if (26 < Math.abs(xGrav) && Math.abs(xGrav) < 34) {
+                xStrength = "average"; 1
+            } else if (34 < Math.abs(xGrav) && Math.abs(xGrav) < maxGrav) {
+                xStrength = "strong";
+            }
+            console.log(xGrav, xDir, xStrength);
+            break;
+    }
 
     document.getElementById('weight').innerHTML = xStrength;
     windElement = document.getElementById("arrowIcon");
@@ -386,25 +455,74 @@ function render() {
 
     moveAvatar();
     moveLaser(mouseCoords);
-    
+
 
     //duck animations...
-    
+
 
     //frameRate animations...
-    if(frameRate>=0 && frameRate<15){
-        duck.rotation.y+=0.1;
+    if (frameRate >= 60) {
+        frameRate = 0;
     }
-    else if(frameRate>=15 && frameRate<30){
-        duck.rotation.y-=0.1;
+    if (frameRate >= 0 && frameRate < 30) {
+        //duck.rotation.y+=0.1;
+        //realDuckModel.rotation.y+=0.1;
+        //realDuckModel.position.z+=5;
+        //duck.position.z+=30;
+        realDuckModelArray[0].position.z += 5;
+
+        realDuckModelArray[1].position.z += 2;
+        realDuckModelArray[2].position.z += 2;
+
+        realDuckModelArray[3].position.z += 7;
+        realDuckModelArray[6].position.z += 7;
+
     }
-    else if(frameRate>=30){
-        frameRate=0;
+    else if (frameRate >= 30 && frameRate < 60) {
+        //duck.rotation.y-=0.1;
+        //realDuckModel.rotation.y-=0.1;
+        //realDuckModel.position.z-=5;
+        //realDuckModel.position.y-=1;
+        //duck.position.z-=30;
+        realDuckModelArray[0].position.z -= 5;
+
+        realDuckModelArray[1].position.z -= 2;
+        realDuckModelArray[2].position.z -= 2;
+
+        realDuckModelArray[3].position.z -= 7;
+        realDuckModelArray[6].position.z -= 7;
     }
-    realDuckModel.position.set(duck.position.x, duck.position.y-4, duck.position.z);
-    duck.__dirtyRotation=true;
+
+    //rotationRealDucks.rotation.y+=0.1;
+
+    duckArray[0].position.set(realDuckModelArray[0].position.x, realDuckModelArray[0].position.y + 4, realDuckModelArray[0].position.z);
+    duckArray[0].__dirtyPosition = true;
+
+    duckArray[1].position.set(realDuckModelArray[1].position.x, realDuckModelArray[1].position.y + 4, realDuckModelArray[1].position.z);
+    duckArray[1].__dirtyPosition = true;
+
+    duckArray[2].position.set(realDuckModelArray[2].position.x, realDuckModelArray[2].position.y + 4, realDuckModelArray[2].position.z);
+    duckArray[2].__dirtyPosition = true;
+
+    duckArray[3].position.set(realDuckModelArray[3].position.x, realDuckModelArray[3].position.y + 4, realDuckModelArray[3].position.z);
+    duckArray[3].__dirtyPosition = true;
+
+    duckArray[4].position.set(realDuckModelArray[4].position.x, realDuckModelArray[4].position.y + 4, realDuckModelArray[4].position.z);
+    duckArray[4].__dirtyPosition = true;
+
+    duckArray[5].position.set(realDuckModelArray[5].position.x, realDuckModelArray[5].position.y + 4, realDuckModelArray[5].position.z);
+    duckArray[5].__dirtyPosition = true;
+
+    duckArray[6].position.set(realDuckModelArray[6].position.x, realDuckModelArray[6].position.y + 4, realDuckModelArray[6].position.z);
+    duckArray[6].__dirtyPosition = true;
+
+    duckArray[7].position.set(realDuckModelArray[7].position.x, realDuckModelArray[7].position.y + 4, realDuckModelArray[7].position.z);
+    duckArray[7].__dirtyPosition = true;
+
+    duckArray[8].position.set(realDuckModelArray[8].position.x, realDuckModelArray[8].position.y + 4, realDuckModelArray[8].position.z);
+    duckArray[8].__dirtyPosition = true;
 
     frameRate++;
     scene.simulate();
-    renderer.render( scene, camera);
+    renderer.render(scene, camera);
 }

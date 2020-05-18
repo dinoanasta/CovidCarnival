@@ -3,38 +3,38 @@
 
 <head>
     <title>SHOOT</title>
-    <link rel = "stylesheet", href="../../CSS/style.css">
+    <link rel="stylesheet" , href="../../CSS/style.css">
     <div id="HUD">
-<!--        Game name -->
+        <!--        Game name -->
         <h1 class="neon" data-text="COVID CARNIVAL"> COVID CARNIVAL </h1>
 
-<!--        Ammo -->
-        <div id = "HUD-Left">
-            <h1 id = "ball_count_header">Ammo Left:</h1>
-            <h1 id = "ball_count">10</h1>
+        <!--        Ammo -->
+        <div id="HUD-Left">
+            <h1 id="ball_count_header">Ammo Left:</h1>
+            <h1 id="ball_count">10</h1>
         </div>
 
-<!--        Wind Meter -->
-        <div id = "HUD-Right">
-            <h1 id = "weight">None</h1>
-            <h1 id = "Wind">Wind:</h1>
+        <!--        Wind Meter -->
+        <div id="HUD-Right">
+            <h1 id="weight">None</h1>
+            <h1 id="Wind">Wind:</h1>
         </div>
         <img id="arrowIcon">
 
-<!--        Score -->
-        <div id = "HUD_Centre">
-            <h1 id = "Score">Score: 0</h1>
+        <!--        Score -->
+        <div id="HUD_Centre">
+            <h1 id="Score">Score: </h1>
         </div>
 
-        <div id = "Game_Over">
+        <div id="Game_Over">
         </div>
 
-<!--        Buttons -->
-        <div id = "Buttons">
-            <a href = "Phys.html">
+        <!--        Buttons -->
+        <div id="Buttons">
+            <a href="Phys.html">
                 <button>Restart Game</button>
             </a>
-            <a href = "../../Circus%20Environment/Environment.html">
+            <a href="../../Circus%20Environment/Environment.html">
                 <button>Quit Game</button>
             </a>
         </div>
@@ -52,29 +52,30 @@
 
     <div id="viewport"></div>
     <script>
-        function init(){
-            renderer = new THREE.WebGLRenderer( { antialias: false } ); //disabling antialias to debug on my machine because its kak slow :/
-            renderer.setClearColor( 0x00a0a0 );
-            renderer.setPixelRatio( window.devicePixelRatio);
-            renderer.setSize( window.innerWidth, window.innerHeight);
-            //renderer.shadowMap.enabled = true; disabling this option to debug on my machine because its kak slow :/
-           // renderer.shadowMap.type = THREE.PCFSoftShadowMap; disabling this option to debug on my machine because its kak slow :/
-            document.getElementById( 'viewport' ).appendChild( renderer.domElement );
-
+        
+        function init() {
+            renderer = new THREE.WebGLRenderer({ antialias: false }); //disabling antialias to debug on my machine because its kak slow :/
+            renderer.setClearColor(0x00a0a0);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            //renderer.shadowMap.enabled = true; //disabling this option to debug on my machine because its kak slow :/
+            //renderer.shadowMap.type = THREE.PCFSoftShadowMap; //disabling this option to debug on my machine because its kak slow :/
+            document.getElementById('viewport').appendChild(renderer.domElement);
+            
             setupScene();
             setupEventHandlers();
             createStallPlatform();
             createAvatar();
             setLevel(level);
-            setLevel(level);
-
+            
             render();
+            
         };
     </script>
 </head>
 
 <body onload="init()">
-
+    <embed src="../../Resources/Music/Timecop1983 - On the Run.mp3" loop="true" autostart="true" width="2" height="0">
 </body>
 
 </html>
