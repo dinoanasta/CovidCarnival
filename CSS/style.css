@@ -1,7 +1,7 @@
-.body {
-    background: url("../Resources/Textures/Razeen/abstract2.jpg");
-    background-size: cover;
-}
+/*.body {*/
+/*    background: url("../Resources/Textures/Razeen/abstract2.jpg");*/
+/*    background-size: cover;*/
+/*}*/
 
 @font-face {
     src: url("../Fonts/you-murderer/youmurdererbb_reg.ttf");
@@ -13,21 +13,111 @@
     font-family: texas;
 }
 
-@import url('https://fonts.googleapis.com/css?family=Nosifer&display=swap');
+@font-face {
+    src: url("../Fonts/carnivalee-freakshow/CarnevaleeFreakshow.ttf");
+    font-family: carnival;
+}
+
+@font-face {
+    src: url("../Fonts/vtc-karnival/VTC-Karnival-Fat.ttf");
+    font-family: karn;
+}
+
+
+@font-face {
+    src: url('https://fonts.googleapis.com/css?family=Nosifer&display=swap');
+    font-family:'Nosifer', cursive;
+}
+
+
+#HUD{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    z-index: 1;
+    background-color: rgba(0,0,0,0);
+    visibility: visible;
+    user-select: none;
+}
+
+.stats{
+    font-family: karn;
+    color: #c64e4e;
+    font-size: 30px;
+}
+
+#topLeftBallCount {
+    position: fixed;
+    text-align: center;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    margin-top: 30px;
+    margin-left: 50px;
+}
+
+#ballCountLabel {
+    display: inline-block;
+}
+
+#ballCountValue {
+    display: inline-block;
+}
+
+#topRightWind {
+    position: fixed;
+    text-align: center;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    margin-top: 30px;
+    margin-right: 50px;
+}
+
+#windLabel {
+    display: inline-block;}
+
+#windStrength {
+    display: inline-block;
+
+}
+
+#windIcon{
+    display: inline-block;
+    margin-top: -20px;
+}
+
+#bottomLeftScore{
+    position: fixed;
+    text-align: center;
+    z-index: 1;
+    bottom: 0;
+    left: 0;
+    margin-bottom: 30px;
+    margin-left: 50px;
+}
+
+#scoreLabel {
+    display: inline-block;
+}
+
+#scoreValue{
+    display: inline-block;
+}
 
 .neon{
-    font-family: 'Nosifer', cursive;
+    font-family: carnival;
     position: absolute;
     margin-top: 20px;
-    margin-left: 500px;
+    left: 30%;
     padding: 0 20px;
-    font-size: 5em;
+    font-size: 7em;
     color: #ffffff;
     text-shadow: 0 0 20px #ff005b;
 }
 
 .neon:after{
-
     content: attr(data-text);
     position: absolute;
     top: 0;
@@ -51,118 +141,58 @@
     filter: blur(40px);
 }
 
-#HUD{
-    position: absolute;
+#GameOverHUD {
+    position: fixed;
+    text-align: center;
     width: 100%;
     height: 100%;
     z-index: 1;
-    /*margin-top: 300px;*/
-    background-color: rgba(0,0,0,0);
+    background-color: rgba(128,0,0,0.6);
+    visibility: hidden;
+    user-select: none;
 }
 
-#HUD-Left {
-   position: absolute;
-    text-align: center;
-    z-index: 100;
-    top: -20px;
-    width: 100%;
-    right: 100px;
-    display: block;
+#GameOverText{
+    z-index: 1;
+    font-size: 150px;
+    color: #44d4d4;
+    display: inline-block;
 }
 
-#ball_count {
-    font-family: ym;
-    color: red;
-    font-size: 70px;
-    line-height: 65px;
-    float: left;
-    padding: 0px 0px 0px 2%;
+.button{
+    display: inline-block;
+
+    width: 300px;
+    height: 150px;
+
+    float: bottom;
+    border-radius: 20px;
+    font-size: 60px;
+
+    margin-left: 30px;
+
+    transition-duration: 0.4s;
+    cursor: pointer;
+
 }
 
-#ball_count_header {
-    font-family: ym;
-    color: red;
-    font-size: 70px;
-    line-height: 65px;
-    float: left;
-    padding: 0px 0px 0px 10%;
+.restartButton {
+    background-color: white;
+    color: black;
+    border: 2px solid #23c2be;
 }
 
-#HUD-Right {
-    position: absolute;
-    text-align: center;
-    z-index: 100;
-    top: -20px;
-    right: 100px;
-    width: 100%;
-    display: block;
+.restartButton:hover {
+    background-color: #23c2be;
 }
 
-#Wind {
-    font-family: ym;
-    color: red;
-    font-size: 70px;
-    line-height: 65px;
-    float: right;
-    alignment: center;
-    padding: 0px 0px 0px 2%;
+.mainMenuButton {
+    background-color: white;
+    color: black;
+    border: 2px solid #23c2be;
 }
 
-#weight {
-    font-family: ym;
-    color: red;
-    font-size: 70px;
-    line-height: 65px;
-    float: right;
-    padding: 0px 0px 0px 2%;
-}
-
-#arrowIcon{
-    float: right;
-    margin-right: 200px;
-    margin-top: 100px;
-}
-
-#Score {
-    position: absolute;
-    text-align: center;
-    z-index: 100;
-    bottom: 450px;
-    right: 20px;
-    width: 100%;
-    display: block;
-
-    font-family: ym;
-    color: red;
-    font-size: 70px;
-    line-height: 65px;
-    padding: 0px 0px 0px 2%;
-}
-
-#Game_Over {
-    position: absolute;
-    text-align: center;
-    z-index: 100;
-    bottom: 200px;
-    right: 20px;
-    width: 100%;
-    display: block;
-
-    font-family: texas;
-    color: white;
-    font-size: 80px;
-    line-height: 65px;
-    padding: 0px 0px 0px 2%;
-}
-
-#Buttons {
-
-    position: absolute;
-    text-align: center;
-    z-index: 100;
-    bottom: 100px;
-    right: 20px;
-    width: 100%;
-    display: block;
+.mainMenuButton:hover {
+    background-color: #23c2be;
 }
 

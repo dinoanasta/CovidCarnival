@@ -8,36 +8,43 @@
         <!--        Game name -->
         <h1 class="neon" data-text="COVID CARNIVAL"> COVID CARNIVAL </h1>
 
-        <!--        Ammo -->
-        <div id="HUD-Left">
-            <h1 id="ball_count_header">Ammo Left:</h1>
-            <h1 id="ball_count">10</h1>
+<!--        Ammo top left-->
+        <div id = "topLeftBallCount" class="stats">
+            <h1 id = "ballCountLabel">Ammo Left:</h1>
+            <h1 id = "ballCountValue"> </h1>
         </div>
 
-        <!--        Wind Meter -->
-        <div id="HUD-Right">
-            <h1 id="weight">None</h1>
-            <h1 id="Wind">Wind:</h1>
-        </div>
-        <img id="arrowIcon">
-
-        <!--        Score -->
-        <div id="HUD_Centre">
-            <h1 id="Score">Score: </h1>
+<!--        Wind Meter -->
+        <div id = "topRightWind" class="stats">
+            <h1 id = "windLabel">Wind:</h1>
+            <h1 id = "windStrength">None</h1>
+            <br>
+            <img id="windIcon">
         </div>
 
-        <div id="Game_Over">
+<!--        Score bottom -->
+        <div id ="bottomLeftScore" class="stats">
+            <h1 id = "scoreLabel">Score: </h1>
+            <h1 id = "scoreValue"> 0 </h1>
         </div>
+
+    </div>
+
+    <div id = "GameOverHUD" style="visibility: hidden">
+        <!--        Game Over Text-->
+        <h1 id="GameOverText" class="stats">Game Over, Restart ?</h1>
+
+        <br>
+        <br>
 
         <!--        Buttons -->
-        <div id="Buttons">
-            <a href="Phys.html">
-                <button>Restart Game</button>
-            </a>
-            <a href="../../Circus%20Environment/Environment.html">
-                <button>Quit Game</button>
-            </a>
-        </div>
+        <a href = "Phys.html">
+            <button class=" button restartButton stats">Restart</button>
+        </a>
+        <a href = "../../Circus%20Environment/Environment.html">
+            <button class="button mainMenuButton stats">Main Menu</button>
+        </a>
+
     </div>
 
     <script src="../../js/three.js"></script>
@@ -48,7 +55,8 @@
     <script src="PhysiAvatar.js"></script>
     <script src="PhysiMain.js"></script>
 
-    <audio src="../../Resources/Textures/Dino/sound2.mp3" id="raygun"></audio>
+    <audio src="../../Resources/Sounds/raygun.mp3" id="raygun"></audio>
+    <audio src="../../Resources/Sounds/boom.mp3" id="boom"></audio>
 
     <div id="viewport"></div>
     <script>

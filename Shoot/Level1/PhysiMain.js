@@ -19,6 +19,7 @@ let gameLength; //How long the game lasts
 let cubeMap;
 let renderer, scene, camera, box;
 let pos = new THREE.Vector3();
+let sound;
 
 //Mouse Coordinates and raycaster
 let mouseCoords = new THREE.Vector2(),
@@ -37,6 +38,7 @@ let avatarLocalPos = { x: 0, z: 0 };
 
 //Shooting
 let ball;
+let b_count;
 let avatarHead = new THREE.Vector3();
 let rayx, rayy;
 let rayDirection = new THREE.Vector3();
@@ -212,14 +214,16 @@ function setupScene() {
     //duck.__dirtyPosition = true;
     for (let x = 0; x < 9; x++) {
         duckArray[x].addEventListener('collision', function (other_object, relative_velocity, relative_rotation, contact_normal) {
-            console.log("bang bang!");
-            console.log(duckArray[x].position.y);
-            duckArray[x].position.y = duckArray[x].position.y + 500;
-            realDuckModelArray[x].position.set(duckArray[x].position.x, duckArray[x].position.y + 4, duckArray[x].position.z);
-            console.log(duckArray[x].position.y);
-            duckArray[x].__dirtyPosition = true;
-            score++;
-            document.getElementById("Score").innerHTML = "Score: " + score;
+            if (other_object == ball) {
+                console.log("bang bang!");
+                console.log(duckArray[x].position.y);
+                duckArray[x].position.y = duckArray[x].position.y + 500;
+                realDuckModelArray[x].position.set(duckArray[x].position.x, duckArray[x].position.y + 4, duckArray[x].position.z);
+                console.log(duckArray[x].position.y);
+                duckArray[x].__dirtyPosition = true;
+                score++;
+                document.getElementById("Score").innerHTML = "Score: " + score;
+            }
         });
     }
 
@@ -409,9 +413,9 @@ function setLevel(lvl) {
 
             console.log("Level: " + level);
 
-            ammoCount = 10;
-            goal = 5;
-            gameLength = 60;
+          ammoCount = 5;
+          goal = 5;
+          gameLength = 60;
 
             maxGrav = 40;
             minGrav = 20;
@@ -439,8 +443,9 @@ function setLevel(lvl) {
             break;
     }
 
-    document.getElementById('weight').innerHTML = xStrength;
-    windElement = document.getElementById("arrowIcon");
+    document.getElementById("ballCountValue").innerHTML = ammoCount;
+    document.getElementById('windStrength').innerHTML = xStrength;
+    windElement = document.getElementById("windIcon");
     if (xDir == "right") {
         arrowSource = '../../Resources/Textures/Razeen/arrow.png';
     } else if (xDir == "left") {
@@ -523,6 +528,7 @@ function render() {
     duckArray[8].__dirtyPosition = true;
 
     frameRate++;
+
     scene.simulate();
     renderer.render(scene, camera);
 }
