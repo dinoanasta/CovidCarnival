@@ -63,7 +63,7 @@ duck = new Physijs.BoxMesh(
     new THREE.BoxGeometry(7, 7, 7),
     new THREE.MeshStandardMaterial({
         opacity: 0.0001,
-        transparent: false
+        transparent: true
         //map: new THREE.TextureLoader().load('../../Resources/Textures/Dino/redfoil.jpg'),
     }),
     1
