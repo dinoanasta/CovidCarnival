@@ -9,20 +9,24 @@ let windElement;
 
 //FrameRate
 let frameRate = 0;
+
 //Levels
 let level = "1";
 let ammoCount; //Num of balls
-let goal;   //How many targets they have to hit to win
+let score = 0;   //How many targets they have to hit to win
+let goal;
 let gameLength; //How long the game lasts
 
 //Scene and setup
 let cubeMap;
-let renderer, scene, camera, box;
+let renderer, scene, camera, box, controls;
 let pos = new THREE.Vector3();
 let sound;
 let textureLoader = new THREE.TextureLoader();
 let loader = new THREE.GLTFLoader();
 let camType = "third";
+let countdown;
+let timeLeft;
 
 //Mouse Coordinates and raycaster
 let mouseCoords = new THREE.Vector2();
@@ -58,7 +62,6 @@ let laser;
 var duck;
 var duckModel;
 var realDuckModel;
-var score = 0;
 
 duck = new Physijs.BoxMesh(
     new THREE.BoxGeometry(7, 7, 7),
@@ -160,6 +163,9 @@ function setupScene() {
     camera.lookAt(new THREE.Vector3(0, 0, 0));
     scene.add(camera);
 
+    controls = new THREE.PointerLockControls( camera );
+    scene.add( controls.getObject() );
+
     //Add ambient light
     let ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
     scene.add(ambientLight);
@@ -249,6 +255,7 @@ function setupScene() {
             }
         });
     }
+
 }
 
 function setupEventHandlers() {
@@ -325,13 +332,34 @@ function onWindowResize() {
 
 }
 
+function decideOutcome(){
+ if(ammoCount - numBalls <= 0){
+     if(score >= goal){
+         document.getElementById("GameHUD").style.visibility = 'hidden';
+         document.getElementById("LevelPassedHUD").style.visibility = 'visible';
+     }else{
+         document.getElementById("GameHUD").style.visibility = 'hidden';
+         document.getElementById("LevelFailedText").innerHTML = "No balls, you lose ! <br> Restart ?" ;
+         document.getElementById("LevelFailedHUD").style.visibility = 'visible';
+     }
+ }else{
+     if(score >= goal){
+         document.getElementById("GameHUD").style.visibility = 'hidden';
+         document.getElementById("LevelPassedHUD").style.visibility = 'visible';
+     }else{
+         document.getElementById("GameHUD").style.visibility = 'hidden';
+         document.getElementById("LevelFailedText").innerHTML = "Time up, you lose ! <br> Restart ?" ;
+
+         document.getElementById("LevelFailedHUD").style.visibility = 'visible';
+     }
+ }
+    
+}
+
 function setLevel(lvl) {
     switch (lvl) {
         case "1": //Level 1
             sign = signs[Math.floor(Math.random() * 2)];
-            console.log("Sign: " + sign);
-
-            console.log("Level: " + level);
 
             ammoCount = 10;
             goal = 5;
@@ -344,7 +372,7 @@ function setLevel(lvl) {
 
             yGrav = -10;
 
-            scene.setGravity(new THREE.Vector3(xGrav, yGrav, 0)); //testing with no gravity...
+            scene.setGravity(new THREE.Vector3(xGrav, yGrav, 0));
 
             if (xGrav > 0) {
                 xDir = "right";
@@ -364,9 +392,6 @@ function setLevel(lvl) {
             break;
         case "2": //Level 2
             sign = signs[Math.floor(Math.random() * 2)];
-            console.log("Sign: " + sign);
-
-            console.log("Level: " + level);
 
             ammoCount = 10;
             goal = 5;
@@ -399,9 +424,6 @@ function setLevel(lvl) {
             break;
         case "3":
             sign = signs[Math.floor(Math.random() * 2)];
-            console.log("Sign: " + sign);
-
-            console.log("Level: " + level);
 
             ammoCount = 5;
             goal = 5;
@@ -434,6 +456,7 @@ function setLevel(lvl) {
             break;
     }
 
+    document.getElementById("levelValue").innerHTML = lvl;
     document.getElementById("ballCountValue").innerHTML = ammoCount;
     document.getElementById('windStrength').innerHTML = xStrength;
     windElement = document.getElementById("windIcon");
@@ -530,7 +553,7 @@ function render() {
     } else if (camType == "third") {
         //Third person
         camera.position.set(avatarHead.x, avatarHead.y + 25, avatarHead.z + 60);
-        camera.lookAt(rayDirection);
+        camera.lookAt(0, 0, -100);
         scene.add(laser);
     }
 

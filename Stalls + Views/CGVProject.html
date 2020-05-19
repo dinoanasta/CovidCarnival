@@ -57,7 +57,7 @@
 
         function render(){
 
-            //text.rotation.y += 0.01;
+            //moonText.rotation.y += 0.01;
             // Animating sphere 1
 
             renderer.render(scene,camera);
@@ -181,13 +181,13 @@
                     color : 'white'
                 })
 
-                var text = new THREE.Mesh(geoText,matText);
+                var moonText = new THREE.Mesh(geoText,matText);
                 //geoText.computeBoundingBox();
-                //geoText.boundingBox.getCenter(text.position).multiplyScalar(-1);
-                //geoText.boundingBox.getCenter(text.position).multiplyScalar(-1);
+                //geoText.boundingBox.getCenter(moonText.position).multiplyScalar(-1);
+                //geoText.boundingBox.getCenter(moonText.position).multiplyScalar(-1);
 
 
-                //text.position.x = 50;
+                //moonText.position.x = 50;
                 text.position.y = 230;
                 text.position.z = 100;
                 stall.add(text);

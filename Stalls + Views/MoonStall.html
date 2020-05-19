@@ -42,7 +42,7 @@
     scene.add(light1);
 
     var textureLoader = new THREE.TextureLoader();
-    var text;
+    var moonText;
 
     var stall = makeStall();
     stall.position.z = -300;
@@ -58,7 +58,7 @@
 
     function render(){
 
-        //text.rotation.y += 0.01;
+        //moonText.rotation.y += 0.01;
         // Animating sphere 1
 
         renderer.render(scene,camera);

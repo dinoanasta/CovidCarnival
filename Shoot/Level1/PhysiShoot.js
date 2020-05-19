@@ -95,9 +95,7 @@ function onMouseDown(event) {
 
         document.getElementById("ballCountValue").innerHTML = ammoCount-numBalls; // changes ammo count on html
     }else{
-            document.getElementById("HUD").style.visibility = 'hidden';
-            document.getElementById("GameOverHUD").style.visibility = 'visible';
-            renderer.pause();
+        decideOutcome();
     }
 }
 

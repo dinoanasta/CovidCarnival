@@ -5,16 +5,11 @@
     <title>SHOOT</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link rel = "stylesheet", href="../../CSS/style.css">
-    <link rel = "stylesheet", href="../../CSS/bootstrap.css">
 
     <script src="../../js/three.js"></script>
     <script src="../../js/physi.js"></script>
     <script src="../../js/GLTFLoader.js"></script>
-
-    <!-- JS, Popper.js, and jQuery -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="../../js/PointerLockControls.js"></script>
 
     <!-- Game javascript files    -->
     <script src="PhysiPlatform.js"></script>
@@ -49,8 +44,16 @@
 
             setLevel(level);
 
-
-
+            //Timer
+            timeLeft = gameLength;
+            countdown = setInterval(function() {
+                timeLeft--;
+                document.getElementById("timeValue").textContent = timeLeft;
+                if (timeLeft <= 0){
+                    clearInterval(countdown);
+                    decideOutcome();
+                }
+            },1000);
             render();
         };
     </script>
@@ -58,73 +61,84 @@
 
 <body onload="init()">
 
-    <div id="HUD">
+    <div id="GameHUD">
         <!--        Game name -->
-        <h1 class="neon" data-text="COVID CARNIVAL"> COVID CARNIVAL </h1>
+<!--        <h1 class="neon" data-text="COVID CARNIVAL"> COVID CARNIVAL </h1>-->
+
+        <!-- Centre level       -->
+        <div class="stats HUDelement" id = "centreLevel">
+            <h1 id = "levelLabel">Level:</h1>
+            <br>
+            <h1 id = "levelValue"> 0 </h1>
+        </div>
 
         <!--        Ammo top left-->
-        <div id = "topLeftBallCount" class="stats">
+        <div class="stats HUDelement" id = "topLeftBallCount">
             <h1 id = "ballCountLabel">Ammo Left:</h1>
             <br>
             <h1 id = "ballCountValue"> </h1>
         </div>
 
-        <!--        Wind Meter -->
-        <div id = "topRightWind" class="stats">
+        <!--        Wind Meter top right -->
+        <div class="stats HUDelement" id = "topRightWind">
             <h1 id = "windLabel">Wind:</h1>
             <h1 id = "windStrength">None</h1>
             <br>
             <img id="windIcon">
         </div>
 
-        <!--        Score bottom -->
-        <div id ="bottomLeftScore" class="stats">
+        <!--        Score bottom left -->
+        <div class="stats HUDelement" id ="bottomLeftScore">
             <h1 id = "scoreLabel">Score: </h1>
             <br>
             <h1 id = "scoreValue">0</h1>
         </div>
 
+
+        <!--        Time bottom right -->
+        <div class="stats HUDelement" id ="bottomRightTime">
+            <h1 id = "timeLabel">Time: </h1>
+            <br>
+            <h1 id = "timeValue">60</h1>
+        </div>
+
     </div>
 
-    <div id = "GameOverHUD" style="visibility: hidden">
+    <div class="outcomeHUD stats" id = "LevelFailedHUD" style="visibility: hidden">
         <!--        Game Over Text-->
-        <h1 id="GameOverText" class="stats">Game Over, Restart ?</h1>
+        <h1 class="outcomeText" id="LevelFailedText" >You lose !<br> Restart ?</h1>
 
         <br>
         <br>
 
         <!--        Buttons -->
         <a href = "Phys.html">
-            <button class=" button restartButton stats">Restart</button>
+            <button class=" button" id="restartButton">Restart</button>
         </a>
         <a href = "../../Circus%20Environment/Environment.html">
-            <button class="button mainMenuButton stats">Main Menu</button>
+            <button class="button" id="mainMenuButton">Main Menu</button>
         </a>
 
     </div>
 
-<!--    <div class="container-fluid justify-content-between  my-container">-->
-<!--        <div class="row justify-content-between align-items-stretch my-row">-->
-<!--            <div class="col-md-2 my-col">-->
-<!--                Row 1 Col 1-->
-<!--            </div>-->
-<!--            <div class="col-md-2 my-col">-->
-<!--                Row 1 Col 2-->
-<!--            </div>-->
-<!--        </div>-->
-<!--        <div class="row my-row"></div>-->
-<!--        <div class="row my-row"></div>-->
-<!--        <div class="row my-row"></div>-->
-<!--        <div class="row justify-content-between align-items-stretch my-row">-->
-<!--            <div class="col-2 my-col">-->
-<!--                Row 2 Col 1-->
-<!--            </div>-->
-<!--            <div class="col-2 my-col">-->
-<!--                Row 2 Col 2-->
-<!--            </div>-->
-<!--        </div>-->
+    <div class="outcomeHUD stats" id = "LevelPassedHUD" style="visibility: hidden">
+        <!--        Level Passed Text-->
+        <h1 class="outcomeText" id="LevelPassedText" >You win !<br> Proceed ?</h1>
 
-<!--    </div>-->
+        <br>
+        <br>
+
+        <!--        Buttons -->
+        <!--        Go to next level-->
+        <a href = "Phys.html">
+            <button class="button" id="proceedButton">Proceed</button>
+        </a>
+        <a href = "../../Circus%20Environment/Environment.html">
+            <button class="button" id="mainMenuButton">Main Menu</button>
+        </a>
+
+    </div>
+
 
     <div id="viewport"></div>
 

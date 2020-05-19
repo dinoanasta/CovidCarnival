@@ -27,14 +27,11 @@ var textureLoader = new THREE.TextureLoader();
 var loader = new THREE.GLTFLoader();
 var textLoader = new THREE.FontLoader();
 
-
-
-//Moon stall Variables from Moonstall and stall js files
-let moonStall, moon;
-
+//Moon stall
+let moonStall, moon, moonText;
 let stallHolder = new THREE.Group();
 
-function setupScene(){ //Sets up camera, scene, physics engine, ligts, and orbit controls
+function setupScene(){
     scene = new Physijs.Scene;
     scene.setGravity(new THREE.Vector3(0,-10,0));
 
@@ -47,9 +44,8 @@ function setupScene(){ //Sets up camera, scene, physics engine, ligts, and orbit
 
     //position of camera in 3D space
     camera.position.x = 0;
-    camera.position.y = 100;
-    camera.position.z = 150;
-    // camera.lookAt(0,130,100);
+    camera.position.y = 1000;
+    camera.position.z = 1500;
 
     // A light shining from the direction of the camera which moves with the camera.
     light = new THREE.DirectionalLight(0xFFFFFF,0.6);
@@ -63,9 +59,9 @@ function setupScene(){ //Sets up camera, scene, physics engine, ligts, and orbit
 
     //Creates the controls and imposes restriction for how the player can navigate the world
     controls = new THREE.OrbitControls(camera,renderer.domElement);
-    controls.maxDistance = 3000;
-    controls.minPolarAngle = Math.PI / 4;
-    controls.maxPolarAngle = 3*Math.PI / 4;
+    controls.maxDistance = 2000;
+    controls.minPolarAngle = 0;
+    controls.maxPolarAngle = Math.PI/2;
     controls.mouseButtons = {
         MIDDLE: THREE.MOUSE.DOLLY,
         RIGHT: THREE.MOUSE.ROTATE
@@ -83,7 +79,7 @@ function setupScene(){ //Sets up camera, scene, physics engine, ligts, and orbit
     var materials = [];
 
     for (var i = 0; i < 6; i++) {
-        var texture = new THREE.TextureLoader().load( textureURLs[i] ); //Loads each of the faces of the cubemap
+        var texture = new textureLoader.load( textureURLs[i] );
         materials.push( new THREE.MeshBasicMaterial( {
             color: "white",
             side: THREE.DoubleSide,
@@ -92,13 +88,10 @@ function setupScene(){ //Sets up camera, scene, physics engine, ligts, and orbit
         } ) );
 
     }
-    cubeMap = new THREE.Mesh( new THREE.CubeGeometry(5000,5000,5000),materials ); // creates the cubemap using a cube geometry and the added faces
-    scene.add(cubeMap); //adds cubemap to the world
 
     cubeMap = new THREE.Mesh( new THREE.CubeGeometry(5000,5000,5000),
         materials );
     scene.add(cubeMap);
-
 
 }
 
@@ -124,11 +117,6 @@ function doMouseDown(event) {
     }
 }
 
-function doMouseUp(event) {
-    console.log("lifted");
-}
-
-//Updates the movement of objects in each frame of animation
 function updateFrame() {
     planet.rotation.x += 0.1;
     planet.rotation.y += 0.1;
@@ -195,10 +183,6 @@ function animate () {
 
     scene.simulate(); //Runs the scene
     moon.rotation.y += 0.01; //Rotates the moon atop the Moon stall
-
-    scene.simulate();
-    moon.rotation.y += 0.01;
-    //text.rotation.y += 0.01;
 
     requestAnimationFrame( animate );
     controls.update(); //Updates the orbit controls

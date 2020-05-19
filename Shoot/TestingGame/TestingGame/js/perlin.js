@@ -452,7 +452,7 @@
                   </span>
                 </button>
               </span>
-              <text-expander keys=": @" data-mention-url="/autocomplete/user-suggestions" data-emoji-url="/autocomplete/emoji">
+              <moonText-expander keys=": @" data-mention-url="/autocomplete/user-suggestions" data-emoji-url="/autocomplete/emoji">
                 <input
                   type="text"
                   autocomplete="off"
@@ -464,7 +464,7 @@
                   name="message"
                   value=""
                   aria-label="What is your current status?">
-              </text-expander>
+              </moonText-expander>
               <div class="error">Could not update your status, please try again.</div>
             </div>
             <div style="margin-left: 53px" class="my-1 text-small label-characters-remaining js-characters-remaining" data-suffix="remaining" hidden>
@@ -1050,15 +1050,15 @@
         <div data-filterable-for="jumpto-symbols-filter-field" data-filterable-type="substring">
           <a class="SelectMenu-item d-flex flex-justify-between css-truncate" role="menuitemradio" aria-checked="false" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;code_navigation.navigate_to_blob_definition&quot;,&quot;payload&quot;:{&quot;action&quot;:&quot;navigate_to_blob_definition&quot;,&quot;repository_id&quot;:4849525,&quot;ref&quot;:&quot;master&quot;,&quot;language&quot;:&quot;JavaScript&quot;,&quot;originating_url&quot;:&quot;https://github.com/josephg/noisejs/blob/master/perlin.js&quot;,&quot;user_id&quot;:40665056}}" data-hydro-click-hmac="586f6f3ba55f7eebde6999c1dfb5fe900a34571ca7a27f8812a8e3c11d917abb" href="/josephg/noisejs/blob/master/perlin.js#L20">
   <svg class="octicon octicon-check SelectMenu-icon SelectMenu-icon--check" viewBox="0 0 12 16" version="1.1" width="12" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M12 5l-8 8-4-4 1.5-1.5L4 10l6.5-6.5L12 5z"></path></svg>
-  <span class="flex-auto css-truncate-target" data-menu-button-text>Grad</span>
+  <span class="flex-auto css-truncate-target" data-menu-button-moonText>Grad</span>
   <span class="flex-auto d-flex flex-justify-end">Function</span>
 </a><a class="SelectMenu-item d-flex flex-justify-between css-truncate" role="menuitemradio" aria-checked="false" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;code_navigation.navigate_to_blob_definition&quot;,&quot;payload&quot;:{&quot;action&quot;:&quot;navigate_to_blob_definition&quot;,&quot;repository_id&quot;:4849525,&quot;ref&quot;:&quot;master&quot;,&quot;language&quot;:&quot;JavaScript&quot;,&quot;originating_url&quot;:&quot;https://github.com/josephg/noisejs/blob/master/perlin.js&quot;,&quot;user_id&quot;:40665056}}" data-hydro-click-hmac="586f6f3ba55f7eebde6999c1dfb5fe900a34571ca7a27f8812a8e3c11d917abb" href="/josephg/noisejs/blob/master/perlin.js#L242">
   <svg class="octicon octicon-check SelectMenu-icon SelectMenu-icon--check" viewBox="0 0 12 16" version="1.1" width="12" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M12 5l-8 8-4-4 1.5-1.5L4 10l6.5-6.5L12 5z"></path></svg>
-  <span class="flex-auto css-truncate-target" data-menu-button-text>fade</span>
+  <span class="flex-auto css-truncate-target" data-menu-button-moonText>fade</span>
   <span class="flex-auto d-flex flex-justify-end">Function</span>
 </a><a class="SelectMenu-item d-flex flex-justify-between css-truncate" role="menuitemradio" aria-checked="false" rel="nofollow" data-hydro-click="{&quot;event_type&quot;:&quot;code_navigation.navigate_to_blob_definition&quot;,&quot;payload&quot;:{&quot;action&quot;:&quot;navigate_to_blob_definition&quot;,&quot;repository_id&quot;:4849525,&quot;ref&quot;:&quot;master&quot;,&quot;language&quot;:&quot;JavaScript&quot;,&quot;originating_url&quot;:&quot;https://github.com/josephg/noisejs/blob/master/perlin.js&quot;,&quot;user_id&quot;:40665056}}" data-hydro-click-hmac="586f6f3ba55f7eebde6999c1dfb5fe900a34571ca7a27f8812a8e3c11d917abb" href="/josephg/noisejs/blob/master/perlin.js#L246">
   <svg class="octicon octicon-check SelectMenu-icon SelectMenu-icon--check" viewBox="0 0 12 16" version="1.1" width="12" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M12 5l-8 8-4-4 1.5-1.5L4 10l6.5-6.5L12 5z"></path></svg>
-  <span class="flex-auto css-truncate-target" data-menu-button-text>lerp</span>
+  <span class="flex-auto css-truncate-target" data-menu-button-moonText>lerp</span>
   <span class="flex-auto d-flex flex-justify-end">Function</span>
 </a>
         </div>
@@ -1097,7 +1097,7 @@
           <a rel="author" data-skip-pjax="true" data-hovercard-type="user" data-hovercard-url="/users/josephg/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="/josephg"><img class="avatar" src="https://avatars2.githubusercontent.com/u/47413?s=40&amp;v=4" width="20" height="20" alt="@josephg" /></a>
           <a class="text-bold link-gray-dark lh-default v-align-middle" rel="author" data-hovercard-type="user" data-hovercard-url="/users/josephg/hovercard" data-octo-click="hovercard-link-click" data-octo-dimensions="link_type:self" href="/josephg">josephg</a>
             <span class="lh-default v-align-middle">
-              <span class="issue-keyword tooltipped tooltipped-se" aria-label="This commit closes issue #6."><a data-pjax="true" title="Fixes #6, correcting range of simplex3" class="link-gray" href="/josephg/noisejs/commit/7a0f99f1065aa2ec25a5e367f0ceb574012d623e">Fixes</a></span> <a class="issue-link js-issue-link" data-error-text="Failed to load title" data-id="37253929" data-permission-text="Title is private" data-url="https://github.com/josephg/noisejs/issues/6" data-hovercard-type="issue" data-hovercard-url="/josephg/noisejs/issues/6/hovercard" href="https://github.com/josephg/noisejs/issues/6">#6</a><a data-pjax="true" title="Fixes #6, correcting range of simplex3" class="link-gray" href="/josephg/noisejs/commit/7a0f99f1065aa2ec25a5e367f0ceb574012d623e">, correcting range of simplex3</a>
+              <span class="issue-keyword tooltipped tooltipped-se" aria-label="This commit closes issue #6."><a data-pjax="true" title="Fixes #6, correcting range of simplex3" class="link-gray" href="/josephg/noisejs/commit/7a0f99f1065aa2ec25a5e367f0ceb574012d623e">Fixes</a></span> <a class="issue-link js-issue-link" data-error-moonText="Failed to load title" data-id="37253929" data-permission-moonText="Title is private" data-url="https://github.com/josephg/noisejs/issues/6" data-hovercard-type="issue" data-hovercard-url="/josephg/noisejs/issues/6/hovercard" href="https://github.com/josephg/noisejs/issues/6">#6</a><a data-pjax="true" title="Fixes #6, correcting range of simplex3" class="link-gray" href="/josephg/noisejs/commit/7a0f99f1065aa2ec25a5e367f0ceb574012d623e">, correcting range of simplex3</a>
             </span>
         </span>
         <span class="d-inline-block flex-shrink-0 v-align-bottom f6 mt-2 mt-md-0">

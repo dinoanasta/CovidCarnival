@@ -79,6 +79,66 @@ function createStallPlatform(){
     base.add(left);
     base.add(right);
 
+    //Text
+    var textLoader = new THREE.FontLoader();
+
+    var textGeo;
+    var textMat;
+    let text;
+
+    textLoader.load( '../../Fonts/gentilis_bold.typeface.json', function ( font ) {
+
+        textGeo = new THREE.TextGeometry( 'Covid Carnival', {
+            font: font,
+            size: 40,
+            height: 5,
+            curveSegments: 100,
+            bevelEnabled: true,
+            bevelThickness: 2,
+            bevelSize: 2,
+            bevelOffset: 1,
+            bevelSegments: 1
+        } );
+
+         textMat = new THREE.MeshStandardMaterial({
+            map: textureLoader.load('../../Resources/Textures/Dino/redfoil.jpg'),
+        });
+
+        text = new Physijs.Mesh(
+            textGeo,
+            textMat,
+            0
+        );
+
+        text.position.set(-180,60,-100);
+
+
+        base.add(text);
+    } );
+
+    let rocket;
+    //Add rocket model
+    loader.load(
+        "../../Models/rocket/scene.gltf",
+        function (object) {
+            object.scene.traverse( function( object ) {
+                if ( object.isMesh ) {
+                    object.castShadow = true;
+                }
+            } );
+
+            rocket = object.scene.children[0];
+
+            rocket.position.set(30, 12, 60);
+            rocket.scale.set(4, 4, 4);
+
+            rocket.castShadow = true;
+            rocket.receiveShadow = true;
+            scene.add(rocket);
+        }
+    );
+
+
     //Add base to scene
     scene.add(base);
 

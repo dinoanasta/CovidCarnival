@@ -21,8 +21,6 @@ function addMoonStall(){
 }
 
 function makeText(){
-
-
     textLoader.load('../Resources/Fonts/droid_serif_bold.typeface.json',function (font) {
         var geoText = new THREE.TextBufferGeometry( "1" , {
             font : font,
@@ -39,7 +37,7 @@ function makeText(){
 
         var matText = new THREE.MeshNormalMaterial({ map : textureLoader.load('../Resources/Textures/Mikayla/neontexture1.jpg')})
 
-        text = new THREE.Mesh(geoText,matText);
+        moonText = new THREE.Mesh(geoText,matText);
         text.position.x = -20;
         text.position.y = 250;
         text.position.z = 100;
@@ -47,5 +45,5 @@ function makeText(){
 
     })
 
-    return text;
+    return moonText;
 }

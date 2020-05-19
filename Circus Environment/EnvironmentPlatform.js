@@ -263,7 +263,7 @@ function loadModels(){ // loads all relevant models (lantern,mushroom1 and 2)
                 color : 'red'
             })
 
-            text = new THREE.Mesh(geoText,matText);
+            moonText = new THREE.Mesh(geoText,matText);
             //geoText.computeBoundingBox();
             //geoText.boundingBox.getCenter(text.position).multiplyScalar(-1);
             //geoText.boundingBox.getCenter(text.position).multiplyScalar(-1);
