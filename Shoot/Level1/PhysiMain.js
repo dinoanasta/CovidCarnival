@@ -20,6 +20,7 @@ let cubeMap;
 let renderer, scene, camera, box;
 let pos = new THREE.Vector3();
 let sound;
+let textureLoader = new THREE.TextureLoader();
 let loader = new THREE.GLTFLoader();
 let camType = "third";
 
@@ -241,17 +242,10 @@ function setupScene() {
         duckArray[x].addEventListener('collision', function (other_object, relative_velocity, relative_rotation, contact_normal) {
             if (other_object == ball) {
                 console.log("bang bang!");
-                console.log(duckArray[x].position.y);
-                duckArray[x].position.y = duckArray[x].position.y + 500;
-                realDuckModelArray[x].position.set(duckArray[x].position.x, duckArray[x].position.y + 4, duckArray[x].position.z);
-                console.log(duckArray[x].position.y);
-                duckArray[x].__dirtyPosition = true;
+                scene.remove(duckArray[x]);
+                scene.remove(realDuckModelArray[x]);
                 score++;
-                document.getElementById("scoreLabel").innerHTML = "Score: " + score;
-                if (score==8) {
-                    document.getElementById("HUD").style.visibility = 'hidden';
-                    document.getElementById("GameOverHUD").style.visibility = 'visible';
-                }
+                document.getElementById("scoreValue").innerHTML = score;
             }
         });
     }
@@ -529,12 +523,15 @@ function render() {
 
     if (camType == "first") {
         //First person
-        camera.position.set(avatarHead.x, avatarHead.y + 1, avatarHead.z);
-        camera.lookAt(0, 15, 0);
+        camera.position.set(avatarHead.x, avatarHead.y, avatarHead.z);
+        rayDirection = rayDirection.set(rayx,rayy-40, -100);
+        camera.lookAt(rayDirection);
+        scene.remove(laser);
     } else if (camType == "third") {
         //Third person
-        camera.position.set(avatarHead.x, avatarHead.y + 30, avatarHead.z + 50);
-        camera.lookAt(0, 10, 0);
+        camera.position.set(avatarHead.x, avatarHead.y + 25, avatarHead.z + 60);
+        camera.lookAt(rayDirection);
+        scene.add(laser);
     }
 
     scene.simulate();
