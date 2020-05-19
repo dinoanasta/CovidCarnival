@@ -36,8 +36,8 @@ let signs = [1, -1];
 let avatar;
 let avatarPosition = new THREE.Vector3();
 let AvatarMoveDirection = { x: 0, z: 0 };
-let movementBoundaries = {leftX : -38, rightX:38, frontZ: -10, backZ: 10};
-let avatarLocalPos = {x:0, z:0};
+let movementBoundaries = { leftX: -38, rightX: 38, frontZ: -10, backZ: 10 };
+let avatarLocalPos = { x: 0, z: 0 };
 
 //Shooting
 let ball;
@@ -57,12 +57,13 @@ let laser;
 var duck;
 var duckModel;
 var realDuckModel;
+var score = 0;
 
 duck = new Physijs.BoxMesh(
     new THREE.BoxGeometry(7, 7, 7),
     new THREE.MeshStandardMaterial({
         opacity: 0.0001,
-        // transparent: true
+        transparent: false
         //map: new THREE.TextureLoader().load('../../Resources/Textures/Dino/redfoil.jpg'),
     }),
     1
@@ -236,7 +237,6 @@ function setupScene() {
         scene.add(realDuckModelArray[x]);
         console.log(x);
     }
-
     for (let x = 0; x < 9; x++) {
         duckArray[x].addEventListener('collision', function (other_object, relative_velocity, relative_rotation, contact_normal) {
             if (other_object == ball) {
@@ -246,8 +246,12 @@ function setupScene() {
                 realDuckModelArray[x].position.set(duckArray[x].position.x, duckArray[x].position.y + 4, duckArray[x].position.z);
                 console.log(duckArray[x].position.y);
                 duckArray[x].__dirtyPosition = true;
-                //score++;
-                // document.getElementById("Score").innerHTML = "Score: " + score;
+                score++;
+                document.getElementById("scoreLabel").innerHTML = "Score: " + score;
+                if (score==8) {
+                    document.getElementById("HUD").style.visibility = 'hidden';
+                    document.getElementById("GameOverHUD").style.visibility = 'visible';
+                }
             }
         });
     }
@@ -456,8 +460,8 @@ function render() {
 
 
     //duck animations...
-
-
+    realDuckModelArray.forEach(element => element.rotation.y+=0.05);
+    realDuckModelArray.forEach(element => element.rotation.z+=0.05);
     //frameRate animations...
     if (frameRate >= 60) {
         frameRate = 0;
@@ -489,7 +493,6 @@ function render() {
         realDuckModelArray[3].position.z -= 7;
         realDuckModelArray[6].position.z -= 7;
     }
-
     //rotationRealDucks.rotation.y+=0.1;
 
     duckArray[0].position.set(realDuckModelArray[0].position.x, realDuckModelArray[0].position.y + 4, realDuckModelArray[0].position.z);
