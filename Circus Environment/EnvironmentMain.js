@@ -104,7 +104,6 @@ function doMouseDown(event) {
             window.location.href = "../Shoot/Level1/Phys.html";
         }
     }
-
 }
 
 function doMouseUp(event) {
