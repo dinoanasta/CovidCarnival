@@ -25,9 +25,15 @@ let cylinder1, cylinder2,cylinder3,cylinder4;
 //Loaders
 var textureLoader = new THREE.TextureLoader();
 var loader = new THREE.GLTFLoader();
+var textLoader = new THREE.FontLoader();
+
 
 //Moon stall Variables from Moonstall and stall js files
 let moonStall, moon;
+
+//Moon stall
+let moonStall, moon, text;
+
 let stallHolder = new THREE.Group();
 
 function setupScene(){ //Sets up camera, scene, physics engine, ligts, and orbit controls
@@ -88,9 +94,9 @@ function setupScene(){ //Sets up camera, scene, physics engine, ligts, and orbit
         } ) );
 
     }
-    cubeMap = new THREE.Mesh( new THREE.CubeGeometry(5000,5000,5000),
-        materials ); // creates the cubemap using a cube geometry and the added faces
+    cubeMap = new THREE.Mesh( new THREE.CubeGeometry(5000,5000,5000),materials ); // creates the cubemap using a cube geometry and the added faces
     scene.add(cubeMap); //adds cubemap to the world
+
 }
 
 //Ray Caster Variables
@@ -183,8 +189,14 @@ function animate () {
 
     }
 
+
     scene.simulate(); //Runs the scene
     moon.rotation.y += 0.01; //Rotates the moon atop the Moon stall
+
+    scene.simulate();
+    moon.rotation.y += 0.01;
+    //text.rotation.y += 0.01;
+
     requestAnimationFrame( animate );
     controls.update(); //Updates the orbit controls
     renderer.render( scene, camera ); //Renders the scene
