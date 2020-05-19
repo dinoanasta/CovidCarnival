@@ -42,13 +42,14 @@
     scene.add(light1);
 
     var textureLoader = new THREE.TextureLoader();
+    var text;
 
     var stall = makeStall();
     stall.position.z = -300;
-    makeMoon();
+    makeText();
 
 
-
+    stall.add(makeText());
     stall.add(miniGame());
     scene.add(stall);
 
@@ -67,6 +68,34 @@
     renderer.render(scene,camera);
 
 
+    function makeText(){
+
+        var loader = new THREE.FontLoader();
+
+        loader.load('../Resources/Fonts/droid_serif_bold.typeface.json',function (font) {
+            var geoText = new THREE.TextBufferGeometry( "1" , {
+                font : font,
+                size : 30,
+                height : 20,
+                curveSegments: 16,
+                bevelEnabled : true,
+                bevelThickness: 5,
+                bevelSize: 5,
+                bevelOffset : 0,
+                bevelSegments: 4
+
+            });
+
+            var matText = new THREE.MeshNormalMaterial({
+                color : 'white'
+            })
+
+            text = new THREE.Mesh(geoText,matText);
+            text.position.y = 230;
+            text.position.z = 100;
+
+        })
+    }
 
     function makeMoon(){
 

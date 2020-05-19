@@ -21,9 +21,10 @@ let cylinder1, cylinder2,cylinder3,cylinder4;
 //Loaders
 var textureLoader = new THREE.TextureLoader();
 var loader = new THREE.GLTFLoader();
+var textLoader = new THREE.FontLoader();
 
 //Moon stall
-let moonStall, moon;
+let moonStall, moon, text;
 let stallHolder = new THREE.Group();
 
 function setupScene(){
@@ -82,6 +83,7 @@ function setupScene(){
     cubeMap = new THREE.Mesh( new THREE.CubeGeometry(5000,5000,5000),
         materials );
     scene.add(cubeMap);
+
 }
 
 //Ray Caster Code
@@ -169,6 +171,7 @@ function animate () {
 
     scene.simulate();
     moon.rotation.y += 0.01;
+    //text.rotation.y += 0.01;
     requestAnimationFrame( animate );
     controls.update();
     renderer.render( scene, camera );
