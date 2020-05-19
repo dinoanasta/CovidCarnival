@@ -11,6 +11,9 @@ var frameNumber = 0;
 //EnvironmentPlatform
 let planet;
 
+//Text Variable
+let text;
+
 //Barriers
 let wholeBarrier;
 let barrier1, barrier2, barrier3, barrier4;
@@ -49,10 +52,10 @@ function setupScene(){
 
     //Add ambient light
     ambientLight = new THREE.AmbientLight(0xE6E686);
-    scene.add(ambientLight)
+    scene.add(ambientLight);
 
     controls = new THREE.OrbitControls(camera,renderer.domElement);
-    controls.maxDistance = 2000;
+    controls.maxDistance = 3000;
     controls.minPolarAngle = Math.PI / 4;
     controls.maxPolarAngle = 3*Math.PI / 4;
     controls.mouseButtons = {
@@ -115,6 +118,9 @@ function doMouseUp(event) {
 function updateFrame() {
     planet.rotation.x += 0.1;
     planet.rotation.y += 0.1;
+
+    planet2.rotation.x += 0.06;
+    planet2.rotation.y += 0.06;
 }
 
 function animate () {

@@ -12,10 +12,10 @@ function addMoonStall(){
     //moonStall.add(moon);
     makeText();
 
-    moonStall.scale.set(0.2,0.2,0.2);
+    moonStall.scale.set(0.4,0.6,0.4);
     moonStall.position.x = 0;
-    moonStall.position.y = 30;
-    moonStall.position.z = -20;
+    moonStall.position.y = 100;
+    moonStall.position.z = -50;
 
     scene.add(moonStall);
 }
