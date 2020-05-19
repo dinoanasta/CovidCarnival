@@ -18,36 +18,40 @@ function makeStall(){
     roof.position.z = 100;
     roof.rotation.y = Math.PI/4;
 
-    var geo = new THREE.PlaneGeometry(1000,1000);
-    var mat = new THREE.MeshBasicMaterial({
-        color : 'gray'
-    });
-    var plane = new THREE.Mesh(geo,mat);
-    plane.position.y = -150;
-    //plane.position.x = -50;
-    plane.position.z = 200;
-    plane.rotation.x = -Math.PI/2;
-
+    stall.add(miniGame());
     stall.add(wall);
     stall.add(wall2);
     stall.add(roof);
-    //stall.add(plane);
 
     return stall;
 }
 
-function rotateStall(stall){
+function miniGame(){
 
-    stall.position.y = 50;
-    stall.position.z = -300;
-    stall.rotation.y = -Math.PI/8;
-    stall.rotation.x = Math.PI/8;
+    var geoWall1 = new THREE.BoxBufferGeometry(400,200,10);
+    var geoWall2 = new THREE.BoxBufferGeometry(300,150,10);
+    var matWall = new THREE.MeshBasicMaterial({ map : textureLoader.load('../Resources/Textures/Mikayla/neontexture1.jpg')});
+
+    var game = new THREE.Mesh(geoWall1,matWall);
+    var side1 = new THREE.Mesh(geoWall2,matWall);
+    side1.position.x = -190;
+    side1.position.y = -50;
+    side1.position.z = 150;
+    side1.rotation.y = Math.PI/2;
+    var side2 = side1.clone();
+    side2.position.x = 190;
+    game.add(side1);
+    game.add(side2);
+    game.position.y = -50;
+
+    return game;
+
 }
 
 function makeRoof(){
 
     var geometry = new THREE.ConeGeometry(350,75,4);
-    var material = new THREE.MeshBasicMaterial({ map : textureLoader.load('../Resources/Textures/Mikayla/moon7.jfif')});
+    var material = new THREE.MeshBasicMaterial({ map : textureLoader.load('../Resources/Textures/Mikayla/right.png')});
 
     return new THREE.Mesh(geometry,material);
 }
@@ -55,7 +59,7 @@ function makeRoof(){
 function makeWall2(){
 
     var geoWall = new THREE.CubeGeometry(400,300,10);
-    var matWall = new THREE.MeshBasicMaterial({ map : textureLoader.load('../Resources/Textures/Mikayla/download2.png')});
+    var matWall = new THREE.MeshBasicMaterial({ map : textureLoader.load('../Resources/Textures/Mikayla/right.png')});
 
     return new THREE.Mesh(geoWall,matWall);
 }
@@ -63,7 +67,9 @@ function makeWall2(){
 function makeWall(){
 
     var geoWall = new THREE.CubeGeometry(300,300,10);
-    var matWall = new THREE.MeshBasicMaterial({ map : textureLoader.load('../Resources/Textures/Mikayla/download2.png')});
+    var matWall = new THREE.MeshBasicMaterial({ map : textureLoader.load('../Resources/Textures/Mikayla/right.png')});
 
     return new THREE.Mesh(geoWall,matWall);
 }
+
+
