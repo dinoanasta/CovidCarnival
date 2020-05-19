@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>Main Menu Environment</title>
 
-
+  <!--Calling relevant js files to be used in creation of scene -->
     <script src = "../js/three.js"></script>
     <script src = "../js/OrbitControls.js"></script>
     <script src = "../js/physi.js"></script>
@@ -19,25 +19,27 @@
     <a href = "../Shoot/Level1/Phys.html" id="loadGame"></a>
 
     <script>
+        //function that sets up everything in the scene
         function init() {
-            renderer = new THREE.WebGLRenderer({antialias:true});
+            renderer = new THREE.WebGLRenderer({antialias:true}); //creates renderer
 
+            //Sets color,pixel ratio, size and attaches renderer to window
             renderer.setClearColor(0xFFFFFF); //0x07E2E9
             renderer.setPixelRatio( window.devicePixelRatio);
             renderer.setSize(window.innerWidth,window.innerHeight);
             document.body.appendChild( renderer.domElement );
 
-            setupScene();
-            createPlane();
-            addBarriers();
+            setupScene(); //Sets up camera, scene, physics engine, ligts, and orbit controls
+            createPlane(); //Creates the flat area of the carnival
+            addBarriers(); //creates and adds barriers of carnival
            //MakeText(); called this function in EnvronmentPlatform.js cuz it wasn't getting recognized here
-            loadModels();
-            addMoonStall();
+            loadModels(); // loads all relevant models (mushroom 1 and 2 and lantern)
+            addMoonStall(); // Adds the moon stall
 
-            window.addEventListener("mousedown",doMouseDown,false);
-            window.addEventListener("mouseup",doMouseUp,false);
+            window.addEventListener("mousedown",doMouseDown,false); // adds events for when the ray caster clicks on an object it intersects
+            window.addEventListener("mouseup",doMouseUp,false); // adds event for when mouse moves up
 
-            animate();
+            animate(); //Animates and renders the scene
         }
     </script>
 

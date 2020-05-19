@@ -30,7 +30,8 @@ function miniGame(){
 
     var geoWall1 = new THREE.BoxBufferGeometry(400,200,10);
     var geoWall2 = new THREE.BoxBufferGeometry(300,150,10);
-    var matWall = new THREE.MeshBasicMaterial({ map : textureLoader.load('../Resources/Textures/Mikayla/neontexture1.jpg')});
+    var matWall = new THREE.MeshLambertMaterial({color: 0xFFFFFF,
+        map : textureLoader.load('../Resources/Textures/Mikayla/neontexture1.jpg')});
 
     var game = new THREE.Mesh(geoWall1,matWall);
     var side1 = new THREE.Mesh(geoWall2,matWall);
