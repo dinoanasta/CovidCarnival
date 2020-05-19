@@ -1,7 +1,11 @@
-function moveLaser (mouseCoords){
-    avatarHead.set(avatar.position.x, avatar.position.y +25, avatar.position.z-5);
+function aimer(){
 
-    rayx = mouseCoords.x*100;
+}
+
+function moveLaser (mouseCoords){
+    avatarHead.set(avatarPosition.x, avatarPosition.y +25, avatarPosition.z-5);
+
+    rayx = mouseCoords.x*200;
     rayy = mouseCoords.y*100;
 
     rayDirection.set(rayx,rayy-40, -100).normalize();
@@ -9,6 +13,30 @@ function moveLaser (mouseCoords){
     laser.position.copy(avatarHead);
     laser.setDirection(rayDirection);
     laser.setLength(200, 0.00001, 0.00001);
+
+    // let aimer = new THREE.Shape();
+    // aimer.moveTo(0, 2);
+    // aimer.lineTo(0, -2);
+    //
+    // aimer.moveTo(2, 0);
+    // aimer.lineTo(-2, 0);
+    //
+    // var extrudeSettings = { amount: 3, bevelEnabled: true, bevelSegments: 2, steps: 2, bevelSize: 1, bevelThickness: 1 };
+    //
+    // var geometry = new THREE.ExtrudeBufferGeometry( aimer, extrudeSettings );
+    //
+    // var mesh = new THREE.Mesh(
+    //     geometry,
+    //     new THREE.MeshStandardMaterial({
+    //             color: "red"
+    //         }
+    //     )
+    // );
+    //
+    // mesh.position.set(rayDirection.x, rayDirection.y, -60);
+    // scene.add(mesh);
+
+
 }
 
 function onMouseMove(event){
@@ -17,6 +45,8 @@ function onMouseMove(event){
         -(event.clientY / window.innerHeight) * 2 + 1
     );
     moveLaser(mouseCoords);
+
+
 }
 
 let numBalls = 0;
@@ -41,12 +71,12 @@ function onMouseDown(event) {
             10
         )
 
-        avatarHead.set(avatar.position.x, avatar.position.y +25, avatar.position.z-5);
+        avatarHead.set(avatarPosition.x, avatarPosition.y +25, avatarPosition.z-5);
 
-        rayx = mouseCoords.x*100;
+        rayx = mouseCoords.x*200;
         rayy = mouseCoords.y*100;
 
-        rayDirection.set(rayx,rayy - 40 , -100);
+        rayDirection.set(rayx,rayy-40, -100);
 
         raycaster.set(avatarHead, rayDirection);
 
@@ -67,8 +97,8 @@ function onMouseDown(event) {
     }else{
             document.getElementById("HUD").style.visibility = 'hidden';
             document.getElementById("GameOverHUD").style.visibility = 'visible';
+            renderer.pause();
     }
-
 }
 
 

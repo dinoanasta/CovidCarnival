@@ -1,0 +1,226 @@
+Index: Shoot/Level1/PhysiShoot.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>function moveLaser (mouseCoords){\r\n    avatarHead.set(avatar.position.x, avatar.position.y +25, avatar.position.z-5);\r\n\r\n    rayx = mouseCoords.x*100;\r\n    rayy = mouseCoords.y*100;\r\n\r\n    rayDirection.set(rayx,rayy-40, -100).normalize();\r\n\r\n    laser.position.copy(avatarHead);\r\n    laser.setDirection(rayDirection);\r\n    laser.setLength(200, 0.00001, 0.00001);\r\n}\r\n\r\nfunction onMouseMove(event){\r\n    mouseCoords.set(\r\n        (event.clientX / window.innerWidth) * 2 - 1,\r\n        -(event.clientY / window.innerHeight) * 2 + 1\r\n    );\r\n    moveLaser(mouseCoords);\r\n}\r\n\r\nlet numBalls = 0;\r\nfunction onMouseDown(event) {\r\n\r\n    if(numBalls < ammoCount){\r\n        sound = document.getElementById(\"raygun\");\r\n        //sound.play();\r\n\r\n        mouseCoords.set(\r\n            (event.clientX / window.innerWidth) * 2 - 1,\r\n            -(event.clientY / window.innerHeight) * 2 + 1\r\n        );\r\n\r\n        let ballRadius = 3;\r\n\r\n        ball = new Physijs.SphereMesh(\r\n            new THREE.SphereGeometry(ballRadius, 10, 10),\r\n            new THREE.MeshStandardMaterial({\r\n                map: new THREE.TextureLoader().load('../../Resources/Textures/Dino/trippy2.jpeg'),\r\n            }),\r\n            10\r\n        )\r\n\r\n        avatarHead.set(avatar.position.x, avatar.position.y +25, avatar.position.z-5);\r\n\r\n        rayx = mouseCoords.x*100;\r\n        rayy = mouseCoords.y*100;\r\n\r\n        rayDirection.set(rayx,rayy - 40 , -100);\r\n\r\n        raycaster.set(avatarHead, rayDirection);\r\n\r\n        ball.castShadow = true;\r\n        ball.receiveShadow = true;\r\n\r\n        ball.position.copy(avatarHead);\r\n\r\n        scene.add(ball);\r\n\r\n        pos.copy( raycaster.ray.direction );\r\n        pos.multiplyScalar( 2 );\r\n        ball.setLinearVelocity( new THREE.Vector3( pos.x, pos.y, pos.z ) );\r\n\r\n        numBalls++;\r\n\r\n        document.getElementById(\"ballCountValue\").innerHTML = ammoCount-numBalls; // changes ammo count on html\r\n    }else{\r\n            document.getElementById(\"HUD\").style.visibility = 'hidden';\r\n            document.getElementById(\"GameOverHUD\").style.visibility = 'visible';\r\n    }\r\n\r\n}\r\n\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Shoot/Level1/PhysiShoot.js	(revision 59c40f98ffa35cda7d30fce33fd9e2c3d734773f)
++++ Shoot/Level1/PhysiShoot.js	(date 1589790857928)
+@@ -1,5 +1,5 @@
+ function moveLaser (mouseCoords){
+-    avatarHead.set(avatar.position.x, avatar.position.y +25, avatar.position.z-5);
++    avatarHead.set(avatarPosition.x, avatarPosition.y +25, avatarPosition.z-5);
+ 
+     rayx = mouseCoords.x*100;
+     rayy = mouseCoords.y*100;
+@@ -41,7 +41,7 @@
+             10
+         )
+ 
+-        avatarHead.set(avatar.position.x, avatar.position.y +25, avatar.position.z-5);
++        avatarHead.set(avatarPosition.x, avatarPosition.y +25, avatarPosition.z-5);
+ 
+         rayx = mouseCoords.x*100;
+         rayy = mouseCoords.y*100;
+Index: Circus Environment/Environment.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><!DOCTYPE html>\r\n<html lang=\"en\">\r\n<head>\r\n    <meta charset=\"UTF-8\">\r\n    <title>Main Menu Environment</title>\r\n\r\n\r\n    <script src = \"../js/three.js\"></script>\r\n    <script src = \"../js/OrbitControls.js\"></script>\r\n    <script src = \"../js/physi.js\"></script>\r\n    <script src = \"../js/GLTFLoader.js\"></script>\r\n\r\n    <script src = \"EnvironmentMain.js\"></script>\r\n    <script src = \"EnvironmentPlatform.js\"></script>\r\n    <script src = \"Moonstall.js\"></script>\r\n    <script src = \"Stalls.js\"></script>\r\n    <a href = \"../Shoot/Level1/Phys.html\" id=\"loadGame\"></a>\r\n    <script>\r\n        function init() {\r\n            renderer = new THREE.WebGLRenderer({antialias:true});\r\n\r\n            renderer.setClearColor(0xFFFFFF); //0x07E2E9\r\n            renderer.setPixelRatio( window.devicePixelRatio);\r\n            renderer.setSize(window.innerWidth,window.innerHeight);\r\n            document.body.appendChild( renderer.domElement );\r\n\r\n            setupScene();\r\n            createPlane();\r\n            addBarriers();\r\n            loadModels();\r\n            addMoonStall();\r\n\r\n            window.addEventListener(\"mousedown\",doMouseDown,false);\r\n            window.addEventListener(\"mouseup\",doMouseUp,false);\r\n\r\n            animate();\r\n        }\r\n    </script>\r\n\r\n</head>\r\n<body onload=\"init()\">\r\n\r\n</body>\r\n</html>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Circus Environment/Environment.html	(revision 59c40f98ffa35cda7d30fce33fd9e2c3d734773f)
++++ Circus Environment/Environment.html	(date 1589789546359)
+@@ -14,7 +14,9 @@
+     <script src = "EnvironmentPlatform.js"></script>
+     <script src = "Moonstall.js"></script>
+     <script src = "Stalls.js"></script>
++
+     <a href = "../Shoot/Level1/Phys.html" id="loadGame"></a>
++
+     <script>
+         function init() {
+             renderer = new THREE.WebGLRenderer({antialias:true});
+Index: Shoot/Level1/PhysiAvatar.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>function createAvatar(){\r\n    let loader = new THREE.GLTFLoader();\r\n    loader.load(\r\n        \"../../Models/New Models/astronaut/scene.gltf\",\r\n        function (object) {\r\n            object.scene.traverse( function( object ) {\r\n                if ( object.isMesh ) {\r\n                    object.castShadow = true;\r\n                }\r\n            } );\r\n\r\n            avatar = object.scene.children[0];\r\n\r\n            avatar.position.set(0, 0, 80);\r\n            avatar.scale.set(7, -7, 7);\r\n\r\n            avatar.castShadow = true;\r\n            avatar.receiveShadow = true;\r\n            scene.add(avatar);\r\n        }\r\n    );\r\n}\r\n\r\nfunction moveAvatar(){\r\n    let moveX =  AvatarMoveDirection.x;\r\n    let moveZ =  AvatarMoveDirection.z;\r\n\r\n    if(moveX==1){\r\n        if(avatarLocalPos.x + moveX < movementBoundaries.rightX){\r\n            avatar.position.x += moveX;\r\n            avatarLocalPos.x += moveX;\r\n        }\r\n    }else if(moveX==-1 ){\r\n        if(avatarLocalPos.x + moveX > movementBoundaries.leftX) {\r\n            avatar.position.x += moveX;\r\n            avatarLocalPos.x += moveX\r\n        }\r\n    }else if(moveZ==-1){\r\n        if(avatarLocalPos.z + moveZ > movementBoundaries.frontZ) {\r\n            avatar.position.z += moveZ;\r\n            avatarLocalPos.z += moveZ;\r\n        }\r\n    }else if(moveZ==1){\r\n        if(avatarLocalPos.z + moveZ < movementBoundaries.backZ) {\r\n            avatar.position.z += moveZ;\r\n            avatarLocalPos.z += moveZ;\r\n        }\r\n    }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Shoot/Level1/PhysiAvatar.js	(revision 59c40f98ffa35cda7d30fce33fd9e2c3d734773f)
++++ Shoot/Level1/PhysiAvatar.js	(date 1589790902671)
+@@ -1,5 +1,4 @@
+ function createAvatar(){
+-    let loader = new THREE.GLTFLoader();
+     loader.load(
+         "../../Models/New Models/astronaut/scene.gltf",
+         function (object) {
+@@ -16,6 +15,7 @@
+ 
+             avatar.castShadow = true;
+             avatar.receiveShadow = true;
++            avatarPosition.set(avatar.position.x, avatar.position.y, avatar.position.z);
+             scene.add(avatar);
+         }
+     );
+@@ -29,21 +29,31 @@
+         if(avatarLocalPos.x + moveX < movementBoundaries.rightX){
+             avatar.position.x += moveX;
+             avatarLocalPos.x += moveX;
++
++
++            avatarPosition.set(avatar.position.x, avatar.position.y, avatar.position.z);
+         }
+     }else if(moveX==-1 ){
+         if(avatarLocalPos.x + moveX > movementBoundaries.leftX) {
+             avatar.position.x += moveX;
+-            avatarLocalPos.x += moveX
++            avatarLocalPos.x += moveX;
++
++            avatarPosition.set(avatar.position.x, avatar.position.y, avatar.position.z);
+         }
+     }else if(moveZ==-1){
+         if(avatarLocalPos.z + moveZ > movementBoundaries.frontZ) {
+             avatar.position.z += moveZ;
+             avatarLocalPos.z += moveZ;
++
++            avatarPosition.set(avatar.position.x, avatar.position.y, avatar.position.z);
+         }
+     }else if(moveZ==1){
+         if(avatarLocalPos.z + moveZ < movementBoundaries.backZ) {
+             avatar.position.z += moveZ;
+             avatarLocalPos.z += moveZ;
++
++            avatarPosition.set(avatar.position.x, avatar.position.y, avatar.position.z);
+         }
+     }
++
+ }
+\ No newline at end of file
+Index: Shoot/Level1/PhysiMain.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>'use strict';\r\n\r\nPhysijs.scripts.worker = '../../js/physijs_worker.js';\r\n//Physijs.scripts.ammo = '../../js/ammo.js';\r\n\r\n//HUD\r\nlet HUD, arrowSource;\r\nlet windElement;\r\n\r\n//FrameRate\r\nlet frameRate=0;\r\n//Levels\r\nlet level = \"1\";\r\nlet ammoCount; //Num of balls\r\nlet goal;   //How many targets they have to hit to win\r\nlet gameLength; //How long the game lasts\r\n\r\n//Scene and setup\r\nlet cubeMap;\r\nlet renderer, scene, camera, box;\r\nlet pos = new THREE.Vector3();\r\nlet sound;\r\n\r\n//Mouse Coordinates and raycaster\r\nlet mouseCoords = new THREE.Vector2(),\r\n    raycaster = new THREE.Raycaster();\r\n\r\n//Gravity variables\r\nlet xGrav, xDir, xStrength,maxGrav, minGrav, sign;\r\nlet yGrav;\r\nlet signs = [1, -1];\r\n\r\n//Avatar\r\nlet avatar;\r\nlet AvatarMoveDirection = { x: 0, z: 0 };\r\nlet movementBoundaries = {leftX : -40, rightX:40, frontZ: -10, backZ: 10};\r\nlet avatarLocalPos = {x:0, z:0};\r\n\r\n//Shooting\r\nlet ball;\r\nlet b_count;\r\nlet avatarHead = new THREE.Vector3();\r\nlet rayx, rayy;\r\nlet rayDirection = new THREE.Vector3();\r\nlet laser;\r\n\r\n//ducks\r\nvar duck;\r\nvar duckModel;\r\nvar realDuckModel;\r\n\r\nduck = new Physijs.BoxMesh(\r\n    new THREE.BoxGeometry(7,7,7),\r\n    new THREE.MeshStandardMaterial({\r\n        map: new THREE.TextureLoader().load('../../Resources/Textures/Dino/redfoil.jpg'),\r\n    }),\r\n    1\r\n);\r\nduck.setCcdMotionThreshold(5);\r\nduck.position.set(0, 25,-70); \r\n//rand.castShadow = true; disabling this to debug on my machine because its kak slow :/\r\n//rand.receiveShadow = true; disabling this to debug on my machine because its kak slow :/\r\n\r\nlet loader = new THREE.GLTFLoader();\r\n\r\n\r\nfunction setupScene() {\r\n    scene = new Physijs.Scene;\r\n\r\n    //Add camera\r\n    camera = new THREE.PerspectiveCamera(\r\n        60,\r\n        window.innerWidth / window.innerHeight,\r\n        0.5,\r\n        1000\r\n    );\r\n    camera.position.set(0, 60, 150);\r\n    camera.lookAt(new THREE.Vector3(0, 0, 0));\r\n    scene.add(camera);\r\n\r\n    //Add ambient light\r\n    let ambientLight = new THREE.AmbientLight(0xffffff, 0.5);\r\n    scene.add(ambientLight);\r\n\r\n    //Add point light from camera\r\n    let camLight = new THREE.PointLight(0xffaaff, 0.5);\r\n    camLight.position.set(0, 60, 150);\r\n    camLight.castShadow = true;\r\n    camera.add(camLight);\r\n    camLight.shadow.mapSize.width = 512;  // default\r\n    camLight.shadow.mapSize.height = 512; // default\r\n    camLight.shadow.camera.near = 0.5;    // default\r\n    camLight.shadow.camera.far = 500;     // default\r\n\r\n    //Add point light from right\r\n    let rightLight = new THREE.PointLight(0xffaaff, 0.5);\r\n    rightLight.position.set(60, 80, 110);\r\n    rightLight.castShadow = true;\r\n    scene.add(rightLight);\r\n    rightLight.shadow.mapSize.width = 512;  // default\r\n    rightLight.shadow.mapSize.height = 512; // default\r\n    rightLight.shadow.camera.near = 0.5;    // default\r\n    rightLight.shadow.camera.far = 500;     // default\r\n\r\n    //Add point light from left\r\n    let leftLight = new THREE.PointLight(0xffaaff, 0.5);\r\n    leftLight.position.set(-60, 80, 110);\r\n    leftLight.castShadow = true;\r\n    scene.add(leftLight);\r\n    leftLight.shadow.mapSize.width = 512;  // default\r\n    leftLight.shadow.mapSize.height = 512; // default\r\n    leftLight.shadow.camera.near = 0.5;    // default\r\n    leftLight.shadow.camera.far = 500;     // default\r\n\r\n    //Add point light from directly above\r\n    let topLight = new THREE.PointLight(0xffaaff, 0.3);\r\n    topLight.position.set(0, 100, 0);\r\n    topLight.castShadow = true;\r\n    scene.add(topLight);\r\n    topLight.shadow.mapSize.width = 512;  // default\r\n    topLight.shadow.mapSize.height = 512; // default\r\n    topLight.shadow.camera.near = 0.5;    // default\r\n    topLight.shadow.camera.far = 500;     // default\r\n\r\n    //Add laser like aiming helper\r\n    laser = new THREE.ArrowHelper(new THREE.Vector3(0,0,-200).normalize(), avatarHead,200, 0xff0000, 0.0001, 0.0001 );\r\n    scene.add( laser );\r\n\r\n    //adding a duck\r\n    scene.add(duck);\r\n\r\n    loader.load(\r\n        \"../../Models/glTF/Duck.gltf\",\r\n        function (object) {\r\n            object.scene.traverse( function( object ) {\r\n                if ( object.isMesh ) {\r\n                    //object.castShadow = true;\r\n                }\r\n            } );\r\n\r\n            realDuckModel = object.scene.children[0];\r\n\r\n            realDuckModel.position.set(duck.position.x, duck.position.y-4, duck.position.z);\r\n            realDuckModel.scale.set(0.05,0.05,0.05);\r\n\r\n            scene.add(realDuckModel);\r\n        }\r\n    );\r\n\r\n    //duck.__dirtyPosition = true;\r\n    duck.addEventListener( 'collision', function( other_object, relative_velocity, relative_rotation, contact_normal ) {\r\n        if(other_object == ball){\r\n            sound = document.getElementById(\"boom\");\r\n            //sound.play();\r\n\r\n            console.log(\"bang bang!\");\r\n            console.log(duck.position.y);\r\n            duck.position.y=duck.position.y+500;\r\n            console.log(duck.position.y);\r\n            duck.__dirtyPosition=true;\r\n        }\r\n    });\r\n\r\n    //CubeMap\r\n    var textureURLs = [  // URLs of the six faces of the cube map\r\n        // right, left, top, bottom, front, back\r\n        \"../../Resources/CubeMaps/red/bkg3_right1.png\",   // Note:  The order in which\r\n        \"../../Resources/CubeMaps/red/bkg3_left2.png\",   //   the images are listed is\r\n        \"../../Resources/CubeMaps/red/bkg3_top3.png\",   //   important!\r\n        \"../../Resources/CubeMaps/red/bkg3_bottom4.png\",\r\n        \"../../Resources/CubeMaps/red/bkg3_front5.png\",\r\n        \"../../Resources/CubeMaps/red/bkg3_back6.png\"\r\n    ];\r\n    var materials = [];\r\n    for (var i = 0; i < 6; i++) {\r\n        var texture = new THREE.TextureLoader().load( textureURLs[i] );\r\n        materials.push( new THREE.MeshBasicMaterial( {\r\n            color: \"white\",  // Color will be multiplied by texture color.\r\n            side: THREE.BackSide,  // IMPORTANT: To see the inside of the cube, back faces must be rendered!\r\n            map: texture\r\n        } ) );\r\n\r\n    }\r\n    cubeMap = new THREE.Mesh(\r\n        new THREE.BoxGeometry(1000,1000,1000), materials );\r\n    scene.add(cubeMap);\r\n}\r\n\r\nfunction setupEventHandlers(){\r\n    window.addEventListener( 'keydown', handleKeyDown, false);\r\n    window.addEventListener( 'keyup', handleKeyUp, false);\r\n    window.addEventListener('mousedown', onMouseDown, false);\r\n    window.addEventListener('mousemove', onMouseMove, false);\r\n    window.addEventListener( 'resize', onWindowResize, false );\r\n}\r\n\r\nfunction handleKeyDown(event){\r\n    let keyCode = event.keyCode;\r\n    switch(keyCode){\r\n        //Level\r\n        case 49:\r\n            level = \"1\";\r\n            setLevel(level);\r\n            break;\r\n        case 50:\r\n            level = \"2\";\r\n            setLevel(level);\r\n            break;\r\n        case 51:\r\n            level = \"3\";\r\n            setLevel(level);\r\n            break;\r\n        //Avatar\r\n        case 87: //W: FORWARD\r\n            AvatarMoveDirection.z = -1\r\n            break;\r\n        case 83: //S: BACK\r\n            AvatarMoveDirection.z = 1\r\n            break;\r\n        case 65: //A: LEFT\r\n            AvatarMoveDirection.x = -1\r\n            break;\r\n        case 68: //: RIGHT\r\n            AvatarMoveDirection.x = 1\r\n            break;\r\n    }\r\n\r\n}\r\n\r\nfunction handleKeyUp(event){\r\n    let keyCode = event.keyCode;\r\n    switch(keyCode){\r\n        //Avatar\r\n        case 87: //↑: FORWARD\r\n            AvatarMoveDirection.z = 0\r\n            break;\r\n        case 83: //↓: BACK\r\n            AvatarMoveDirection.z = 0\r\n            break;\r\n        case 65: //←: LEFT\r\n            AvatarMoveDirection.x = 0\r\n            break;\r\n        case 68: //→: RIGHT\r\n            AvatarMoveDirection.x = 0\r\n            break;\r\n    }\r\n}\r\n\r\nfunction onWindowResize() {\r\n    camera.aspect = window.innerWidth / window.innerHeight;\r\n    camera.updateProjectionMatrix();\r\n\r\n    renderer.setSize( window.innerWidth, window.innerHeight );\r\n\r\n}\r\n\r\nfunction setLevel(lvl){\r\n  switch (lvl){\r\n      case \"1\":\r\n          //Level 1\r\n\r\n          sign = signs[Math.floor(Math.random() * 2)];\r\n          console.log(\"Sign: \" + sign);\r\n\r\n          console.log(\"Level: \" + level);\r\n\r\n          ammoCount = 10;\r\n          goal = 5;\r\n          gameLength = 60;\r\n\r\n          maxGrav = 40;\r\n          minGrav = 20;\r\n\r\n          xGrav = sign * ((Math.random()*(maxGrav-minGrav)) + minGrav);\r\n\r\n          yGrav = -10;\r\n\r\n          scene.setGravity(new THREE.Vector3(xGrav, yGrav, 0)); //testing with no gravity...\r\n\r\n          if (xGrav > 0) {\r\n              xDir = \"right\";\r\n          } else if (xGrav < 0) {\r\n              xDir = \"left\";\r\n          }\r\n\r\n          if (minGrav < Math.abs(xGrav) &&  Math.abs(xGrav) < 26) {\r\n              xStrength = \"weak\";\r\n          } else if (26 < Math.abs(xGrav) &&  Math.abs(xGrav) < 34) {\r\n              xStrength = \"average\";1\r\n          } else if (34 < Math.abs(xGrav) &&  Math.abs(xGrav) < maxGrav) {\r\n              xStrength = \"strong\";\r\n          }\r\n          console.log(xGrav, xDir, xStrength);\r\n          break;\r\n      case \"2\":\r\n          //Level 2\r\n\r\n          sign = signs[Math.floor(Math.random() * 2)];\r\n          console.log(\"Sign: \" + sign);\r\n\r\n          console.log(\"Level: \" + level);\r\n\r\n          ammoCount = 5;\r\n          goal = 5;\r\n          gameLength = 60;\r\n\r\n          maxGrav = 40;\r\n          minGrav = 20;\r\n\r\n          xGrav = sign * ((Math.random()*(maxGrav-minGrav)) + minGrav);\r\n\r\n          yGrav = -50;\r\n\r\n          scene.setGravity(new THREE.Vector3(xGrav, yGrav, 0));\r\n\r\n          if (xGrav > 0) {\r\n              xDir = \"right\";\r\n          } else if (xGrav < 0) {\r\n              xDir = \"left\";\r\n          }\r\n\r\n          if (minGrav < Math.abs(xGrav) &&  Math.abs(xGrav) < 26) {\r\n              xStrength = \"weak\";\r\n          } else if (26 < Math.abs(xGrav) &&  Math.abs(xGrav) < 34) {\r\n              xStrength = \"average\";1\r\n          } else if (34 < Math.abs(xGrav) &&  Math.abs(xGrav) < maxGrav) {\r\n              xStrength = \"strong\";\r\n          }\r\n          console.log(xGrav, xDir, xStrength);\r\n          break;\r\n      case \"3\":\r\n          //Level 3\r\n\r\n          sign = signs[Math.floor(Math.random() * 2)];\r\n          console.log(\"Sign: \" + sign);\r\n\r\n          console.log(\"Level: \" + level);\r\n\r\n          ammoCount = 5;\r\n          goal = 5;\r\n          gameLength = 60;\r\n\r\n          maxGrav = 40;\r\n          minGrav = 20;\r\n\r\n          xGrav = sign * ((Math.random()*(maxGrav-minGrav)) + minGrav);\r\n\r\n          yGrav = -100;\r\n\r\n          scene.setGravity(new THREE.Vector3(xGrav, yGrav, 0));\r\n\r\n          if (xGrav > 0) {\r\n              xDir = \"right\";\r\n          } else if (xGrav < 0) {\r\n              xDir = \"left\";\r\n          }\r\n\r\n          if (minGrav < Math.abs(xGrav) &&  Math.abs(xGrav) < 26) {\r\n              xStrength = \"weak\";\r\n          } else if (26 < Math.abs(xGrav) &&  Math.abs(xGrav) < 34) {\r\n              xStrength = \"average\";1\r\n          } else if (34 < Math.abs(xGrav) &&  Math.abs(xGrav) < maxGrav) {\r\n              xStrength = \"strong\";\r\n          }\r\n          console.log(xGrav, xDir, xStrength);\r\n          break;\r\n  }\r\n\r\n    document.getElementById(\"ballCountValue\").innerHTML = ammoCount;\r\n    document.getElementById('windStrength').innerHTML = xStrength;\r\n    windElement = document.getElementById(\"windIcon\");\r\n    if (xDir == \"right\") {\r\n        arrowSource = '../../Resources/Textures/Razeen/arrow.png';\r\n    } else if (xDir == \"left\") {\r\n        arrowSource = '../../Resources/Textures/Razeen/arrowleft.png';\r\n    }\r\n\r\n    windElement.setAttribute('src', arrowSource);\r\n}\r\n\r\nfunction render() {\r\n    requestAnimationFrame(render);\r\n\r\n    moveAvatar();\r\n    moveLaser(mouseCoords);\r\n    \r\n\r\n    //duck animations...\r\n    \r\n\r\n    //frameRate animations...\r\n    if(frameRate>=0 && frameRate<15){\r\n        duck.rotation.y+=0.1;\r\n    }\r\n    else if(frameRate>=15 && frameRate<30){\r\n        duck.rotation.y-=0.1;\r\n    }\r\n    else if(frameRate>=30){\r\n        frameRate=0;\r\n    }\r\n    realDuckModel.position.set(duck.position.x, duck.position.y-4, duck.position.z);\r\n    duck.__dirtyRotation=true;\r\n\r\n    frameRate++;\r\n\r\n    scene.simulate();\r\n    renderer.render( scene, camera);\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Shoot/Level1/PhysiMain.js	(revision 59c40f98ffa35cda7d30fce33fd9e2c3d734773f)
++++ Shoot/Level1/PhysiMain.js	(date 1589794931536)
+@@ -20,10 +20,12 @@
+ let renderer, scene, camera, box;
+ let pos = new THREE.Vector3();
+ let sound;
++let loader = new THREE.GLTFLoader();
++let camType = "third";
+ 
+ //Mouse Coordinates and raycaster
+-let mouseCoords = new THREE.Vector2(),
+-    raycaster = new THREE.Raycaster();
++let mouseCoords = new THREE.Vector2();
++let raycaster = new THREE.Raycaster();
+ 
+ //Gravity variables
+ let xGrav, xDir, xStrength,maxGrav, minGrav, sign;
+@@ -32,8 +34,9 @@
+ 
+ //Avatar
+ let avatar;
++let avatarPosition = new THREE.Vector3();
+ let AvatarMoveDirection = { x: 0, z: 0 };
+-let movementBoundaries = {leftX : -40, rightX:40, frontZ: -10, backZ: 10};
++let movementBoundaries = {leftX : -38, rightX:38, frontZ: -10, backZ: 10};
+ let avatarLocalPos = {x:0, z:0};
+ 
+ //Shooting
+@@ -61,9 +64,6 @@
+ //rand.castShadow = true; disabling this to debug on my machine because its kak slow :/
+ //rand.receiveShadow = true; disabling this to debug on my machine because its kak slow :/
+ 
+-let loader = new THREE.GLTFLoader();
+-
+-
+ function setupScene() {
+     scene = new Physijs.Scene;
+ 
+@@ -74,6 +74,7 @@
+         0.5,
+         1000
+     );
++
+     camera.position.set(0, 60, 150);
+     camera.lookAt(new THREE.Vector3(0, 0, 0));
+     scene.add(camera);
+@@ -220,9 +221,15 @@
+         case 65: //A: LEFT
+             AvatarMoveDirection.x = -1
+             break;
+-        case 68: //: RIGHT
++        case 68: //D: RIGHT
+             AvatarMoveDirection.x = 1
+             break;
++        case 86: //V: Change camera view
++            if(camType == "first"){
++                camType = "third";
++            }else if(camType == "third"){
++                camType = "first";
++            }
+     }
+ 
+ }
+@@ -403,6 +410,19 @@
+ 
+     frameRate++;
+ 
++    // avatarHead.set(avatarPosition.x, avatarPosition.y +25, avatarPosition.z-20);
++
++
++    if(camType == "first"){
++        //First person
++        camera.position.set(avatarHead.x, avatarHead.y+1, avatarHead.z);
++        camera.lookAt(0, 15 ,0);
++    }else if(camType == "third"){
++        //Third person
++        camera.position.set(avatarHead.x, avatarHead.y+30, avatarHead.z +50);
++        camera.lookAt(0, 10, 0);
++    }
++
+     scene.simulate();
+     renderer.render( scene, camera);
+ }
+\ No newline at end of file
+Index: Shoot/Level1/Phys.html
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><!DOCTYPE html>\r\n<html>\r\n\r\n<head>\r\n    <title>SHOOT</title>\r\n    <link rel = \"stylesheet\", href=\"../../CSS/style.css\">\r\n    <div id=\"HUD\">\r\n<!--        Game name -->\r\n        <h1 class=\"neon\" data-text=\"COVID CARNIVAL\"> COVID CARNIVAL </h1>\r\n\r\n<!--        Ammo top left-->\r\n        <div id = \"topLeftBallCount\" class=\"stats\">\r\n            <h1 id = \"ballCountLabel\">Ammo Left:</h1>\r\n            <h1 id = \"ballCountValue\"> </h1>\r\n        </div>\r\n\r\n<!--        Wind Meter -->\r\n        <div id = \"topRightWind\" class=\"stats\">\r\n            <h1 id = \"windLabel\">Wind:</h1>\r\n            <h1 id = \"windStrength\">None</h1>\r\n            <br>\r\n            <img id=\"windIcon\">\r\n        </div>\r\n\r\n<!--        Score bottom -->\r\n        <div id =\"bottomLeftScore\" class=\"stats\">\r\n            <h1 id = \"scoreLabel\">Score: </h1>\r\n            <h1 id = \"scoreValue\"> 0 </h1>\r\n        </div>\r\n\r\n    </div>\r\n\r\n    <div id = \"GameOverHUD\" style=\"visibility: hidden\">\r\n        <!--        Game Over Text-->\r\n        <h1 id=\"GameOverText\" class=\"stats\">Game Over, Restart ?</h1>\r\n\r\n        <br>\r\n        <br>\r\n\r\n        <!--        Buttons -->\r\n        <a href = \"Phys.html\">\r\n            <button class=\" button restartButton stats\">Restart</button>\r\n        </a>\r\n        <a href = \"../../Circus%20Environment/Environment.html\">\r\n            <button class=\"button mainMenuButton stats\">Main Menu</button>\r\n        </a>\r\n\r\n    </div>\r\n\r\n    <script src=\"../../js/three.js\"></script>\r\n    <script src=\"../../js/physi.js\"></script>\r\n    <script src=\"../../js/GLTFLoader.js\"></script>\r\n    <script src=\"PhysiPlatform.js\"></script>\r\n    <script src=\"PhysiShoot.js\"></script>\r\n    <script src=\"PhysiAvatar.js\"></script>\r\n    <script src=\"PhysiMain.js\"></script>\r\n\r\n    <audio src=\"../../Resources/Sounds/raygun.mp3\" id=\"raygun\"></audio>\r\n    <audio src=\"../../Resources/Sounds/boom.mp3\" id=\"boom\"></audio>\r\n\r\n    <div id=\"viewport\"></div>\r\n    <script>\r\n        function init(){\r\n            renderer = new THREE.WebGLRenderer( { antialias: false } ); //disabling antialias to debug on my machine because its kak slow :/\r\n            renderer.setClearColor( 0x00a0a0 );\r\n            renderer.setPixelRatio( window.devicePixelRatio);\r\n            renderer.setSize( window.innerWidth, window.innerHeight);\r\n            //renderer.shadowMap.enabled = true; disabling this option to debug on my machine because its kak slow :/\r\n           // renderer.shadowMap.type = THREE.PCFSoftShadowMap; disabling this option to debug on my machine because its kak slow :/\r\n            document.getElementById( 'viewport' ).appendChild( renderer.domElement );\r\n\r\n            setupScene();\r\n            setupEventHandlers();\r\n            createStallPlatform();\r\n            createAvatar();\r\n            setLevel(level);\r\n            setLevel(level);\r\n\r\n            render();\r\n        };\r\n    </script>\r\n</head>\r\n\r\n<body onload=\"init()\">\r\n\r\n</body>\r\n\r\n</html>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Shoot/Level1/Phys.html	(revision 59c40f98ffa35cda7d30fce33fd9e2c3d734773f)
++++ Shoot/Level1/Phys.html	(date 1589789708574)
+@@ -74,7 +74,6 @@
+             createStallPlatform();
+             createAvatar();
+             setLevel(level);
+-            setLevel(level);
+ 
+             render();
+         };
+Index: Circus Environment/EnvironmentMain.js
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>Physijs.scripts.worker =  '../js/physijs_worker.js';\r\nPhysijs.scripts.ammo = '../js/ammo.js';\r\n\r\n//Scene Variables\r\nlet light, scene, camera, ambientLight;\r\nlet renderer;\r\nlet controls;\r\nvar frameNumber = 0;\r\n\r\n\r\n//EnvironmentPlatform\r\nlet planet;\r\n\r\n//Barriers\r\nlet wholeBarrier;\r\nlet barrier1, barrier2, barrier3, barrier4;\r\nlet tbarrier1, tbarrier2, tbarrier3, tbarrier4;\r\nlet cover1, cover2, cover3, cover4;\r\nlet cylinder1, cylinder2,cylinder3,cylinder4;\r\n\r\n//Loaders\r\nvar textureLoader = new THREE.TextureLoader();\r\nvar loader = new THREE.GLTFLoader();\r\n\r\n//Moon stall\r\nlet moonStall, moon;\r\nlet stallHolder = new THREE.Group();\r\n\r\nfunction setupScene(){\r\n    scene = new Physijs.Scene;\r\n    scene.setGravity(new THREE.Vector3(0,-10,0));\r\n\r\n    camera = new THREE.PerspectiveCamera(\r\n        75,\r\n        window.innerWidth/window.innerHeight,\r\n        0.1,\r\n        10000 );\r\n\r\n    camera.position.x = 0;\r\n    camera.position.y = 100;\r\n    camera.position.z = 150;\r\n\r\n    // A light shining from the direction of the camera; moves with the camera.\r\n    light = new THREE.DirectionalLight(0xFFFFFF,0.6);\r\n    light.position.set(0,0,1);\r\n    camera.add(light);\r\n    scene.add(camera);\r\n\r\n    //Add ambient light\r\n    ambientLight = new THREE.AmbientLight(0xE6E686);\r\n    scene.add(ambientLight)\r\n\r\n    controls = new THREE.OrbitControls(camera,renderer.domElement);\r\n    controls.maxDistance = 2000;\r\n    controls.minPolarAngle = Math.PI / 4;\r\n    controls.maxPolarAngle = 3*Math.PI / 4;\r\n    controls.mouseButtons = {\r\n        MIDDLE: THREE.MOUSE.DOLLY,\r\n        RIGHT: THREE.MOUSE.ROTATE\r\n    }\r\n\r\n    var textureURLs = [  // URLs of the six faces of the cubeMap map\r\n\r\n        \"../Resources/CubeMaps/red/bkg1_right1.png\",   // Note:  The order in which\r\n        \"../Resources/CubeMaps/red/bkg1_left2.png\",   //   the images are listed is\r\n        \"../Resources/CubeMaps/red/bkg1_top3.png\",   //   important!\r\n        \"../Resources/CubeMaps/red/bkg1_bottom4.png\",\r\n        \"../Resources/CubeMaps/red/bkg1_front5.png\",\r\n        \"../Resources/CubeMaps/red/bkg1_back6.png\"\r\n    ];\r\n    var materials = [];\r\n    for (var i = 0; i < 6; i++) {\r\n        var texture = new THREE.TextureLoader().load( textureURLs[i] );\r\n        materials.push( new THREE.MeshBasicMaterial( {\r\n            color: \"white\",\r\n            side: THREE.DoubleSide,\r\n\r\n            map: texture\r\n        } ) );\r\n\r\n    }\r\n    cubeMap = new THREE.Mesh( new THREE.CubeGeometry(5000,5000,5000),\r\n        materials );\r\n    scene.add(cubeMap);\r\n}\r\n\r\n//Ray Caster Code\r\nvar mouse = new THREE.Vector2();\r\nvar raycaster = new THREE.Raycaster();\r\n\r\nfunction doMouseDown(event) {\r\n\r\n    if(event.button == 0){\r\n        mouse.x = (event.clientX / window.innerWidth) * 2 - 1;\r\n        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;\r\n\r\n        // update the picking ray with the camera and mouse position\r\n        raycaster.setFromCamera(mouse, camera);\r\n\r\n        let intersects = raycaster.intersectObjects(scene.children);\r\n\r\n        if (intersects[0].object == moonStall) {\r\n            document.getElementById(\"loadGame\");\r\n            window.location.href = \"../Shoot/Level1/Phys.html\";\r\n        }\r\n    }\r\n\r\n}\r\n\r\nfunction doMouseUp(event) {\r\n    console.log(\"lifted\");\r\n}\r\n\r\nfunction updateFrame() {\r\n    planet.rotation.x += 0.1;\r\n    planet.rotation.y += 0.1;\r\n}\r\n\r\nfunction animate () {\r\n    frameNumber++;\r\n    updateFrame();\r\n\r\n    if (frameNumber >= 30) {\r\n        frameNumber = 0;\r\n    }\r\n    if (frameNumber >= 0 && frameNumber < 15) {\r\n\r\n        barrier1.children[0].position.y += 0.5;\r\n        barrier1.children[1].position.y -= 0.5;\r\n        barrier1.children[2].position.y += 0.5;\r\n        barrier1.children[3].position.y -= 0.5;\r\n\r\n        barrier2.children[0].position.y += 0.5;\r\n        barrier2.children[1].position.y -= 0.5;\r\n        barrier2.children[2].position.y += 0.5;\r\n        barrier2.children[3].position.y -= 0.5;\r\n\r\n        barrier3.children[0].position.y += 0.5;\r\n        barrier3.children[1].position.y -= 0.5;\r\n        barrier3.children[2].position.y += 0.5;\r\n        barrier3.children[3].position.y -= 0.5;\r\n\r\n        barrier4.children[0].position.y += 0.5;\r\n        barrier4.children[1].position.y -= 0.5;\r\n        barrier4.children[2].position.y += 0.5;\r\n        barrier4.children[3].position.y -= 0.5;\r\n    }else if (frameNumber >= 15 && frameNumber < 30) {\r\n\r\n        barrier1.children[0].position.y -= 0.5;\r\n        barrier1.children[1].position.y += 0.5;\r\n        barrier1.children[2].position.y -= 0.5;\r\n        barrier1.children[3].position.y += 0.5;\r\n\r\n        barrier2.children[0].position.y -= 0.5;\r\n        barrier2.children[1].position.y += 0.5;\r\n        barrier2.children[2].position.y -= 0.5;\r\n        barrier2.children[3].position.y += 0.5;\r\n\r\n        barrier3.children[0].position.y -= 0.5;\r\n        barrier3.children[1].position.y += 0.5;\r\n        barrier3.children[2].position.y -= 0.5;\r\n        barrier3.children[3].position.y += 0.5;\r\n\r\n        barrier4.children[0].position.y -= 0.5;\r\n        barrier4.children[1].position.y += 0.5;\r\n        barrier4.children[2].position.y -= 0.5;\r\n        barrier4.children[3].position.y += 0.5;\r\n\r\n    }\r\n\r\n    scene.simulate();\r\n    moon.rotation.y += 0.01;\r\n    requestAnimationFrame( animate );\r\n    controls.update();\r\n    renderer.render( scene, camera );\r\n};
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- Circus Environment/EnvironmentMain.js	(revision 59c40f98ffa35cda7d30fce33fd9e2c3d734773f)
++++ Circus Environment/EnvironmentMain.js	(date 1589758712467)
+@@ -104,7 +104,6 @@
+             window.location.href = "../Shoot/Level1/Phys.html";
+         }
+     }
+-
+ }
+ 
+ function doMouseUp(event) {

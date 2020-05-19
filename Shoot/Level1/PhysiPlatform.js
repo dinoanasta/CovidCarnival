@@ -1,6 +1,6 @@
 function createStallPlatform(){
     let platformMat = new THREE.MeshStandardMaterial({
-        map: new THREE.TextureLoader().load('../../Resources/Textures/Dino/neontexture1.jpg'),
+        map: textureLoader.load('../../Resources/Textures/Dino/neontexture1.jpg'),
         //transparent: true,
         //opacity: 0.9
     });
@@ -20,7 +20,7 @@ function createStallPlatform(){
     let shooterBarrier = new Physijs.BoxMesh(
         new THREE.BoxGeometry(90,10,20),
         new THREE.MeshStandardMaterial({
-            map: new THREE.TextureLoader().load('../../Resources/Textures/Dino/redfoil.jpg'),
+            map: textureLoader.load('../../Resources/Textures/Dino/redfoil.jpg'),
         }),
         0
     );
