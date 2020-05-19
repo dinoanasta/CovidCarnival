@@ -28,11 +28,9 @@ var loader = new THREE.GLTFLoader();
 var textLoader = new THREE.FontLoader();
 
 
+
 //Moon stall Variables from Moonstall and stall js files
 let moonStall, moon;
-
-//Moon stall
-let moonStall, moon, text;
 
 let stallHolder = new THREE.Group();
 
@@ -96,6 +94,11 @@ function setupScene(){ //Sets up camera, scene, physics engine, ligts, and orbit
     }
     cubeMap = new THREE.Mesh( new THREE.CubeGeometry(5000,5000,5000),materials ); // creates the cubemap using a cube geometry and the added faces
     scene.add(cubeMap); //adds cubemap to the world
+
+    cubeMap = new THREE.Mesh( new THREE.CubeGeometry(5000,5000,5000),
+        materials );
+    scene.add(cubeMap);
+
 
 }
 
