@@ -1,6 +1,6 @@
 
-Physijs.scripts.worker = '/js/physijs_worker.js';
-Physijs.scripts.ammo = '/js/ammo.js';
+Physijs.scripts.worker = '../js/physijs_worker.js';
+Physijs.scripts.ammo = '../js/ammo.js';
 
 var initScene, render, renderer, scene, camera, box, target, target2, bullet, controls, newBullet, tempStuff;
 var points = 0;
@@ -34,12 +34,12 @@ light.position.set(-100, 100, 1);
 
 
 const materialArray = [];
-const texture_ft = new THREE.TextureLoader().load('/textures/torture_ft.jpg');
-const texture_bk = new THREE.TextureLoader().load('/textures/torture_bk.jpg');
-const texture_up = new THREE.TextureLoader().load('/textures/torture_up.jpg');
-const texture_dn = new THREE.TextureLoader().load('/textures/torture_dn.jpg');
-const texture_rt = new THREE.TextureLoader().load('/textures/torture_rt.jpg');
-const texture_lf = new THREE.TextureLoader().load('/textures/torture_lf.jpg');
+const texture_ft = new THREE.TextureLoader().load('../textures/torture_ft.jpg');
+const texture_bk = new THREE.TextureLoader().load('../textures/torture_bk.jpg');
+const texture_up = new THREE.TextureLoader().load('../textures/torture_up.jpg');
+const texture_dn = new THREE.TextureLoader().load('../textures/torture_dn.jpg');
+const texture_rt = new THREE.TextureLoader().load('../textures/torture_rt.jpg');
+const texture_lf = new THREE.TextureLoader().load('../textures/torture_lf.jpg');
 
 
 materialArray.push(new THREE.MeshBasicMaterial({ map: texture_ft }));
@@ -89,7 +89,7 @@ function onMouseMove(event) {
 }
 
 var loader = new THREE.GLTFLoader();
-loader.load('/models/glTF/Duck.gltf', handle_load);
+loader.load('../models/glTF/Duck.gltf', handle_load);
 
 function handle_load(gltf) {
     duck = gltf.scene.children[0];
