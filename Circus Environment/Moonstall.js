@@ -45,6 +45,52 @@ function miniGame(){
     game.add(side2);
     game.position.y = -50;
 
+    var geoBall = new THREE.SphereBufferGeometry(30,20,20);
+    var matBall = new THREE.MeshBasicMaterial({map : textureLoader.load('../Resources/Textures/Dino/trippy2.jpeg')});
+    var ball = new THREE.Mesh(geoBall,matBall);
+    ball.position.x = -150;
+    ball.position.y = -75;
+    ball.position.z = 200;
+
+    var ball2 = ball.clone();
+    ball2.scale.set(0.5,0.5,0.5);
+    ball2.position.x = 150;
+    ball2.position.y = -80;
+    ball2.position.z = 250;
+
+    var ball3 = ball.clone();
+    ball3.position.x = 150;
+    ball3.position.z = 20;
+
+    var ball4 = ball2.clone();
+    ball4.position.x = -150;
+    ball4.position.z = 250;
+
+    var ball5 = ball2.clone();
+    ball5.position.x = 30;
+    ball5.position.y = -90;
+    ball5.position.z = 20;
+
+    var ball6 = ball.clone();
+    ball6.position.x = -60;
+    ball6.position.y = -75;
+    ball6.position.z = 60;
+
+    var ball7 = ball2.clone();
+    ball7.position.x = 30;
+    ball7.position.y = -75;
+    ball7.position.z = 200;
+
+    game.add(ball);
+    game.add(ball2);
+    game.add(ball3);
+    game.add(ball4);
+    game.add(ball5);
+    game.add(ball6);
+    game.add(ball7);
+
+
+
     return game;
 
 }

@@ -37,13 +37,11 @@ function makeText(){
 
         var matText = new THREE.MeshNormalMaterial({ map : textureLoader.load('../Resources/Textures/Mikayla/neontexture1.jpg')})
 
-        moonText = new THREE.Mesh(geoText,matText);
+        text = new THREE.Mesh(geoText,matText);
         text.position.x = -20;
         text.position.y = 250;
         text.position.z = 100;
         moonStall.add(text);
 
     })
-
-    return moonText;
 }
