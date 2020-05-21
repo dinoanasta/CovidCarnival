@@ -89,16 +89,16 @@ function createStallPlatform(){
     let covidText;
     let carnivalText;
 
-    textLoader.load( '../../Fonts/helvetiker_bold.typeface.json', function ( font ) {
-        covidGeo = new THREE.TextGeometry( 'Covid', {
+    textLoader.load( '../../Resources/Fonts/helvetiker_bold.typeface.json', function ( font ) {
+        covidGeo = new THREE.TextGeometry( 'COVID', {
             font: font,
-            size: 30,
+            size: 20,
             height: 5,
             curveSegments: 100,
             bevelEnabled: true,
             bevelThickness: 2,
             bevelSize: 2,
-            bevelOffset: 1,
+            bevelOffset: 0,
             bevelSegments: 1
         } );
         covidText = new THREE.Mesh(
@@ -106,15 +106,15 @@ function createStallPlatform(){
             secondaryMaterial
         );
 
-        carnivalGeo = new THREE.TextGeometry( 'Carnival', {
+        carnivalGeo = new THREE.TextGeometry( 'CARNIVAL', {
             font: font,
-            size: 30,
+            size: 20,
             height: 5,
             curveSegments: 100,
             bevelEnabled: true,
             bevelThickness: 2,
             bevelSize: 2,
-            bevelOffset: 1,
+            bevelOffset: 0,
             bevelSegments: 1
         } );
         carnivalText = new THREE.Mesh(

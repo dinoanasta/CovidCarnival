@@ -62,6 +62,7 @@ function setupScene(){
     //Creates the controls and imposes restriction for how the player can navigate the world
     controls = new THREE.OrbitControls(camera,renderer.domElement);
     controls.maxDistance = 2000;
+    controls.minDistance = 800;
     controls.minPolarAngle = 0;
     controls.maxPolarAngle = Math.PI/2;
     controls.mouseButtons = {
@@ -119,12 +120,17 @@ function doMouseDown(event) {
     }
 }
 
+function onWindowResize() {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+}
+
 function updateFrame() {
     planet.rotation.x += 0.1;
     planet.rotation.y += 0.1;
 
-    // covidCarnivalText.rotation.x += 0.5;
-    // covidCarnivalText.position.y +=2;
+    // covidCarnivalText.rotation.y += 0.5;
 
     // planet2.rotation.x += 0.06;
     // planet2.rotation.y += 0.06;

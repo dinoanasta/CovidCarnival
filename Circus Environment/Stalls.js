@@ -10,7 +10,7 @@ function addMoonStall(){
     moon.position.z = 100;
 
     textLoader.load('../Resources/Fonts/droid_serif_bold.typeface.json',function (font) {
-        var geoText = new THREE.TextBufferGeometry( "Level 1" , {
+        var geoText = new THREE.TextBufferGeometry( "LEVEL 1" , {
             font : font,
             size : 50,
             height : 20,

@@ -28,7 +28,9 @@ let playing = true;
 let cubeMap;
 let renderer, scene, camera, box, controls;
 let pos = new THREE.Vector3();
-let shootSound, hitSound;
+let shootSound;
+let hitSound;
+let themeSound;
 let textureLoader = new THREE.TextureLoader();
 let loader = new THREE.GLTFLoader();
 let camType = "third";
@@ -52,7 +54,9 @@ let movementBoundaries = { leftX: -38, rightX: 38, frontZ: -10, backZ: 10 };
 let avatarLocalPos = { x: 0, z: 0 };
 
 //Shooting
+let beenHit = false;
 let ballsArray = [];
+let shotBalls = [];
 let thisBall
 let ball;
 let numBallsShot = 0;
@@ -149,7 +153,6 @@ function setupScene() {
         },
         1500
     );
-
 }
 
 function setupEventHandlers() {
@@ -165,19 +168,6 @@ function setupEventHandlers() {
 function handleKeyDown(event) {
     let keyCode = event.keyCode;
     switch (keyCode) {
-        //Level
-        case 49:
-            level = "1";
-            // setLevel(level);
-            break;
-        case 50:
-            level = "2";
-            // setLevel(level);
-            break;
-        case 51:
-            level = "3";
-            // setLevel(level);
-            break;
         //Avatar
         case 87: //W: FORWARD
             AvatarMoveDirection.z = -1
@@ -223,30 +213,20 @@ function handleKeyUp(event) {
 function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
-
     renderer.setSize(window.innerWidth, window.innerHeight);
-
 }
 
 function resetGame(){
-    //Reset some variables
-    AvatarMoveDirection = { x: 0, z: 0 };
-    avatarLocalPos = { x: 0, z: 0 };
-    console.log("Score: " + score);
-    score = 0;
-    console.log("Score: " + score);
-    numBallsShot = 0;
-
+    //Delete current stuff on scene
     deleteBalls();
     deleteTargets();
-
-    document.getElementById("scoreValue").textContent = score;
+    deleteAvatar();
+    clearInterval(countdown);
 
     document.getElementById("LevelPassedHUD").style.visibility = 'hidden';
     document.getElementById("LevelFailedHUD").style.visibility = 'hidden';
-
     document.getElementById("GameHUD").style.visibility = 'visible';
-
+    document.getElementById("scoreValue").textContent = score;
 
     //Setup scene and graphics
     setupScene();
@@ -254,20 +234,21 @@ function resetGame(){
     //Set level
     setLevel(level);
 
+    //Create targets
+    createTargets();
+    configureTargetCollisions();
+
     //Setup stall
     createStallPlatform();
 
     //Create balls
     createBalls();
 
-    //Create targets
-    createTargets();
-    configureTargetCollisions();
 
     //Setup astronaut
     createAvatar();
 
-    console.clear();
+    // console.clear();
     playing = true;
 }
 
@@ -279,7 +260,7 @@ function render() {
 
     if(playing){
 
-        //duck animations...
+        //Duck rotations
         realDuckModelArray.forEach(element => element.rotation.y+=0.05);
         realDuckModelArray.forEach(element => element.rotation.z+=0.05);
 
@@ -322,9 +303,6 @@ function render() {
         for(let i=0; i<9;i++){
             duckBoxArray[i].position.set(realDuckModelArray[i].position.x, realDuckModelArray[i].position.y, realDuckModelArray[i].position.z);
             duckBoxArray[i].__dirtyPosition = true;
-            // duckBoxArray[i].rotation.y+=0.05;
-            // duckBoxArray[i].rotation.z+=0.05;
-            // duckBoxArray[i].__dirtyRotation = true;
         }
     }
     frameNumber++;

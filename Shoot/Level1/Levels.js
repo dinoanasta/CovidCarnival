@@ -5,8 +5,8 @@ function setLevel(lvl) {
 
             //Level 1 game length, ammo count and goal
             ammoCount = 10;
-            goal = 5;
-            gameLength = 60;
+            goal = 3;
+            gameLength = 30;
 
             //Level 1 materials
             primaryStallMaterial = "neontexture1.jpg";
@@ -24,13 +24,6 @@ function setLevel(lvl) {
                 "../../Resources/CubeMaps/lightblue/back.png"
             ];
 
-            //Level 1 HUD
-            var cols = document.getElementsByClassName('stats>h1');
-            for(i = 0; i < cols.length; i++) {
-                // cols[i].style.fontcolor("#ffff00");
-                cols[i].style.color = "#ffff00";
-            }
-
             //Level 1 gravity
             maxGrav = 40;
             minGrav = 20;
@@ -38,22 +31,6 @@ function setLevel(lvl) {
             yGrav = -10;
             scene.setGravity(new THREE.Vector3(xGrav, yGrav, 0));
 
-            if (xGrav > 0) {
-                xDir = "right";
-            } else if (xGrav < 0) {
-                xDir = "left";
-            }
-
-            if (minGrav < Math.abs(xGrav) && Math.abs(xGrav) < 26) {
-                xStrength = "weak";
-            } else if (26 < Math.abs(xGrav) && Math.abs(xGrav) < 34) {
-                xStrength = "average";
-                1
-            } else if (34 < Math.abs(xGrav) && Math.abs(xGrav) < maxGrav) {
-                xStrength = "strong";
-            }
-
-            console.log(xGrav, xDir, xStrength);
             break;
 
         case "2": //Level 2
@@ -61,7 +38,7 @@ function setLevel(lvl) {
 
             ammoCount = 10;
             goal = 5;
-            gameLength = 60;
+            gameLength = 30;
 
             primaryStallMaterial = "greenfabric.jpg";
             secondaryBarrierMaterial = "blueleather.jpg";
@@ -78,36 +55,19 @@ function setLevel(lvl) {
                 "../../Resources/CubeMaps/blue/back.png"
             ];
 
-            maxGrav = 40;
-            minGrav = 20;
-
+            //Level 2 gravity
+            maxGrav = 50;
+            minGrav = 30;
             xGrav = sign * ((Math.random() * (maxGrav - minGrav)) + minGrav);
-
-            yGrav = -50;
-
+            yGrav = -30;
             scene.setGravity(new THREE.Vector3(xGrav, yGrav, 0));
 
-            if (xGrav > 0) {
-                xDir = "right";
-            } else if (xGrav < 0) {
-                xDir = "left";
-            }
-
-            if (minGrav < Math.abs(xGrav) && Math.abs(xGrav) < 26) {
-                xStrength = "weak";
-            } else if (26 < Math.abs(xGrav) && Math.abs(xGrav) < 34) {
-                xStrength = "average";
-                1
-            } else if (34 < Math.abs(xGrav) && Math.abs(xGrav) < maxGrav) {
-                xStrength = "strong";
-            }
-            console.log(xGrav, xDir, xStrength);
             break;
         case "3":
             sign = signs[Math.floor(Math.random() * 2)];
 
-            ammoCount = 5;
-            goal = 3;
+            ammoCount = 10;
+            goal = 7;
             gameLength = 30;
 
             primaryStallMaterial = "tealtexture.jpg";
@@ -125,34 +85,44 @@ function setLevel(lvl) {
                 "../../Resources/CubeMaps/red/bkg3_back6.png"
             ];
 
-            maxGrav = 40;
-            minGrav = 20;
-
+            //Level 3 gravity
+            maxGrav = 60;
+            minGrav = 40;
             xGrav = sign * ((Math.random() * (maxGrav - minGrav)) + minGrav);
-
-            yGrav = -100;
-
+            yGrav = -50;
             scene.setGravity(new THREE.Vector3(xGrav, yGrav, 0));
 
-            if (xGrav > 0) {
-                xDir = "right";
-            } else if (xGrav < 0) {
-                xDir = "left";
-            }
-
-            if (minGrav < Math.abs(xGrav) && Math.abs(xGrav) < 26) {
-                xStrength = "weak";
-            } else if (26 < Math.abs(xGrav) && Math.abs(xGrav) < 34) {
-                xStrength = "average";
-                1
-            } else if (34 < Math.abs(xGrav) && Math.abs(xGrav) < maxGrav) {
-                xStrength = "strong";
-            }
-            console.log(xGrav, xDir, xStrength);
             break;
     }
 
-    //CubeMap
+    //Level specific gravity variables
+    if (xGrav > 0) {
+        xDir = "right";
+    } else if (xGrav < 0) {
+        xDir = "left";
+    }
+
+    if (minGrav < Math.abs(xGrav) && Math.abs(xGrav) < minGrav+6) {
+        xStrength = "weak";
+    } else if (minGrav+6 < Math.abs(xGrav) && Math.abs(xGrav) < maxGrav-6) {
+        xStrength = "average";
+    } else if (maxGrav-6 < Math.abs(xGrav) && Math.abs(xGrav) < maxGrav) {
+        xStrength = "strong";
+    }
+    console.log(xGrav, xDir, xStrength);
+
+
+    document.getElementById('windStrength').innerHTML = xStrength;
+    windElement = document.getElementById("windIcon");
+    if (xDir == "right") {
+        arrowSource = '../../Resources/Textures/Razeen/arrow.png';
+    } else if (xDir == "left") {
+        arrowSource = '../../Resources/Textures/Razeen/arrowleft.png';
+    }
+
+    windElement.setAttribute('src', arrowSource);
+
+    //Level specific skybox
     var materials = [];
     for (var i = 0; i < 6; i++) {
         var texture = textureLoader.load(cubemapURLs[i]);
@@ -167,42 +137,39 @@ function setLevel(lvl) {
         new THREE.BoxGeometry(1000, 1000, 1000), materials);
     scene.add(cubeMap);
 
-    document.getElementById("levelValue").innerHTML = lvl;
-    document.getElementById("ballCountValue").innerHTML = ammoCount;
 
-    document.getElementById('windStrength').innerHTML = xStrength;
-    windElement = document.getElementById("windIcon");
-    if (xDir == "right") {
-        arrowSource = '../../Resources/Textures/Razeen/arrow.png';
-    } else if (xDir == "left") {
-        arrowSource = '../../Resources/Textures/Razeen/arrowleft.png';
-    }
-
-    windElement.setAttribute('src', arrowSource);
+    //Level specific HUD displays
+    document.getElementById("levelValue").textContent = level;
+    document.getElementById("ballCountValue").textContent = ammoCount;
+    document.getElementById("timeValue").textContent = gameLength;
+    document.getElementById("goalValue").textContent = goal;
 }
 
 function decideOutcome(){
     playing = false;
-    document.getElementById("timeValue").textContent = gameLength;
     clearInterval(countdown);
+    document.getElementById("GameHUD").style.visibility = 'hidden';
 
-    if(ammoCount - numBallsShot <= 0){
-        if(score >= goal){
-            document.getElementById("GameHUD").style.visibility = 'hidden';
-            document.getElementById("LevelPassedHUD").style.visibility = 'visible';
-        }else{
-            document.getElementById("GameHUD").style.visibility = 'hidden';
-            document.getElementById("LevelFailedText").innerHTML = "Out of balls <br> You lose level " + level + " ! <br> Restart ?" ;
-            document.getElementById("LevelFailedHUD").style.visibility = 'visible';
+    if(score>=goal){
+        document.getElementById("LevelPassedHUD").style.visibility = 'visible';
+        if(level == "1") {
+            document.getElementById("LevelPassedText").innerHTML = "You win level 1 ! <br> Proceed to level 2?";
+            nextLevel = "2";
+        }else if(level == "2"){
+            document.getElementById("LevelPassedText").innerHTML = "You win level 2 ! <br> Proceed to level 3?";
+            nextLevel = "3";
+        }else if(level == "3"){
+            document.getElementById("LevelPassedText").innerHTML = "You win level 3 ! <br> Return to main menu?";
+            document.getElementById("proceedButton").style.visibility = 'hidden';
         }
+        level = nextLevel;
     }else{
-        if(score >= goal){
-            document.getElementById("GameHUD").style.visibility = 'hidden';
-            document.getElementById("LevelPassedHUD").style.visibility = 'visible';
+        if(ammoCount - numBallsShot <= 0){
+                document.getElementById("LevelFailedText").innerHTML = "Out of balls <br> You lose level " + level + " ! <br> Restart ?" ;
+                document.getElementById("LevelFailedHUD").style.visibility = 'visible';
         }else{
-            document.getElementById("GameHUD").style.visibility = 'hidden';
-            document.getElementById("LevelFailedText").innerHTML = "Time up <br> You lose level " + level + " ! <br> Restart ?" ;
-            document.getElementById("LevelFailedHUD").style.visibility = 'visible';
+                document.getElementById("LevelFailedText").innerHTML = "Time up <br> You lose level " + level + " ! <br> Restart ?" ;
+                document.getElementById("LevelFailedHUD").style.visibility = 'visible';
         }
     }
 }

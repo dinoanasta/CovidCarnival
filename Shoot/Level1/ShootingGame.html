@@ -21,6 +21,7 @@
 
     <audio src="../../Resources/Sounds/raygun.mp3" id="raygun"></audio>
     <audio src="../../Resources/Sounds/boom.mp3" id="boom"></audio>
+    <audio autoplay="true" id="theme" src="../../Resources/Sounds/ThemeSong.mp3"></audio>
 
 
     <div id="GameHUD">
@@ -30,8 +31,10 @@
         <!-- Centre level       -->
         <div class="stats HUDelement" id = "centreLevel">
             <h1 id = "levelLabel">Level:</h1>
-            <br>
             <h1 id = "levelValue"> 0 </h1>
+            <br>
+            <h1 id = "goalLabel">Goal:</h1>
+            <h1 id = "goalValue"> 0 </h1>
         </div>
 
         <!--        Ammo top left-->
@@ -117,6 +120,10 @@
             // renderer.powerPreference = "high-performance";
             document.getElementById( 'viewport' ).appendChild( renderer.domElement );
 
+            //Theme song
+            themeSound = document.getElementById("theme");
+            themeSound.play();
+
             //Setup scene and graphics
             setupScene();
             setupEventHandlers();
@@ -146,7 +153,6 @@
 
 <body onload="init()">
 
-    <embed src="../../Resources/Music/Timecop1983 - On the Run.mp3" loop="true" autostart="true" width="2" height="0">
 </body>
 
 </html>

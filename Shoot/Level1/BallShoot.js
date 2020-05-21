@@ -64,50 +64,58 @@ function onMouseMove(event){
 }
 
 function onMouseDown(event) {
+ if(playing){
+     if(numBallsShot < ammoCount){
 
-    if(numBallsShot < ammoCount){
+         thisBall = ballsArray[numBallsShot];
 
-        thisBall = ballsArray[numBallsShot];
+         shootSound = document.getElementById("raygun");
+         shootSound.play();
 
-        shootSound = document.getElementById("raygun");
-        shootSound.play();
+         mouseCoords.set(
+             (event.clientX / window.innerWidth) * 2 - 1,
+             -(event.clientY / window.innerHeight) * 2 + 1
+         );
 
-        mouseCoords.set(
-            (event.clientX / window.innerWidth) * 2 - 1,
-            -(event.clientY / window.innerHeight) * 2 + 1
-        );
+         avatarHead.set(avatarPosition.x, avatarPosition.y +25, avatarPosition.z-5);
 
-        avatarHead.set(avatarPosition.x, avatarPosition.y +25, avatarPosition.z-5);
+         rayx = mouseCoords.x*200;
+         rayy = mouseCoords.y*100;
 
-        rayx = mouseCoords.x*200;
-        rayy = mouseCoords.y*100;
+         rayDirection.set(rayx,rayy-40, -100);
 
-        rayDirection.set(rayx,rayy-40, -100);
+         raycaster.set(avatarHead, rayDirection);
 
-        raycaster.set(avatarHead, rayDirection);
+         thisBall.position.copy(avatarHead);
 
-        thisBall.position.copy(avatarHead);
+         scene.add(thisBall);
+         beenHit = false;
+         shotBalls.push(thisBall);
 
-        scene.add(thisBall);
+         pos.copy( raycaster.ray.direction );
+         pos.multiplyScalar( 2 );
+         thisBall.setLinearVelocity( new THREE.Vector3( pos.x, pos.y, pos.z ) );
 
-        pos.copy( raycaster.ray.direction );
-        pos.multiplyScalar( 2 );
-        thisBall.setLinearVelocity( new THREE.Vector3( pos.x, pos.y, pos.z ) );
+         numBallsShot++;
 
-        numBallsShot++;
+         document.getElementById("ballCountValue").innerHTML = ammoCount-numBallsShot; // changes ammo count on html
+     }else{
+         decideOutcome();
+     }
+ }
 
-        document.getElementById("ballCountValue").innerHTML = ammoCount-numBallsShot; // changes ammo count on html
-    }else{
-        decideOutcome();
-    }
 
 }
 
 function deleteBalls(){
     for(let i=0; i< ammoCount; ++i){
         ballsArray.pop();
-        ballsArray = [];
     }
+    ballsArray = [];
+    shotBalls = [];
+
+    score = 0;
+    numBallsShot = 0;
 }
 
 

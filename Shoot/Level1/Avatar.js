@@ -53,5 +53,10 @@ function moveAvatar(){
             avatarPosition.set(avatar.position.x, avatar.position.y, avatar.position.z);
         }
     }
+}
 
+function deleteAvatar(){
+    scene.remove(avatar);
+    AvatarMoveDirection = { x: 0, z: 0 };
+    avatarLocalPos = { x: 0, z: 0 };
 }

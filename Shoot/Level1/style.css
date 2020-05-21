@@ -1,23 +1,22 @@
 @font-face {
-    src: url("../../Fonts/you-murderer/youmurdererbb_reg.ttf");
+    src: url("../../Resources/Fonts/you-murderer/youmurdererbb_reg.ttf");
     font-family: ym;
 }
 
 @font-face {
-    src: url("../../Fonts/welcome-to-texas/WelcometoTexas.ttf");
+    src: url("../../Resources/Fonts/welcome-to-texas/WelcometoTexas.ttf");
     font-family: texas;
 }
 
 @font-face {
-    src: url("../../Fonts/carnivalee-freakshow/CarnevaleeFreakshow.ttf");
+    src: url("../../Resources/Fonts/carnivalee-freakshow/CarnevaleeFreakshow.ttf");
     font-family: carnival;
 }
 
 @font-face {
-    src: url("../../Fonts/vtc-karnival/VTC-Karnival-Fat.ttf");
+    src: url("../../Resources/Fonts/vtc-karnival/VTC-Karnival-Fat.ttf");
     font-family: karn;
 }
-
 
 @font-face {
     src: url('https://fonts.googleapis.com/css?family=Nosifer&display=swap');
@@ -70,6 +69,13 @@ body{
 }
 
 #levelValue {
+    display: inline-block;
+}
+#goalLabel {
+    display: inline-block;
+}
+
+#goalValue {
     display: inline-block;
 }
 

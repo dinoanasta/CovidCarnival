@@ -229,10 +229,8 @@ function MakeText(){ //Creates Giant "Covid carnival" text
             map: textureLoader.load('../Resources/Textures/Dino/redfoil.jpg'),
         });
 
+        //Create 3D "Covid Carnival" text mesh
         covidCarnivalText = new Physijs.Mesh(geoText,matText);
-        //geoText.computeBoundingBox();
-        //geoText.boundingBox.getCenter(text.position).multiplyScalar(-1);
-        //geoText.boundingBox.getCenter(text.position).multiplyScalar(-1);
 
         //scales and sets positions of text
         covidCarnivalText.scale.set(2,2,2);
@@ -241,15 +239,13 @@ function MakeText(){ //Creates Giant "Covid carnival" text
         covidCarnivalText.position.z = 0;
 
         world.add(covidCarnivalText); //adds text to world
-
-
     })
-
 }
 
-function loadModels(){ // loads all relevant models (lantern,mushroom1 and 2)
+function loadModels(){
 
-     loader.load("../Models/sci-fi_lantern/scene.gltf", function (object) {
+    //Lantern
+    loader.load("../Models/sci-fi_lantern/scene.gltf", function (object) {
          let lantern = object.scene.children[0];
          lantern.rotation.x = -0.5*Math.PI;
          lantern.position.y = 0;
@@ -257,53 +253,39 @@ function loadModels(){ // loads all relevant models (lantern,mushroom1 and 2)
          lantern.position.x = -450;
          lantern.scale.set(10,10,10);
          world.add(lantern);
-         // scene.add(lantern);
-     });
+    });
 
-     loader.load("../Models/low_poly_glowing_mushroom/scene.gltf", function (object) {
-         let shroom = object.scene.children[0];
-         shroom.rotation.x = -0.5*Math.PI;
-         shroom.position.x = 450;
-         shroom.position.y = 20;
-         shroom.position.z = 450;
-         shroom.scale.set(30,50,30);
-         world.add(shroom);
-         // scene.add(shroom);
-     });
-     //
-     loader.load("../Models/mushroom/scene.gltf", function (object) {
-         let shroom2 = object.scene.children[0];
-         shroom2.rotation.x = -0.5*Math.PI;
-         shroom2.position.x = 450;
-         shroom2.position.y = 50;
-         shroom2.position.z = -480;
-         shroom2.scale.set(20,25,20);
-         world.add(shroom2);
-         // scene.add(shroom2);
-     });
+    //Glowing mushroom
+    loader.load("../Models/low_poly_glowing_mushroom/scene.gltf", function (object) {
+     let shroom = object.scene.children[0];
+     shroom.rotation.x = -0.5*Math.PI;
+     shroom.position.x = 450;
+     shroom.position.y = 20;
+     shroom.position.z = 450;
+     shroom.scale.set(30,50,30);
+     world.add(shroom);
+    });
 
-     // loader.load("../Models/subwoofer/scene.gltf", function (object) {
-     //     let speaker = object.scene.children[0];
-     //     speaker.rotation.x = -0.5*Math.PI;
-     //     speaker.rotation.z = 0.25*Math.PI;
-     //     speaker.position.x = -225;
-     //     speaker.position.y = 250;
-     //     speaker.position.z = -460;
-     //     speaker.scale.set(5,5,5);
-     //     scene.add(speaker);
-     // });
-
-
+    //Sitting Alien
+    loader.load("../Models/sitAlien/sitAlien.glb", function (object) {
+     let shroom2 = object.scene.children[0];
+     shroom2.scale.set(2,2,2);
+     shroom2.rotation.y = -Math.PI/4;
+     shroom2.position.x = 470;
+     shroom2.position.y = 10;
+     shroom2.position.z = -470;
+     world.add(shroom2);
+    });
 
     //Creates Spinning planet
     var planGeo = new THREE.SphereGeometry(60,100,100);
     // var planGeo2 = new THREE.SphereGeometry(200,300,300);
     var planMesh = new THREE.MeshPhongMaterial({
-        shininess: 0.8,
-        //emissive : 0xFF091C,
-        //emissiveIntensity: 0.4,
-        specular: 0x03CFF0,
-        map: textureLoader.load("../Resources/Textures/Dino/iridescent.jpg")
+    shininess: 0.8,
+    //emissive : 0xFF091C,
+    //emissiveIntensity: 0.4,
+    specular: 0x03CFF0,
+    map: textureLoader.load("../Resources/Textures/Dino/iridescent.jpg")
     }); //creates material and loads texture of planet
 
     planet = new Physijs.Mesh(planGeo,planMesh);
@@ -312,15 +294,7 @@ function loadModels(){ // loads all relevant models (lantern,mushroom1 and 2)
     planet.position.z = -420;
     world.add(planet);
 
-    // planet2 = new Physijs.Mesh(planGeo2,planMesh);
-    // planet2.position.y = 900;
-    // planet2.position.z = 50;
-    //
-    // scene.add(planet);
-    // scene.add(planet2);
-
     //scales the big world variable and adds it to the scene
     world.scale.set(2.3,2.3,2.3);
     // scene.add(world);
-
 }
