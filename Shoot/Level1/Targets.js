@@ -2,7 +2,7 @@ function createTargets(){
     duckBox = new Physijs.BoxMesh(
         new THREE.BoxGeometry(7, 7, 7),
         new THREE.MeshStandardMaterial({
-            opacity: 0.5,
+            opacity: 0.000001,
             transparent: true,
             color: "red"
             //map: new THREE.TextureLoader().load('../../Resources/Textures/Dino/redfoil.jpg'),
