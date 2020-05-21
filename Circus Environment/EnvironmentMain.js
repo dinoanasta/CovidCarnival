@@ -12,8 +12,10 @@ var frameNumber = 0;
 let planet;
 let world = new THREE.Object3D();
 
-//Text Variable
-let text;
+//CovidCarnival Text Variable
+let covidCarnivalText;
+var geoText;
+var matText;
 
 //Barrier Variables used in EnvironmentPlatform js
 let wholeBarrier;
@@ -112,7 +114,7 @@ function doMouseDown(event) {
 
         if (intersects[0].object == moonStall) { //check if the raycaster(mouse) click intersects with game stalls and takes player to level
             document.getElementById("loadGame");
-            window.location.href = "../Shoot/Level1/Phys.html";
+            window.location.href = "../Shoot/Level1/ShootingGame.html";
         }
     }
 }
@@ -121,8 +123,12 @@ function updateFrame() {
     planet.rotation.x += 0.1;
     planet.rotation.y += 0.1;
 
+    // covidCarnivalText.rotation.x += 0.5;
+    // covidCarnivalText.position.y +=2;
+
     // planet2.rotation.x += 0.06;
     // planet2.rotation.y += 0.06;
+
 }
 
 //Animates the entire scene

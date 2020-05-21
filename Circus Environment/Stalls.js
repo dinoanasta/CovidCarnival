@@ -9,18 +9,6 @@ function addMoonStall(){
     moon.position.y = 300;
     moon.position.z = 100;
 
-    //moonStall.add(moon);
-    makeText();
-
-    moonStall.scale.set(1.3,1.3,1.3);
-    moonStall.position.x = 0;
-    moonStall.position.y = 200;
-    moonStall.position.z = -50;
-
-    scene.add(moonStall);
-}
-
-function makeText(){
     textLoader.load('../Resources/Fonts/droid_serif_bold.typeface.json',function (font) {
         var geoText = new THREE.TextBufferGeometry( "1" , {
             font : font,
@@ -37,11 +25,18 @@ function makeText(){
 
         var matText = new THREE.MeshNormalMaterial({ map : textureLoader.load('../Resources/Textures/Mikayla/neontexture1.jpg')})
 
-        text = new THREE.Mesh(geoText,matText);
-        text.position.x = -20;
-        text.position.y = 250;
-        text.position.z = 100;
-        moonStall.add(text);
+        moonText = new THREE.Mesh(geoText,matText);
+        moonText.position.x = -20;
+        moonText.position.y = 250;
+        moonText.position.z = 100;
+        moonStall.add(moonText);
 
     })
+
+    moonStall.scale.set(1.3,1.3,1.3);
+    moonStall.position.x = 0;
+    moonStall.position.y = 200;
+    moonStall.position.z = -50;
+
+    scene.add(moonStall);
 }

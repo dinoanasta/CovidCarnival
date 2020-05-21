@@ -11,12 +11,12 @@
     <script src = "../js/GLTFLoader.js"></script>
     <script src = "../js/TTFLoader.js"></script>
 
-    <script src = "EnvironmentMain.js"></script>
     <script src = "EnvironmentPlatform.js"></script>
+    <script src = "EnvironmentMain.js"></script>
     <script src = "Moonstall.js"></script>
     <script src = "Stalls.js"></script>
 
-    <a href = "../Shoot/Level1/Phys.html" id="loadGame"></a>
+    <a href = "../Shoot/Level1/ShootingGame.html" id="loadGame"></a>
 
     <script>
         //function that sets up everything in the scene
@@ -32,8 +32,9 @@
             setupScene(); //Sets up camera, scene, physics engine, ligts, and orbit controls
             createPlane(); //Creates the flat area of the carnival
             addBarriers(); //creates and adds barriers of carnival
-           //MakeText(); called this function in EnvronmentPlatform.js cuz it wasn't getting recognized here
+            MakeText();
             loadModels(); // loads all relevant models (mushroom 1 and 2 and lantern)
+            scene.add(world);
             addMoonStall(); // Adds the moon stall
 
             window.addEventListener("mousedown",doMouseDown,false);

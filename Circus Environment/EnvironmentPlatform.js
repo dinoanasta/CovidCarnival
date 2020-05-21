@@ -2,9 +2,9 @@ function createPlane() { //Creates the flat area of the carnival
     let surfaceMaterial = new THREE.MeshPhongMaterial({
         //color: 0xE6E686,
         //specular: 0x222222,
-        shininess: 16,
-        shading: THREE.FlatShading,
-        map: textureLoader.load('../Resources/Textures/Razeen/BlackBlocks.jpg')
+        shininess: 100,
+        flatShading: true,
+        map: textureLoader.load('../Resources/Textures/Dino/bluegeo.jpg')
     });
 
     let surfaceGeometry = new THREE.BoxGeometry(1000,1000); //makes the size of the plane 1000x1000
@@ -121,42 +121,53 @@ function addBarriers(){ //creates the cylindrical and adds barriers of carnival
 
 
     var tbGeo = new THREE.BoxGeometry(750,50,30); //creates wall barriers with a width of 750 and height of 50
-    var tbMesh = new THREE.MeshNormalMaterial();
+    var tbMesh = new THREE.MeshLambertMaterial({
+        map: textureLoader.load("../Resources/Textures/Dino/blueleather.jpg")
+    });
 
-    tbarrier1 = new Physijs.BoxMesh(tbGeo,tbMesh,0);
+    tbarrier1 = new Physijs.BoxMesh(
+        tbGeo,
+        tbMesh,
+        0);
     tbarrier1.position.z = -480;
     tbarrier1.position.x = -10;
     tbarrier1.position.y =25;
     world.add(tbarrier1);
     // scene.add(tbarrier1);
 
-    var coverGeo = new THREE.BoxGeometry(750,50); //Creates a cover texture for each of the wall barriers
-    var ctexture1 = textureLoader.load("../Resources/Textures/Razeen/abstract.jpg");
-    var cMesh1 = new THREE.MeshLambertMaterial({map:ctexture1});
-    cover1 = new THREE.Mesh(coverGeo,cMesh1);
-    cover1.position.z = -465;
-    cover1.position.x = -10;
-    cover1.position.y =25;
-    world.add(cover1);
-    // scene.add(cover1);
+    // var coverGeo = new THREE.BoxGeometry(750,50); //Creates a cover texture for each of the wall barriers
+    // var ctexture1 = textureLoader.load("../Resources/Textures/Dino/yellowlego.jpg");
+    // var cMesh1 = new THREE.MeshLambertMaterial({map:ctexture1});
+    // cover1 = new THREE.Mesh(coverGeo,cMesh1);
+    // cover1.position.z = -465;
+    // cover1.position.x = -10;
+    // cover1.position.y =25;
+    // world.add(cover1);
+    // // scene.add(cover1);
 
-    tbarrier2 = new Physijs.BoxMesh(tbGeo,tbMesh,0);
+    tbarrier2 = new Physijs.BoxMesh(
+        tbGeo,
+        tbMesh,
+        0);
     tbarrier2.position.z = 480;
     tbarrier2.position.x = -10;
     tbarrier2.position.y = 25;
     world.add(tbarrier2);
     // scene.add(tbarrier2);
 
-    var ctexture2 = textureLoader.load("../Resources/Textures/Razeen/abstract2.jpg");
-    var cMesh2 = new THREE.MeshLambertMaterial({map:ctexture2});
-    cover2 = new THREE.Mesh(coverGeo,cMesh2);
-    cover2.position.z = 465;
-    cover2.position.x = -10;
-    cover2.position.y =25;
-    world.add(cover2);
-    // scene.add(cover2);
+    // var ctexture2 = textureLoader.load("../Resources/Textures/Razeen/abstract2.jpg");
+    // var cMesh2 = new THREE.MeshLambertMaterial({map:ctexture2});
+    // cover2 = new THREE.Mesh(coverGeo,cMesh2);
+    // cover2.position.z = 465;
+    // cover2.position.x = -10;
+    // cover2.position.y =25;
+    // world.add(cover2);
+    // // scene.add(cover2);
 
-    tbarrier3 = new Physijs.BoxMesh(tbGeo,tbMesh,0);
+    tbarrier3 = new Physijs.BoxMesh(
+        tbGeo,
+        tbMesh,
+        0);
     tbarrier3.rotation.y = -0.5*Math.PI;
     //tbarrier3.position.z = 225;
     tbarrier3.position.x = -480;
@@ -164,17 +175,20 @@ function addBarriers(){ //creates the cylindrical and adds barriers of carnival
     world.add(tbarrier3);
     // scene.add(tbarrier3);
 
-    var ctexture3 = new THREE.TextureLoader().load("../Resources/Textures/Razeen/love.jpg");
-    var cMesh3 = new THREE.MeshLambertMaterial({map:ctexture3});
-    cover3 = new THREE.Mesh(coverGeo,cMesh3);
-    //cover3.position.z = 210;
-    cover3.rotation.y = -0.5*Math.PI;
-    cover3.position.x = -465;
-    cover3.position.y =25;
-    world.add(cover3);
-    // scene.add(cover3);
+    // var ctexture3 = new THREE.TextureLoader().load("../Resources/Textures/Razeen/love.jpg");
+    // var cMesh3 = new THREE.MeshLambertMaterial({map:ctexture3});
+    // cover3 = new THREE.Mesh(coverGeo,cMesh3);
+    // //cover3.position.z = 210;
+    // cover3.rotation.y = -0.5*Math.PI;
+    // cover3.position.x = -465;
+    // cover3.position.y =25;
+    // world.add(cover3);
+    // // scene.add(cover3);
 
-    tbarrier4 = new Physijs.BoxMesh(tbGeo,tbMesh,0);
+    tbarrier4 = new Physijs.BoxMesh(
+        tbGeo,
+        tbMesh,
+        0);
     tbarrier4.rotation.y = -0.5*Math.PI;
     //tbarrier3.position.z = 225;
     tbarrier4.position.x = 480;
@@ -182,15 +196,54 @@ function addBarriers(){ //creates the cylindrical and adds barriers of carnival
     // scene.add(tbarrier4);
     world.add(tbarrier4);
 
-    var ctexture4 = new THREE.TextureLoader().load("../Resources/Textures/Razeen/astronaut.jpg");
-    var cMesh4 = new THREE.MeshLambertMaterial({map:ctexture4});
-    cover4 = new THREE.Mesh(coverGeo,cMesh4);
-    //cover3.position.z = 210;
-    cover4.rotation.y = -0.5*Math.PI;
-    cover4.position.x = 465;
-    cover4.position.y =25;
-    // scene.add(cover4);
-    world.add(cover4);
+    // var ctexture4 = new THREE.TextureLoader().load("../Resources/Textures/Razeen/astronaut.jpg");
+    // var cMesh4 = new THREE.MeshLambertMaterial({map:ctexture4});
+    // cover4 = new THREE.Mesh(coverGeo,cMesh4);
+    // //cover3.position.z = 210;
+    // cover4.rotation.y = -0.5*Math.PI;
+    // cover4.position.x = 465;
+    // cover4.position.y =25;
+    // // scene.add(cover4);
+    // world.add(cover4);
+
+}
+
+
+function MakeText(){ //Creates Giant "Covid carnival" text
+    //Loads fonts and specifies characteristics
+    textLoader.load('../Resources/Fonts/helvetiker_bold.typeface.json',function (font) {
+        geoText = new THREE.TextGeometry( "COVID CARNIVAL" , {
+            font : font,
+            size : 20,
+            height : 20,
+            curveSegments: 16,
+            bevelEnabled : true,
+            bevelThickness: 5,
+            bevelSize: 5,
+            bevelOffset : 0,
+            bevelSegments: 4
+
+        });
+
+        matText = new THREE.MeshStandardMaterial({
+            map: textureLoader.load('../Resources/Textures/Dino/iridescent.jpg'),
+        });
+
+        covidCarnivalText = new Physijs.Mesh(geoText,matText);
+        //geoText.computeBoundingBox();
+        //geoText.boundingBox.getCenter(text.position).multiplyScalar(-1);
+        //geoText.boundingBox.getCenter(text.position).multiplyScalar(-1);
+
+        //scales and sets positions of text
+        covidCarnivalText.scale.set(2,2,2);
+        covidCarnivalText.position.x = -200;
+        covidCarnivalText.position.y = 400;
+        covidCarnivalText.position.z = 0;
+
+        world.add(covidCarnivalText); //adds text to world
+
+
+    })
 
 }
 
@@ -222,9 +275,9 @@ function loadModels(){ // loads all relevant models (lantern,mushroom1 and 2)
          let shroom2 = object.scene.children[0];
          shroom2.rotation.x = -0.5*Math.PI;
          shroom2.position.x = 450;
-         shroom2.position.y = 100;
-         shroom2.position.z = -550;
-         shroom2.scale.set(40,50,40);
+         shroom2.position.y = 50;
+         shroom2.position.z = -480;
+         shroom2.scale.set(20,25,20);
          world.add(shroom2);
          // scene.add(shroom2);
      });
@@ -240,45 +293,7 @@ function loadModels(){ // loads all relevant models (lantern,mushroom1 and 2)
      //     scene.add(speaker);
      // });
 
-    function MakeText(){ //Creates Giant "Covid carnival" text
 
-        var loader = new THREE.FontLoader(); //initializes font loader
-
-        //Loads fonts and specifies characteristics
-        loader.load('../Resources/Fonts/helvetiker_bold.typeface.json',function (font) {
-            var geoText = new THREE.TextBufferGeometry( "COVID CARNIVAL" , {
-                font : font,
-                size : 50,
-                height : 20,
-                curveSegments: 16,
-                bevelEnabled : true,
-                bevelThickness: 5,
-                bevelSize: 5,
-                bevelOffset : 0,
-                bevelSegments: 4
-
-            });
-
-            var matText = new THREE.MeshLambertMaterial({
-                color : 'red'
-            })
-
-            moonText = new THREE.Mesh(geoText,matText);
-            //geoText.computeBoundingBox();
-            //geoText.boundingBox.getCenter(text.position).multiplyScalar(-1);
-            //geoText.boundingBox.getCenter(text.position).multiplyScalar(-1);
-
-            //scales and sets positions of text
-            text.scale.set(2,2,2);
-            text.position.x = -550;
-            text.position.y = 1100;
-            text.position.z = 100;
-
-             scene.add(text); //adds text to world
-        });
-    }
-
-    MakeText();
 
     //Creates Spinning planet
     var planGeo = new THREE.SphereGeometry(60,100,100);
@@ -288,7 +303,7 @@ function loadModels(){ // loads all relevant models (lantern,mushroom1 and 2)
         //emissive : 0xFF091C,
         //emissiveIntensity: 0.4,
         specular: 0x03CFF0,
-        map: textureLoader.load("../Resources/Textures/Razeen/vortex.jpg")
+        map: textureLoader.load("../Resources/Textures/Dino/iridescent.jpg")
     }); //creates material and loads texture of planet
 
     planet = new Physijs.Mesh(planGeo,planMesh);
@@ -306,6 +321,6 @@ function loadModels(){ // loads all relevant models (lantern,mushroom1 and 2)
 
     //scales the big world variable and adds it to the scene
     world.scale.set(2.3,2.3,2.3);
-    scene.add(world);
+    // scene.add(world);
 
 }

@@ -187,16 +187,16 @@
                 //geoText.boundingBox.getCenter(moonText.position).multiplyScalar(-1);
 
 
-                //moonText.position.x = 50;
-                text.position.y = 230;
-                text.position.z = 100;
-                stall.add(text);
+                moonText.position.x = 50;
+                moonText.position.y = 230;
+                moonText.position.z = 100;
+                stall.add(moonText);
 
                 requestAnimationFrame(render);
 
                 function render(){
 
-                    text.rotation.y += 0.01;
+                    moonText.rotation.y += 0.01;
                     renderer.render(scene,camera);
                     requestAnimationFrame(render);
                 }

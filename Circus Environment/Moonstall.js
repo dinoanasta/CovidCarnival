@@ -1,4 +1,3 @@
-
 function makeStall(){
 
     var stall = makeWall2();
@@ -34,6 +33,7 @@ function miniGame(){
         map : textureLoader.load('../Resources/Textures/Mikayla/neontexture1.jpg')});
 
     var game = new THREE.Mesh(geoWall1,matWall);
+    game.position.y = -10;
     var side1 = new THREE.Mesh(geoWall2,matWall);
     side1.position.x = -190;
     side1.position.y = -50;
@@ -43,7 +43,8 @@ function miniGame(){
     side2.position.x = 190;
     game.add(side1);
     game.add(side2);
-    game.position.y = -50;
+    game.position.y = -30;
+    game.position.z = 10;
 
     var geoBall = new THREE.SphereBufferGeometry(30,20,20);
     var matBall = new THREE.MeshBasicMaterial({map : textureLoader.load('../Resources/Textures/Dino/trippy2.jpeg')});
@@ -88,9 +89,6 @@ function miniGame(){
     game.add(ball5);
     game.add(ball6);
     game.add(ball7);
-
-
-
     return game;
 
 }
