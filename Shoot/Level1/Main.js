@@ -8,7 +8,7 @@ let HUD, arrowSource;
 let windElement;
 
 //FrameRate
-let frameRate = 0;
+let frameNumber = 0;
 
 //Levels
 let level = "1";
@@ -282,11 +282,12 @@ function render() {
         //duck animations...
         realDuckModelArray.forEach(element => element.rotation.y+=0.05);
         realDuckModelArray.forEach(element => element.rotation.z+=0.05);
-        //frameRate animations...
-        if (frameRate >= 60) {
-            frameRate = 0;
+
+        //frameNumber animations...
+        if (frameNumber >= 60) {
+            frameNumber = 0;
         }
-        if (frameRate >= 0 && frameRate < 30) {
+        if (frameNumber >= 0 && frameNumber < 30) {
             //duck.rotation.y+=0.1;
             //realDuckModel.rotation.y+=0.1;
             //realDuckModel.position.z+=5;
@@ -298,8 +299,9 @@ function render() {
 
             realDuckModelArray[3].position.z += 7;
             realDuckModelArray[6].position.z += 7;
+            console.log("forward");
 
-        } else if (frameRate >= 30 && frameRate < 60) {
+        } else if (frameNumber >= 30 && frameNumber < 60) {
             //duck.rotation.y-=0.1;
             //realDuckModel.rotation.y-=0.1;
             //realDuckModel.position.z-=5;
@@ -312,20 +314,20 @@ function render() {
 
             realDuckModelArray[3].position.z -= 7;
             realDuckModelArray[6].position.z -= 7;
+            console.log("backward");
+
         }
         //rotationRealDucks.rotation.y+=0.1;
 
         for(let i=0; i<9;i++){
-            duckBoxArray[i].position.set(realDuckModelArray[i].position.x, realDuckModelArray[i].position.y + 4, realDuckModelArray[i].position.z);
+            duckBoxArray[i].position.set(realDuckModelArray[i].position.x, realDuckModelArray[i].position.y, realDuckModelArray[i].position.z);
             duckBoxArray[i].__dirtyPosition = true;
-
+            // duckBoxArray[i].rotation.y+=0.05;
+            // duckBoxArray[i].rotation.z+=0.05;
+            // duckBoxArray[i].__dirtyRotation = true;
         }
     }
-
-    frameRate++;
-
-    // avatarHead.set(avatarPosition.x, avatarPosition.y +25, avatarPosition.z-20);
-
+    frameNumber++;
 
     if (camType == "first") {
         //First person

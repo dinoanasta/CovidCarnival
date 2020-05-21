@@ -100,6 +100,7 @@ function onMouseDown(event) {
     }else{
         decideOutcome();
     }
+
 }
 
 function deleteBalls(){

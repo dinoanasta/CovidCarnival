@@ -10,23 +10,23 @@ function addMoonStall(){
     moon.position.z = 100;
 
     textLoader.load('../Resources/Fonts/droid_serif_bold.typeface.json',function (font) {
-        var geoText = new THREE.TextBufferGeometry( "1" , {
+        var geoText = new THREE.TextBufferGeometry( "Level 1" , {
             font : font,
             size : 50,
-            height : 30,
+            height : 20,
             curveSegments: 20,
             bevelEnabled : true,
-            bevelThickness: 10,
-            bevelSize: 10,
+            bevelThickness: 5,
+            bevelSize: 2,
             bevelOffset : 0,
             bevelSegments: 4
 
         });
 
-        var matText = new THREE.MeshNormalMaterial({ map : textureLoader.load('../Resources/Textures/Mikayla/neontexture1.jpg')})
+        var matText = new THREE.MeshStandardMaterial({ map : textureLoader.load('../Resources/Textures/Dino/greenfluid2.jpg')})
 
         moonText = new THREE.Mesh(geoText,matText);
-        moonText.position.x = -20;
+        moonText.position.x = -100;
         moonText.position.y = 250;
         moonText.position.z = 100;
         moonStall.add(moonText);

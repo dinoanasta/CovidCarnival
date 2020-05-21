@@ -4,7 +4,7 @@ function createPlane() { //Creates the flat area of the carnival
         //specular: 0x222222,
         shininess: 100,
         flatShading: true,
-        map: textureLoader.load('../Resources/Textures/Dino/bluegeo.jpg')
+        map: textureLoader.load('../Resources/Textures/Dino/redblocks.jpg')
     });
 
     let surfaceGeometry = new THREE.BoxGeometry(1000,1000); //makes the size of the plane 1000x1000
@@ -122,7 +122,7 @@ function addBarriers(){ //creates the cylindrical and adds barriers of carnival
 
     var tbGeo = new THREE.BoxGeometry(750,50,30); //creates wall barriers with a width of 750 and height of 50
     var tbMesh = new THREE.MeshLambertMaterial({
-        map: textureLoader.load("../Resources/Textures/Dino/blueleather.jpg")
+        map: textureLoader.load("../Resources/Textures/Dino/redfoil.jpg")
     });
 
     tbarrier1 = new Physijs.BoxMesh(
@@ -215,18 +215,18 @@ function MakeText(){ //Creates Giant "Covid carnival" text
         geoText = new THREE.TextGeometry( "COVID CARNIVAL" , {
             font : font,
             size : 20,
-            height : 20,
-            curveSegments: 16,
+            height :12,
+            curveSegments: 10,
             bevelEnabled : true,
-            bevelThickness: 5,
-            bevelSize: 5,
+            bevelThickness: 2,
+            bevelSize: 2,
             bevelOffset : 0,
             bevelSegments: 4
 
         });
 
         matText = new THREE.MeshStandardMaterial({
-            map: textureLoader.load('../Resources/Textures/Dino/iridescent.jpg'),
+            map: textureLoader.load('../Resources/Textures/Dino/redfoil.jpg'),
         });
 
         covidCarnivalText = new Physijs.Mesh(geoText,matText);
