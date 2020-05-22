@@ -35,19 +35,12 @@ function miniGame(){
     var game = new THREE.Mesh(geoWall1,matWall);
     game.position.y = -100;
     game.position.z = 200;
-    // var side1 = new THREE.Mesh(geoWall2,matWall);
-    // side1.position.x = -190;
-    // side1.position.y = -50;
-    // side1.position.z = 150;
-    // side1.rotation.y = Math.PI/2;
-    // var side2 = side1.clone();
-    // side2.position.x = 190;
-    // game.add(side1);
-    // game.add(side2);
-    // game.position.y = -30;
-    // game.position.z = 10;
+
+    sphereCamera = new THREE.CubeCamera(1, 1000, 500);
+    sphereCamera.position.set(0, 100, 0);
 
     var geoBall = new THREE.SphereBufferGeometry(30,20,20);
+    var refMat = new THREE.MeshBasicMaterial( {envMap: sphereCamera.renderTarget.texture} );
     var matBall = new THREE.MeshBasicMaterial({map : textureLoader.load('../Resources/Textures/Dino/redgreenliquid.jpg')});
     var ball = new THREE.Mesh(geoBall,matBall);
     ball.position.x = -150;
@@ -83,6 +76,16 @@ function miniGame(){
     ball7.position.y = -35;
     ball7.position.z = 100;
 
+    var ball8 = ball2.clone();
+    ball8.material = refMat;
+    ball8.position.x = -130;
+    ball8.position.z = 60;
+
+    var ball9 = ball.clone();
+    ball9.material = refMat;
+    ball9.position.x = 100;
+    ball9.position.z = 100;
+
     game.add(ball);
     game.add(ball2);
     game.add(ball3);
@@ -90,6 +93,8 @@ function miniGame(){
     game.add(ball5);
     game.add(ball6);
     game.add(ball7);
+    game.add(ball8);
+    game.add(ball9);
     return game;
 
 }

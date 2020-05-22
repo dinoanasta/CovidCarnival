@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -24,6 +24,8 @@
 <script>
 
 
+    var refractSphereCamera, refractSphere;
+    var mirrorSphere, sphereCamera;
 
     var renderer = new THREE.WebGLRenderer({canvas : document.getElementById('myCanvas'), antialias: true});
     renderer.setClearColor(0x000000);
@@ -49,6 +51,7 @@
     makeText();
 
 
+    scene.add(makeBall());
     stall.add(makeText());
     stall.add(miniGame());
     scene.add(stall);
@@ -62,10 +65,45 @@
         // Animating sphere 1
 
         renderer.render(scene,camera);
+        sphereCamera.update( renderer, scene );
         requestAnimationFrame(render);
     }
 
     renderer.render(scene,camera);
+
+    function makeBall(){
+        /*var sphereGeom =  new THREE.SphereGeometry( 80, 64, 32 );
+        refractSphereCamera = new THREE.CubeCamera( 0.1, 5000, 512 );
+        scene.add( refractSphereCamera );
+
+        refractSphereCamera.envMap.mapping = new THREE.CubeRefractionMapping;
+
+        var refractMaterial = new THREE.MeshBasicMaterial( {
+            color: 0xccccff,
+            envMap: refractSphereCamera.renderTarget,
+            refractionRatio: 0.985,
+            reflectivity: 0.9
+        } );
+
+        refractSphere = new THREE.Mesh( sphereGeom, refractMaterial );
+        refractSphere.position.set(0,50,0);
+        refractSphereCamera.position = refractSphere.position;
+
+        return refractSphere;*/
+        //scene.add(refractSphere);
+
+
+        var sphereGeom =  new THREE.SphereGeometry( 10, 32, 16 );
+        sphereCamera = new THREE.CubeCamera(1, 1000, 500);
+        sphereCamera.position.set(0, 100, 0);
+        scene.add(sphereCamera);
+        let sphereMaterial = new THREE.MeshBasicMaterial( {envMap: sphereCamera.renderTarget.texture} );
+        mirrorSphere = new THREE.Mesh( sphereGeom, sphereMaterial );
+        mirrorSphere.position.set(75,-130,0);
+        //mirrorSphereCamera.position = mirrorSphere.position;
+        //scene.add(mirrorSphere);
+        return mirrorSphere;
+    }
 
 
     function makeText(){

@@ -32,6 +32,7 @@ var textLoader = new THREE.FontLoader();
 //Moon stall
 let moonStall, moon, moonText;
 let stallHolder = new THREE.Group();
+let sphereCamera;
 
 function setupScene(){
     scene = new Physijs.Scene;
@@ -199,4 +200,5 @@ function animate () {
     requestAnimationFrame( animate );
     controls.update(); //Updates the orbit controls
     renderer.render( scene, camera ); //Renders the scene
+    sphereCamera.update( renderer, scene );
 };
