@@ -278,7 +278,7 @@ function loadModels(){
     });
 
     //Creates Spinning planet
-    var planGeo = new THREE.SphereGeometry(60,100,100);
+    var planGeo = new THREE.SphereBufferGeometry(60,100,100);
     // var planGeo2 = new THREE.SphereGeometry(200,300,300);
     var planMesh = new THREE.MeshPhongMaterial({
     shininess: 0.8,
@@ -288,9 +288,9 @@ function loadModels(){
     map: textureLoader.load("../Resources/Textures/Dino/iridescent.jpg")
     }); //creates material and loads texture of planet
 
-    planet = new Physijs.Mesh(planGeo,planMesh);
-    planet.position.x = -450;
-    planet.position.y = 70;
+    planet = new THREE.Mesh(planGeo,planMesh);
+    planet.position.x = -420;
+    planet.position.y = 100;
     planet.position.z = -420;
     world.add(planet);
 

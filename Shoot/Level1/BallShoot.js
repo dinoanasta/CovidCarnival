@@ -108,9 +108,6 @@ function onMouseDown(event) {
 }
 
 function deleteBalls(){
-    for(let i=0; i< ammoCount; ++i){
-        ballsArray.pop();
-    }
     ballsArray = [];
     shotBalls = [];
 

@@ -181,11 +181,6 @@ function configureTargetCollisions(){
 }
 
 function deleteTargets(){
-    for (let i = 0; i < 9; i++) {
-        realDuckModelArray.pop();
-        duckBoxArray.pop();
-        duckCoordinates.pop();
-    }
     duckCoordinates = [];
     realDuckModelArray = [];
     duckBoxArray = [];

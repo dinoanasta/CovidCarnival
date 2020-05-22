@@ -63,12 +63,13 @@ function setupScene(){
     //Creates the controls and imposes restriction for how the player can navigate the world
     controls = new THREE.OrbitControls(camera,renderer.domElement);
     controls.maxDistance = 2000;
-    controls.minDistance = 800;
+    controls.minDistance = 500;
     controls.minPolarAngle = 0;
-    controls.maxPolarAngle = Math.PI/2;
+    controls.maxPolarAngle = 15.9*Math.PI/32;
     controls.mouseButtons = {
         MIDDLE: THREE.MOUSE.DOLLY,
-        RIGHT: THREE.MOUSE.ROTATE
+        RIGHT: THREE.MOUSE.ROTATE,
+        LEFT: THREE.MOUSE.PAN
     }
 
     var textureURLs = [  // URLs of the six faces of the cubeMap map

@@ -33,10 +33,9 @@
             createPlane(); //Creates the flat area of the carnival
             addBarriers(); //creates and adds barriers of carnival
             MakeText();
-            loadModels(); // loads all relevant models (mushroom 1 and 2 and lantern)
             scene.add(world);
             addMoonStall(); // Adds the moon stall
-
+            loadModels(); // loads all relevant models (mushroom 1 and 2 and lantern)
             window.addEventListener("mousedown",doMouseDown,false);
             window.addEventListener('resize', onWindowResize, false);
 
