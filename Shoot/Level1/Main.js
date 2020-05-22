@@ -222,6 +222,7 @@ function resetGame(){
     deleteTargets();
     deleteAvatar();
     clearInterval(countdown);
+    frameNumber = 0;
 
     document.getElementById("LevelPassedHUD").style.visibility = 'hidden';
     document.getElementById("LevelFailedHUD").style.visibility = 'hidden';
