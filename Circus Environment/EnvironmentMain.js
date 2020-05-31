@@ -132,6 +132,7 @@ function updateFrame() {
     planet.rotation.x += 0.1;
     planet.rotation.y += 0.1;
 
+    cubeMap.rotation.y += 0.001;
     // covidCarnivalText.rotation.y += 0.5;
 
     // planet2.rotation.x += 0.06;

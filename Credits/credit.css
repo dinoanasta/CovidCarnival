@@ -1,0 +1,24 @@
+@font-face {
+    src: url("../Resources/Fonts/vtc-karnival/VTC-Karnival-Fat.ttf");
+    font-family: karn;
+}
+
+#Back {
+    top: 0;
+    left: 0;
+    position: absolute;
+    margin-top: 3vh;
+    margin-left: 3vw;
+}
+
+
+
+#Backlink {
+    display: inline-block;
+    z-index: 1;
+    font-family: karn;
+    font-size: 10vmin;
+    cursor: pointer;
+    color: #44d4d4;
+    display: inline-block;
+}

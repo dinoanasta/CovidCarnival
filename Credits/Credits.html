@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Carnival Credits</title>
+    <script src = "../js/three.js"></script>
+    <script src = "../js/OrbitControls.js"></script>
+    <script src = "../js/GLTFLoader.js"></script>
+    <script src = "../js/TTFLoader.js"></script>
+    <script src = "CreditsMain.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link href="credit.css" rel = "stylesheet">
+
+    <script>
+        //function that sets up everything in the scene
+        function init() {
+            renderer = new THREE.WebGLRenderer({antialias:true}); //creates renderer
+
+            //Sets color,pixel ratio, size and attaches renderer to window
+            renderer.setClearColor(0xFFFFFF); //0x07E2E9
+            renderer.setPixelRatio( window.devicePixelRatio);
+            renderer.setSize(window.innerWidth,window.innerHeight);
+            document.body.appendChild( renderer.domElement );
+            setupScene();
+            //loadModels(); // loads all relevant models
+           //window.addEventListener('resize', onWindowResize, false);
+           // animate();
+        }
+
+
+    </script>
+
+
+    <div class="Backbtt" id = "Back">
+        <h1 id = "backLabel"> <a id = "Backlink" href = "../Circus Environment/Environment.html">Back</a></h1>
+        <br>
+    </div>
+</head>
+<body onload="init()">
+
+
+</body>
+</html>

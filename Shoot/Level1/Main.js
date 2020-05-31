@@ -10,6 +10,16 @@ let windElement;
 //FrameRate
 let frameNumber = 0;
 
+//Animation Mixer
+let mixers = [];
+
+//Clock For Avatar Animation
+let clock = new THREE.Clock();
+
+//Prize Models
+let prizes = new THREE.Object3D();
+let prizeNode;
+
 //Levels
 let level = "1";
 let nextLevel;
@@ -256,8 +266,10 @@ function resetGame(){
 function render() {
     requestAnimationFrame(render);
 
+
     moveAvatar();
     moveLaser(mouseCoords);
+
 
     if(playing){
 
@@ -281,7 +293,7 @@ function render() {
 
             realDuckModelArray[3].position.z += 7;
             realDuckModelArray[6].position.z += 7;
-            console.log("forward");
+            //console.log("forward");
 
         } else if (frameNumber >= 30 && frameNumber < 60) {
             //duck.rotation.y-=0.1;
@@ -296,7 +308,7 @@ function render() {
 
             realDuckModelArray[3].position.z -= 7;
             realDuckModelArray[6].position.z -= 7;
-            console.log("backward");
+           // console.log("backward");
 
         }
         //rotationRealDucks.rotation.y+=0.1;

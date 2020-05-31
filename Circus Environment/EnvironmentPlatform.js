@@ -296,5 +296,7 @@ function loadModels(){
 
     //scales the big world variable and adds it to the scene
     world.scale.set(2.3,2.3,2.3);
-    // scene.add(world);
+    // prizes.position.set(0,300,-50);
+    // world.add(prizes);
+    scene.add(world);
 }

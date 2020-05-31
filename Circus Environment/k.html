@@ -13,17 +13,21 @@
 		</style>
   </head>
   <body>
-    <script src="js/three.js"></script>
-    <script src="js/OrbitControls.js"></script>
-      <script src="js/physi.js"></script>
+    <script src="../js/three.js"></script>
+    <script src="../js/OrbitControls.js"></script>
+    <script src = "../js/GLTFLoader.js"></script>
+      <script src="../js/physi.js"></script>
 
 
 
         <script>
-          Physijs.scripts.worker='js/physijs_worker.js';
+          Physijs.scripts.worker='../js/physijs_worker.js';
           //Physijs.scripts.ammo='ammo.js';
 
           var scene=new Physijs.Scene;
+          var loader = new THREE.GLTFLoader();
+          var mixer = [];
+          const clock = new THREE.Clock();
 
          scene.setGravity(new THREE.Vector3(0,-10,0));
             //var scene=new THREE.Scene();
@@ -44,13 +48,40 @@
 
             var cubeMap=new THREE.CubeGeometry(7,7,7);
             var material=new THREE.MeshBasicMaterial({color:0xff0000});
-            var cubeobj=new Physijs.BoxMesh(cube,material);
+            var cubeobj=new Physijs.BoxMesh(cubeMap,material);
 
             scene.add(cubeobj);
 
+          loader.load("../Models/wolf_with_animations/scene.gltf", function (object) {
+              let pup = object.scene.children[0];
+              const animation = object.animations[0];
+
+              const mix = new THREE.AnimationMixer(pup);
+              mixer.push(mix);
+
+              const action = mix.clipAction(animation);
+              action.play();
+
+              pup.position.y = 20;
+              pup.scale.set(10,10,10);
+              scene.add(pup);
+          });
+
 var controls=new THREE.OrbitControls(camera,renderer.domElement);
 
+function updateFrame() {
+
+    const delta = clock.getDelta();
+
+    for ( const mix of mixer ) {
+
+        mix.update( delta );
+
+    }
+}
+
 function animate(){
+  updateFrame();
   scene.simulate();
 controls.update();
   renderer.render(scene,camera);
