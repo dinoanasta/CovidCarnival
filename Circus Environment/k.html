@@ -54,12 +54,12 @@
 
           loader.load("../Models/wolf_with_animations/scene.gltf", function (object) {
               let pup = object.scene.children[0];
-              const animation = object.animations[0];
+              const avatarAnimation = object.animations[0];
 
               const mix = new THREE.AnimationMixer(pup);
               mixer.push(mix);
 
-              const action = mix.clipAction(animation);
+              const action = mix.clipAction(avatarAnimation);
               action.play();
 
               pup.position.y = 20;

@@ -149,74 +149,62 @@ function decideOutcome(){
     playing = false;
     clearInterval(countdown);
 
-    //Animation Timer:
-    setTimeout(function () {
-      let anim_countDOwn = setInterval(function () {
-        //Animation and Mixer Code Goes Here
-              let delta = clock.getDelta();
-              for ( const mixer of mixers )
-              {
-                  mixer.update(delta);
-              }
-          // mixers.pop(mixer);
-      },0);
-    },1000);
-
     document.getElementById("GameHUD").style.visibility = 'hidden';
 
     if(score>=goal){
+        //Animation Timer:
         setTimeout(function () {
-            let hud_countDown = setInterval(function () {
-                document.getElementById("LevelPassedHUD").style.visibility = 'visible';
-            },5000);
+            setInterval(function () {
+                //Animation and Mixer Code Goes Here
+                animationAction.play();
+                let delta = clock.getDelta();
+                mixers[0].update(delta);
+                console.log("playing");
+            },0);
+        },200);
+
+        setTimeout(function () {
+            document.getElementById("LevelPassedHUD").style.visibility = 'visible';
+
+            //Loads prize into prizes 3D object. Not sure how to display this in environment though
+            loader.load("../../Models/New Models/pickle_rick/scene.gltf", function (object) {
+
+                object.scene.traverse( function( object ) {
+                    if ( object.isMesh ) {
+                        object.castShadow = true;
+                    }
+                } );
+                let x = 0;
+                prizeNode= object.scene.children[0];
+
+
+                prizeNode.position.set(x, 0, 80);
+                prizeNode.scale.set(3, 3, 3);
+                x+= 40;
+                prizes.add(prizeNode);
+
+            })
+            if(level == "1") {
+                document.getElementById("LevelPassedText").innerHTML = "You win level 1 ! <br> Proceed to level 2?";
+                nextLevel = "2";
+            }else if(level == "2"){
+                document.getElementById("LevelPassedText").innerHTML = "You win level 2 ! <br> Proceed to level 3?";
+                nextLevel = "3";
+            }else if(level == "3"){
+                document.getElementById("LevelPassedText").innerHTML = "You win level 3 ! <br> Return to main menu?";
+                document.getElementById("proceedButton").style.visibility = 'hidden';
+            }
+            level = nextLevel;
+
         },5000);
 
-        //Loads prize into prizes 3D object. Not sure how to display this in environment though
-        loader.load("../New Models/pickle_rick/scene.gltf", function (object) {
-
-            object.scene.traverse( function( object ) {
-                if ( object.isMesh ) {
-                    object.castShadow = true;
-                }
-            } );
-            let x = 0;
-            prizeNode= object.scene.children[0];
-
-
-            prizeNode.position.set(x, 0, 80);
-            prizeNode.scale.set(3, 3, 3);
-            x+= 40;
-            prizes.add(prizeNode);
-
-        })
-        if(level == "1") {
-            document.getElementById("LevelPassedText").innerHTML = "You win level 1 ! <br> Proceed to level 2?";
-            nextLevel = "2";
-        }else if(level == "2"){
-            document.getElementById("LevelPassedText").innerHTML = "You win level 2 ! <br> Proceed to level 3?";
-            nextLevel = "3";
-        }else if(level == "3"){
-            document.getElementById("LevelPassedText").innerHTML = "You win level 3 ! <br> Return to main menu?";
-            document.getElementById("proceedButton").style.visibility = 'hidden';
-        }
-        level = nextLevel;
     }else{
         if(ammoCount - numBallsShot <= 0){
-                document.getElementById("LevelFailedText").innerHTML = "Out of balls <br> You lose level " + level + " ! <br> Restart ?" ;
-            setTimeout(function () {
-                let hud_countDown = setInterval(function () {
-                    document.getElementById("LevelFailedHUD").style.visibility = 'visible';
-                },5000);
-            },5000);
-
+            document.getElementById("LevelFailedText").innerHTML = "Out of balls <br> You lose level " + level + " ! <br> Restart ?" ;
+            document.getElementById("LevelFailedHUD").style.visibility = 'visible';
         }else{
-                document.getElementById("LevelFailedText").innerHTML = "Time up <br> You lose level " + level + " ! <br> Restart ?" ;
-            setTimeout(function () {
-                let hud_countDown = setInterval(function () {
-                    document.getElementById("LevelFailedHUD").style.visibility = 'visible';
-                },0);
-            },5000);
-               // document.getElementById("LevelFailedHUD").style.visibility = 'visible';
+            document.getElementById("LevelFailedText").innerHTML = "Time up <br> You lose level " + level + " ! <br> Restart ?" ;
+            document.getElementById("LevelFailedHUD").style.visibility = 'visible';
         }
     }
 }

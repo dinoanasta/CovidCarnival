@@ -1,4 +1,4 @@
-let mixer;
+
 function createAvatar(){
     loader.load(
         // "../../Models/New Models/astronaut/scene.gltf",
@@ -12,7 +12,7 @@ function createAvatar(){
 
             avatar = object.scene.children[0];
             //Reads animations from models and stores them
-            let animation = object.animations[ 0 ];
+            avatarAnimation = object.animations[0];
 
             //Adds animation to animation mixer
             //Mixer controls the updating of the model as the animation progresses
@@ -20,9 +20,9 @@ function createAvatar(){
             mixers.push(mixer);
 
             //Creates The Animation Clip
-            let action = mixer.clipAction(animation);
+            animationAction = mixer.clipAction(avatarAnimation);
             //Plays animation but won't actually start playing until we set up the timer
-            action.play();
+            // action.play();
 
             avatar.position.set(0, 0, 80);
             avatar.scale.set(11, -11, 11);
@@ -70,8 +70,9 @@ function moveAvatar(){
 }
 
 function deleteAvatar(){
-    scene.remove(avatar)
-    mixers.pop(mixer);
+    scene.remove(avatar);
+
+    mixers = [];
     AvatarMoveDirection = { x: 0, z: 0 };
     avatarLocalPos = { x: 0, z: 0 };
 }

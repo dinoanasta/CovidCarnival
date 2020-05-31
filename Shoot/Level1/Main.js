@@ -12,6 +12,9 @@ let frameNumber = 0;
 
 //Animation Mixer
 let mixers = [];
+let mixer;
+let avatarAnimation;
+let animationAction;
 
 //Clock For Avatar Animation
 let clock = new THREE.Clock();
@@ -198,7 +201,6 @@ function handleKeyDown(event) {
                 camType = "first";
             }
     }
-
 }
 
 function handleKeyUp(event) {
@@ -255,7 +257,6 @@ function resetGame(){
     //Create balls
     createBalls();
 
-
     //Setup astronaut
     createAvatar();
 
@@ -266,13 +267,10 @@ function resetGame(){
 function render() {
     requestAnimationFrame(render);
 
-
     moveAvatar();
     moveLaser(mouseCoords);
 
-
     if(playing){
-
         //Duck rotations
         realDuckModelArray.forEach(element => element.rotation.y+=0.05);
         realDuckModelArray.forEach(element => element.rotation.z+=0.05);
@@ -293,8 +291,6 @@ function render() {
 
             realDuckModelArray[3].position.z += 7;
             realDuckModelArray[6].position.z += 7;
-            //console.log("forward");
-
         } else if (frameNumber >= 30 && frameNumber < 60) {
             //duck.rotation.y-=0.1;
             //realDuckModel.rotation.y-=0.1;
@@ -308,8 +304,6 @@ function render() {
 
             realDuckModelArray[3].position.z -= 7;
             realDuckModelArray[6].position.z -= 7;
-           // console.log("backward");
-
         }
         //rotationRealDucks.rotation.y+=0.1;
 

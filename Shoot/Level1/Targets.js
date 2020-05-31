@@ -151,6 +151,7 @@ function createTargets(){
                 for (let i = 0; i < 9; i++) {
                     realDuckModel.position.set(duckCoordinates[i].x,  duckCoordinates[i].y,  duckCoordinates[i].z);
                     realDuckModelArray.push(realDuckModel.clone());
+                    realDuckModelArray[i].position.set(duckCoordinates[i].x,  duckCoordinates[i].y,  duckCoordinates[i].z);
 
                     scene.add(duckBoxArray[i]);
                     scene.add(realDuckModelArray[i]);
@@ -158,7 +159,6 @@ function createTargets(){
             }
         );
     }
-
 }
 
 function configureTargetCollisions(){
