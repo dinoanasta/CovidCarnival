@@ -181,7 +181,7 @@ body{
     background-color: rgba(128,0,0,0.8);
     visibility: hidden;
     user-select: none;
-    cursor: default;
+    cursor: crosshair;
 }
 
 .outcomeHUD>.outcomeText {

@@ -10,7 +10,7 @@ function addMoonStall(){
     moon.position.z = 100;
 
     textLoader.load('../Resources/Fonts/droid_serif_bold.typeface.json',function (font) {
-        var geoText = new THREE.TextBufferGeometry( "LEVEL 1" , {
+        var geoText = new THREE.TextBufferGeometry( "PLAY GAME" , {
             font : font,
             size : 50,
             height : 20,
@@ -26,7 +26,7 @@ function addMoonStall(){
         var matText = new THREE.MeshStandardMaterial({ map : textureLoader.load('../Resources/Textures/Dino/greenfluid2.jpg')})
 
         moonText = new THREE.Mesh(geoText,matText);
-        moonText.position.x = -100;
+        moonText.position.x = -240;
         moonText.position.y = 250;
         moonText.position.z = 100;
         moonStall.add(moonText);

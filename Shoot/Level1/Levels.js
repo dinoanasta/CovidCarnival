@@ -152,51 +152,43 @@ function decideOutcome(){
     document.getElementById("GameHUD").style.visibility = 'hidden';
 
     if(score>=goal){
-        //Animation Timer:
-        setTimeout(function () {
-            setInterval(function () {
-                //Animation and Mixer Code Goes Here
-                animationAction.play();
-                let delta = clock.getDelta();
-                mixers[0].update(delta);
-                console.log("playing");
-            },0);
-        },200);
+        if(level == "1") {
+            prizes.push("../../Models/ufo/scene.gltf");
 
-        setTimeout(function () {
             document.getElementById("LevelPassedHUD").style.visibility = 'visible';
+            document.getElementById("LevelPassedText").innerHTML = "You win level 1 ! <br> Proceed to level 2?";
+            nextLevel = "2";
+        }else if(level == "2"){
+            prizes.push("../../Models/plush/scene.gltf");
 
-            //Loads prize into prizes 3D object. Not sure how to display this in environment though
-            loader.load("../../Models/New Models/pickle_rick/scene.gltf", function (object) {
+            document.getElementById("LevelPassedHUD").style.visibility = 'visible';
+            document.getElementById("LevelPassedText").innerHTML = "You win level 2 ! <br> Proceed to level 3?";
+            nextLevel = "3";
+        }else if(level == "3"){
+            prizes.push("../../Models/rocket2/scene.gltf");
 
-                object.scene.traverse( function( object ) {
-                    if ( object.isMesh ) {
-                        object.castShadow = true;
-                    }
-                } );
-                let x = 0;
-                prizeNode= object.scene.children[0];
+            //Animation Timer:
+            setTimeout(function () {
+                setInterval(function () {
+                    //Animation and Mixer Code Goes Here
+                    animationAction.play();
+                    let delta = clock.getDelta();
+                    mixers[0].update(delta);
+                    console.log("playing");
+                },0);
+            },200);
 
-
-                prizeNode.position.set(x, 0, 80);
-                prizeNode.scale.set(3, 3, 3);
-                x+= 40;
-                prizes.add(prizeNode);
-
-            })
-            if(level == "1") {
-                document.getElementById("LevelPassedText").innerHTML = "You win level 1 ! <br> Proceed to level 2?";
-                nextLevel = "2";
-            }else if(level == "2"){
-                document.getElementById("LevelPassedText").innerHTML = "You win level 2 ! <br> Proceed to level 3?";
-                nextLevel = "3";
-            }else if(level == "3"){
-                document.getElementById("LevelPassedText").innerHTML = "You win level 3 ! <br> Return to main menu?";
+            //Wait 5s while animation plays before showing HUD
+            setTimeout(function () {
                 document.getElementById("proceedButton").style.visibility = 'hidden';
-            }
-            level = nextLevel;
+                document.getElementById("LevelPassedText").innerHTML = "You win level 3 ! <br> Return to main menu?";
+                document.getElementById("LevelPassedHUD").style.visibility = 'visible';
 
-        },5000);
+            },5000);
+
+        }
+        level = nextLevel;
+
 
     }else{
         if(ammoCount - numBallsShot <= 0){

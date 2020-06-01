@@ -19,10 +19,6 @@ let animationAction;
 //Clock For Avatar Animation
 let clock = new THREE.Clock();
 
-//Prize Models
-let prizes = new THREE.Object3D();
-let prizeNode;
-
 //Levels
 let level = "1";
 let nextLevel;
@@ -39,7 +35,7 @@ let ballMaterial;
 //Scene and setup
 let playing = true;
 let cubeMap;
-let renderer, scene, camera, box, controls;
+let renderer, scene, camera, box;
 let pos = new THREE.Vector3();
 let shootSound;
 let hitSound;
@@ -49,6 +45,16 @@ let loader = new THREE.GLTFLoader();
 let camType = "third";
 let countdown;
 let timeLeft;
+
+//PointerLockControls
+let crosshair;
+let controls;
+var objects = [];
+var FPSraycaster;
+var havePointerLock;
+var controlsEnabled = false;
+var prevTime = performance.now();
+var velocity = new THREE.Vector3();
 
 //Mouse Coordinates and raycaster
 let mouseCoords = new THREE.Vector2();
@@ -87,7 +93,8 @@ var duckBoxArray = [];
 
 //minimap
 var mapCamera;
-var w = window.innerWidth, h = window.innerHeight;
+let mapWidth = window.innerWidth/5, mapHeight = window.innerHeight/5;
+
 
 function setupScene() {
     scene = new Physijs.Scene;
@@ -100,24 +107,52 @@ function setupScene() {
         1000
     );
 
+    //PointerLockControls
+    controls = new THREE.PointerLockControls( camera, document.body);
+    controls.addEventListener( 'lock', function () {
+        console.log("unlocked");
+    } );
+
+    controls.addEventListener( 'unlock', function () {
+        console.log("unlocked");
+    } );
+    scene.add( controls.getObject() );
+
     camera.position.set(0, 60, 150);
     camera.lookAt(new THREE.Vector3(0, 0, 0));
     scene.add(camera);
 
+    var material = new THREE.LineBasicMaterial({
+        color: "black",
+    });
+
+// crosshair size
+    var x = 0.1, y = 0.1;
+
+    var geometry = new THREE.Geometry();
+
+// crosshair
+    geometry.vertices.push(new THREE.Vector3(0, y, 0));
+    geometry.vertices.push(new THREE.Vector3(0, -y, 0));
+    geometry.vertices.push(new THREE.Vector3(0, 0, 0));
+    geometry.vertices.push(new THREE.Vector3(x, 0, 0));
+    geometry.vertices.push(new THREE.Vector3(-x, 0, 0));
+
+    crosshair = new THREE.Line( geometry, material );
+    // camera.add(crosshair);
+    crosshair.position.set(0,0,-1);
+
     mapCamera = new THREE.OrthographicCamera(
-        window.innerWidth / -2,		// Left
-        window.innerWidth / 2,		// Right
-        window.innerHeight / 2,		// Top
-        window.innerHeight / -2,	// Bottom
-        -5000,            			// Near
-        10000 );           			// Far
+        window.innerWidth / -4,		// Left
+        window.innerWidth / 4,		// Right
+        window.innerHeight / 4,		// Top
+        window.innerHeight / -4,	// Bottom
+        -100,            			// Near
+        1000 );           			// Far
     mapCamera.up = new THREE.Vector3(0,0,-1);
     mapCamera.lookAt( new THREE.Vector3(0,-1,0) );
-    mapCamera.zoom = 5;
+    mapCamera.zoom = 100;
     scene.add(mapCamera);
-
-    controls = new THREE.PointerLockControls( camera );
-    scene.add( controls.getObject() );
 
     //Add ambient light
     let ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
@@ -169,13 +204,14 @@ function setupScene() {
 
     //Timer
     document.getElementById("timeValue").textContent = gameLength;
+
     setTimeout( function(){
             timeLeft = gameLength;
             countdown = setInterval(function() {
                 timeLeft--;
                 document.getElementById("timeValue").textContent = timeLeft;
                 if (timeLeft <= 0){
-                    clearInterval();
+                    clearInterval(countdown);
                     decideOutcome();
                 }
             },1000);
@@ -241,6 +277,8 @@ function handleKeyUp(event) {
 function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
+    mapWidth = window.innerWidth/5;
+    mapHeight = window.innerHeight/5;
     renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
@@ -249,7 +287,6 @@ function resetGame(){
     deleteBalls();
     deleteTargets();
     deleteAvatar();
-    clearInterval(countdown);
     frameNumber = 0;
 
     document.getElementById("LevelPassedHUD").style.visibility = 'hidden';
@@ -331,10 +368,11 @@ function render() {
     frameNumber++;
 
     if (camType == "first") {
-        //First person
+        //First personv
         camera.position.set(avatarHead.x, avatarHead.y, avatarHead.z);
-        rayDirection = rayDirection.set(rayx,rayy-40, -100);
+        rayDirection = rayDirection.set(rayx,rayy, -100);
         camera.lookAt(rayDirection);
+        camera.add(crosshair);
         scene.remove(laser);
     } else if (camType == "third") {
         //Third person
@@ -343,16 +381,24 @@ function render() {
         scene.add(laser);
     }
 
+    //Rotate skybox
+    cubeMap.rotation.x += 0.005;
+    cubeMap.rotation.y -= 0.005;
+    cubeMap.rotation.z += 0.005;
+
     scene.simulate();
     //renderer.render(scene, camera);
 
-    renderer.setViewport( 0, 0, w, h );
+    // renderer.setViewport( 0, 0, w, h );
+    renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.render( scene, camera );
-    //renderer.clear();
+    // renderer.clear();
 
     // minimap (overhead orthogonal camera)
     //  lower_left_x, lower_left_y, viewport_width, viewport_height
-    var mapWidth = 600, mapHeight = 250;
-    renderer.setViewport( -80, h - mapHeight -20, mapWidth, mapHeight );
+    // renderer.setViewport( -80, h - mapHeight -20, mapWidth, mapHeight );
+    //
+    renderer.setViewport(window.innerWidth-mapWidth*1.2, window.innerHeight-mapHeight*3, mapWidth, mapHeight );
+    // renderer.setSize(mapWidth, mapHeight);
     renderer.render( scene, mapCamera );
 }

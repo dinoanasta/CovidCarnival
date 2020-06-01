@@ -59,8 +59,6 @@ function onMouseMove(event){
         -(event.clientY / window.innerHeight) * 2 + 1
     );
     moveLaser(mouseCoords);
-
-
 }
 
 function onMouseDown(event) {
