@@ -181,14 +181,13 @@ function decideOutcome(){
             //Wait 5s while animation plays before showing HUD
             setTimeout(function () {
                 document.getElementById("proceedButton").style.visibility = 'hidden';
-                document.getElementById("LevelPassedText").innerHTML = "You win level 3 ! <br> Return to main menu?";
+                document.getElementById("LevelPassedText").innerHTML = "Final score: " + totalScore + "<br>You win ! <br> Return to main menu?";
                 document.getElementById("LevelPassedHUD").style.visibility = 'visible';
 
             },5000);
 
         }
         level = nextLevel;
-
 
     }else{
         if(ammoCount - numBallsShot <= 0){

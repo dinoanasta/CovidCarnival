@@ -1,8 +1,7 @@
 
 function createAvatar(){
     loader.load(
-        // "../../Models/New Models/astronaut/scene.gltf",
-        "../../Models/samba_dancing/scene.gltf",
+        "../../Models/hiphop/scene.gltf",
         function (object) {
             object.scene.traverse( function( object ) {
                 if ( object.isMesh ) {
@@ -25,7 +24,7 @@ function createAvatar(){
             // action.play();
 
             avatar.position.set(0, 0, 80);
-            avatar.scale.set(11, -11, 11);
+            avatar.scale.set(7, -7, 7);
 
             avatarPosition.set(avatar.position.x, avatar.position.y, avatar.position.z);
             scene.add(avatar);

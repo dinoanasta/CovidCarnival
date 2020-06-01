@@ -45,6 +45,7 @@ let loader = new THREE.GLTFLoader();
 let camType = "third";
 let countdown;
 let timeLeft;
+let totalScore = 0;
 
 //PointerLockControls
 let crosshair;
@@ -209,6 +210,7 @@ function setupScene() {
             timeLeft = gameLength;
             countdown = setInterval(function() {
                 timeLeft--;
+                totalScore++;
                 document.getElementById("timeValue").textContent = timeLeft;
                 if (timeLeft <= 0){
                     clearInterval(countdown);
