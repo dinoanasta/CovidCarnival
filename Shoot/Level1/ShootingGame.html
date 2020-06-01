@@ -2,6 +2,8 @@
 <html>
 
 <head>
+    <meta name="viewport" content="width=device-width, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0">
+
     <title>SHOOT</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link href="style.css" rel = "stylesheet">
@@ -10,6 +12,7 @@
     <script src="../../js/physi.js"></script>
     <script src="../../js/GLTFLoader.js"></script>
     <script src="../../js/PointerLockControls.js"></script>
+    <script src="../../js/Detector.js"></script>
 
     <!-- Game javascript files    -->
     <script src="StallPlatform.js"></script>
@@ -116,8 +119,11 @@
             renderer.setSize( window.innerWidth, window.innerHeight);
             renderer.shadowMap.enabled = true; //disabling this option to debug on my machine because its kak slow :/
             renderer.shadowMap.type = THREE.PCFSoftShadowMap; //disabling this option to debug on my machine because its kak slow :/
+            renderer.autoClear = false;
             // renderer.powerPreference = "high-performance";
             document.getElementById( 'viewport' ).appendChild( renderer.domElement );
+
+
 
             //Theme song
             themeSound = document.getElementById("theme");

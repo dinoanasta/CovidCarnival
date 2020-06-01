@@ -85,6 +85,10 @@ var duckCoordinates;
 var realDuckModelArray = [];
 var duckBoxArray = [];
 
+//minimap
+var mapCamera;
+var w = window.innerWidth, h = window.innerHeight;
+
 function setupScene() {
     scene = new Physijs.Scene;
 
@@ -99,6 +103,18 @@ function setupScene() {
     camera.position.set(0, 60, 150);
     camera.lookAt(new THREE.Vector3(0, 0, 0));
     scene.add(camera);
+
+    mapCamera = new THREE.OrthographicCamera(
+        window.innerWidth / -2,		// Left
+        window.innerWidth / 2,		// Right
+        window.innerHeight / 2,		// Top
+        window.innerHeight / -2,	// Bottom
+        -5000,            			// Near
+        10000 );           			// Far
+    mapCamera.up = new THREE.Vector3(0,0,-1);
+    mapCamera.lookAt( new THREE.Vector3(0,-1,0) );
+    mapCamera.zoom = 5;
+    scene.add(mapCamera);
 
     controls = new THREE.PointerLockControls( camera );
     scene.add( controls.getObject() );
@@ -328,5 +344,15 @@ function render() {
     }
 
     scene.simulate();
-    renderer.render(scene, camera);
+    //renderer.render(scene, camera);
+
+    renderer.setViewport( 0, 0, w, h );
+    renderer.render( scene, camera );
+    //renderer.clear();
+
+    // minimap (overhead orthogonal camera)
+    //  lower_left_x, lower_left_y, viewport_width, viewport_height
+    var mapWidth = 600, mapHeight = 250;
+    renderer.setViewport( -80, h - mapHeight -20, mapWidth, mapHeight );
+    renderer.render( scene, mapCamera );
 }

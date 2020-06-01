@@ -21,7 +21,7 @@
 <body>
 
 <div id = "myCanvas" style="position: absolute; left:0px; top:0px"></div>
-<div id = "miniCanvas" style="position: absolute; left:100px; top:100px; width:320px; height:240px;"></div>
+<!--<div id = "miniCanvas" style="position: absolute; left:100px; top:100px; width:320px; height:240px;"></div>-->
 
 <script src = "../js/three.js"></script>
 <script src="../js/Detector.js"></script>
@@ -77,14 +77,14 @@
     var material1 = new THREE.MeshNormalMaterial();
     var material2 = new THREE.MeshBasicMaterial({ color : 'gray', side : THREE.DoubleSide})
 
-    var box = new THREE.Mesh(geometry1,material1);
+    //var box = new THREE.Mesh(geometry1,material1);
     var plane = new THREE.Mesh(geometry2,material2);
 
     plane.position.y = -100;
     plane.rotation.x = Math.PI/2;
 
     scene.add(plane);
-    scene.add(box);
+    //scene.add(box);
 
     renderer.setSize( window.innerWidth, window.innerHeight );
     renderer.setClearColor( 0x000000, 1 );
@@ -104,7 +104,7 @@
     {
         var w = window.innerWidth, h = window.innerHeight;
 
-        box.rotation.y += 0.01;
+        //box.rotation.y += 0.01;
 
 
         // setViewport parameters:
