@@ -173,11 +173,13 @@ function configureTargetCollisions(){
                 score++;
                 document.getElementById("scoreValue").textContent = score;
                 if(score==goal){
+                    playing = false;
+
                     clearInterval(countdown);
                     setTimeout( function(){
                             decideOutcome();
                         },
-                        1000
+                        3000
                     );
                 }
             }
