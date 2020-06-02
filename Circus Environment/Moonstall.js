@@ -1,18 +1,19 @@
 function makeStall(){
+    var texture = textureLoader.load('../Resources/Textures/Dino/neontexture1.jpg');
 
-    var stall = makeWall2();
+    var stall = makeWall2(texture);
 
-    var wall = makeWall();
+    var wall = makeWall(texture);
     wall.position.x = 200;
     wall.position.z = 150;
     wall.rotation.y = Math.PI/2;
 
-    var wall2 = makeWall();
+    var wall2 = makeWall(texture);
     wall2.position.x = -200;
     wall2.position.z = 150;
     wall2.rotation.y = Math.PI/2;
 
-    var roof = makeRoof();
+    var roof = makeRoof(texture);
     roof.position.y = 185;
     roof.position.z = 100;
     roof.rotation.y = Math.PI/4;
@@ -50,6 +51,60 @@ function makeStall(){
         );
     }
    
+
+    return stall;
+}
+
+function makeCreditsStall(){
+    var texture = textureLoader.load('../Resources/Textures/Dino/stalltexture.jpg');
+
+    var stall = makeWall2(texture);
+
+    var wall = makeWall(texture);
+    wall.position.x = 200;
+    wall.position.z = 150;
+    wall.rotation.y = Math.PI/2;
+
+    var wall2 = makeWall(texture);
+    wall2.position.x = -200;
+    wall2.position.z = 150;
+    wall2.rotation.y = Math.PI/2;
+
+    var roof = makeRoof(texture);
+    roof.position.y = 185;
+    roof.position.z = 100;
+    roof.rotation.y = Math.PI/4;
+
+    stall.add(wall);
+    stall.add(wall2);
+    stall.add(roof);
+
+    return stall;
+}
+
+function makeBonusStall(){
+    var texture = textureLoader.load('../Resources/Textures/Dino/stalltexture3.jpg');
+
+    var stall = makeWall2(texture);
+
+    var wall = makeWall(texture);
+    wall.position.x = 200;
+    wall.position.z = 150;
+    wall.rotation.y = Math.PI/2;
+
+    var wall2 = makeWall(texture);
+    wall2.position.x = -200;
+    wall2.position.z = 150;
+    wall2.rotation.y = Math.PI/2;
+
+    var roof = makeRoof(texture);
+    roof.position.y = 185;
+    roof.position.z = 100;
+    roof.rotation.y = Math.PI/4;
+
+    stall.add(wall);
+    stall.add(wall2);
+    stall.add(roof);
 
     return stall;
 }
@@ -128,26 +183,26 @@ function miniGame(){
 
 }
 
-function makeRoof(){
+function makeRoof(texture){
 
     var geometry = new THREE.ConeGeometry(350,75,4);
-    var material = new THREE.MeshBasicMaterial({ map : textureLoader.load('../Resources/Textures/Dino/neontexture1.jpg')});
+    var material = new THREE.MeshBasicMaterial({ map : texture});
 
     return new THREE.Mesh(geometry,material);
 }
 
-function makeWall2(){
+function makeWall2(texture){
 
     var geoWall = new THREE.CubeGeometry(400,300,10);
-    var matWall = new THREE.MeshBasicMaterial({ map : textureLoader.load('../Resources/Textures/Dino/neontexture1.jpg')});
+    var matWall = new THREE.MeshBasicMaterial({ map : texture});
 
     return new THREE.Mesh(geoWall,matWall);
 }
 
-function makeWall(){
+function makeWall(texture){
 
     var geoWall = new THREE.CubeGeometry(300,300,10);
-    var matWall = new THREE.MeshBasicMaterial({ map : textureLoader.load('../Resources/Textures/Dino/neontexture1.jpg')});
+    var matWall = new THREE.MeshBasicMaterial({ map : texture});
 
     return new THREE.Mesh(geoWall,matWall);
 }

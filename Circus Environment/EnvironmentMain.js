@@ -33,6 +33,7 @@ var textLoader = new THREE.FontLoader();
 let moonStall, moon, moonText;
 let stallHolder = new THREE.Group();
 let sphereCamera;
+let creditStall, bonusStall;
 
 function setupScene(){
     scene = new Physijs.Scene;
