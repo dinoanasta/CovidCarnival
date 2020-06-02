@@ -120,7 +120,7 @@ function miniGame(){
     game.position.y = -100;
     game.position.z = 200;
 
-    sphereCamera = new THREE.CubeCamera(1, 1000, 500);
+    sphereCamera = new THREE.CubeCamera(1,3000, 512);
     sphereCamera.position.set(0, 100, 0);
 
     var geoBall = new THREE.SphereBufferGeometry(30,20,20);
