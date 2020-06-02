@@ -33,10 +33,10 @@ function addMoonStall(){
 
     })
 
-    moonStall.scale.set(2,2,2);
+    moonStall.scale.set(1.8,1.5,1.8);
     moonStall.position.x = 0;
-    moonStall.position.y = 200;
-    moonStall.position.z = -1000;
+    moonStall.position.y = 300;
+    moonStall.position.z = -900;
 
     scene.add(moonStall);
 }
@@ -58,7 +58,7 @@ function addCreditStall(){
 
         });
 
-        var matText = new THREE.MeshStandardMaterial({ map : textureLoader.load('../Resources/Textures/Dino/greenfluid2.jpg')})
+        var matText = new THREE.MeshStandardMaterial({ map : textureLoader.load('../Resources/Textures/Dino/liquid.jpg')})
 
         moonText = new THREE.Mesh(geoText,matText);
         moonText.position.x = -160;
@@ -69,9 +69,10 @@ function addCreditStall(){
     })
 
     creditStall.scale.set(1.3,1.3,1.3);
-    creditStall.position.x = 300;
+    creditStall.position.x = 600;
     creditStall.position.y = 200;
-    creditStall.position.z = -50;
+    creditStall.position.z = 300;
+    creditStall.rotation.y = -Math.PI/6;
 
     scene.add(creditStall);
 
@@ -95,7 +96,7 @@ function addBonusStall(){
 
         });
 
-        var matText = new THREE.MeshStandardMaterial({ map : textureLoader.load('../Resources/Textures/Dino/greenfluid2.jpg')})
+        var matText = new THREE.MeshStandardMaterial({ map : textureLoader.load('../Resources/Textures/Dino/liquid.jpg')})
 
         moonText = new THREE.Mesh(geoText,matText);
         moonText.position.x = -120;
@@ -106,9 +107,10 @@ function addBonusStall(){
     })
 
     bonusStall.scale.set(1,1,1);
-    bonusStall.position.x = -300;
+    bonusStall.position.x = -700;
     bonusStall.position.y = 200;
-    bonusStall.position.z = -50;
+    bonusStall.position.z = 400;
+    bonusStall.rotation.y = Math.PI/6;
 
     scene.add(bonusStall);
 
