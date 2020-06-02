@@ -153,19 +153,19 @@ function decideOutcome(){
 
     if(score>=goal){
         if(level == "1") {
-            prizes.push("../../Models/ufo/scene.gltf");
+            // prizes.push("../../Models/ufo/scene.gltf");
 
             document.getElementById("LevelPassedHUD").style.visibility = 'visible';
             document.getElementById("LevelPassedText").innerHTML = "You win level 1 ! <br> Proceed to level 2?";
             nextLevel = "2";
         }else if(level == "2"){
-            prizes.push("../../Models/plush/scene.gltf");
+            // prizes.push("../../Models/plush/scene.gltf");
 
             document.getElementById("LevelPassedHUD").style.visibility = 'visible';
             document.getElementById("LevelPassedText").innerHTML = "You win level 2 ! <br> Proceed to level 3?";
             nextLevel = "3";
         }else if(level == "3"){
-            prizes.push("../../Models/rocket2/scene.gltf");
+            // prizes.push("../../Models/rocket2/scene.gltf");
 
             //Animation Timer:
             setTimeout(function () {

@@ -23,40 +23,40 @@ function makeStall(){
     stall.add(wall2);
     stall.add(roof);
 
-    //Add prizes to roof of stall
-    for(let i =0; i<prizes.length;++i){
-        loader.load(
-            prizes[i],
-            function (object) {
-                object.scene.traverse(function (object) {
-                    if (object.isMesh) {
-                        object.castShadow = true;
-                    }
-                });
-
-                prizeNode = object.scene.children[0];
-
-                if(i==0){
-                    prizeNode.scale.set(0.25, 0.25, 0.25);
-                    prizeNode.position.set(-150, 320, 300);
-                }else if (i == 1){
-                    prizeNode.scale.set(3, 3, 3);
-                    prizeNode.position.set(0, 320, 300);
-                }else if (i == 2){
-                    prizeNode.scale.set(30, 30, 30);
-                    prizeNode.position.set(150, 320, 300);
-                }
-                stall.add(prizeNode);
-            }
-        );
-    }
-   
+    // //Add prizes to roof of stall
+    // for(let i =0; i<prizes.length;++i){
+    //     loader.load(
+    //         prizes[i],
+    //         function (object) {
+    //             object.scene.traverse(function (object) {
+    //                 if (object.isMesh) {
+    //                     object.castShadow = true;
+    //                 }
+    //             });
+    //
+    //             prizeNode = object.scene.children[0];
+    //
+    //             if(i==0){
+    //                 prizeNode.scale.set(0.25, 0.25, 0.25);
+    //                 prizeNode.position.set(-150, 320, 300);
+    //             }else if (i == 1){
+    //                 prizeNode.scale.set(3, 3, 3);
+    //                 prizeNode.position.set(0, 320, 300);
+    //             }else if (i == 2){
+    //                 prizeNode.scale.set(30, 30, 30);
+    //                 prizeNode.position.set(150, 320, 300);
+    //             }
+    //             stall.add(prizeNode);
+    //         }
+    //     );
+    // }
+    //
 
     return stall;
 }
 
 function makeCreditsStall(){
-    var texture = textureLoader.load('../Resources/Textures/Dino/stalltexture.jpg');
+    var texture = textureLoader.load('../Resources/Textures/Dino/greenfabric.jpg');
 
     var stall = makeWall2(texture);
 
@@ -83,7 +83,7 @@ function makeCreditsStall(){
 }
 
 function makeBonusStall(){
-    var texture = textureLoader.load('../Resources/Textures/Dino/stalltexture3.jpg');
+    var texture = textureLoader.load('../Resources/Textures/Dino/tealtexture.jpg');
 
     var stall = makeWall2(texture);
 
