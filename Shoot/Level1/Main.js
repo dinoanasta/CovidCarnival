@@ -16,6 +16,9 @@ let mixer;
 let avatarAnimation;
 let animationAction;
 
+let prizes = new THREE.Object3D();
+//let prizesString = "";
+
 //Clock For Avatar Animation
 let clock = new THREE.Clock();
 

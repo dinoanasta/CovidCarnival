@@ -7,6 +7,7 @@ let renderer;
 let controls;
 var frameNumber = 0;
 
+//let prizes = [];
 
 //EnvironmentPlatform
 let planet;

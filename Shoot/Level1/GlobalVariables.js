@@ -1,3 +1,3 @@
 //Prize Models
-let prizes = [];
+// let prizes = [];
 let prizeNode;

@@ -153,20 +153,20 @@ function decideOutcome(){
 
     if(score>=goal){
         if(level == "1") {
-            prizes.push("../../Models/ufo/scene.gltf");
-
+            //prizes.push("../../Models/ufo/scene.gltf");
+            prizesString = prizesString + " " + "1";
             document.getElementById("LevelPassedHUD").style.visibility = 'visible';
             document.getElementById("LevelPassedText").innerHTML = "You win level 1 ! <br> Proceed to level 2?";
             nextLevel = "2";
         }else if(level == "2"){
-            prizes.push("../../Models/plush/scene.gltf");
-
+            //prizes.push("../../Models/plush/scene.gltf");
+            prizesString = prizesString + " " + "2";
             document.getElementById("LevelPassedHUD").style.visibility = 'visible';
             document.getElementById("LevelPassedText").innerHTML = "You win level 2 ! <br> Proceed to level 3?";
             nextLevel = "3";
         }else if(level == "3"){
-            prizes.push("../../Models/rocket2/scene.gltf");
-
+           // prizes.push("../../Models/rocket2/scene.gltf");
+            prizesString = prizesString + " " + "3";
             //Animation Timer:
             setTimeout(function () {
                 setInterval(function () {
@@ -186,6 +186,12 @@ function decideOutcome(){
 
             },5000);
 
+            //When main menu button is clicked, local storage saves the prizesString to be sent to environment.html
+            let menu_btt = document.getElementById("mainMenuButton");
+            menu_btt.addEventListener('click',function () {
+                localStorage.setItem('prizes', prizesString);
+                window.document.location = "../../Circus%20Environment/Environment.html";
+            });
         }
         level = nextLevel;
 
