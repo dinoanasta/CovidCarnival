@@ -257,24 +257,24 @@ function loadModels(){
 
     //Glowing mushroom
     loader.load("../Models/low_poly_glowing_mushroom/scene.gltf", function (object) {
-     let shroom = object.scene.children[0];
-     shroom.rotation.x = -0.5*Math.PI;
-     shroom.position.x = 450;
-     shroom.position.y = 20;
-     shroom.position.z = 450;
-     shroom.scale.set(30,50,30);
-     world.add(shroom);
+     magicMushroom = object.scene.children[0];
+     magicMushroom.rotation.x = -0.5*Math.PI;
+     magicMushroom.position.x = 450;
+     magicMushroom.position.y = 20;
+     magicMushroom.position.z = 450;
+     magicMushroom.scale.set(30,50,30);
+     world.add(magicMushroom);
     });
 
     //Sitting Alien
     loader.load("../Models/sitAlien/sitAlien.glb", function (object) {
-     let shroom2 = object.scene.children[0];
-     shroom2.scale.set(2,2,2);
-     shroom2.rotation.y = -Math.PI/4;
-     shroom2.position.x = 470;
-     shroom2.position.y = 10;
-     shroom2.position.z = -470;
-     world.add(shroom2);
+     let sittingAlien = object.scene.children[0];
+     sittingAlien.scale.set(2,2,2);
+     sittingAlien.rotation.y = -Math.PI/4;
+     sittingAlien.position.x = 470;
+     sittingAlien.position.y = 10;
+     sittingAlien.position.z = -470;
+     world.add(sittingAlien);
     });
 
     //Creates Spinning planet

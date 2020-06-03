@@ -175,11 +175,15 @@ function configureTargetCollisions(){
                 if(score==goal){
                     playing = false;
 
+                    if(timeLeft >= gameLength/2){
+                        prizesString = prizesString + "," + level ;
+                    }
+
                     clearInterval(countdown);
                     setTimeout( function(){
                             decideOutcome();
                         },
-                        3000
+                        1500
                     );
                 }
             }

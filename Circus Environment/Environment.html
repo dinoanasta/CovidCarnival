@@ -17,9 +17,6 @@
     <script src = "Stalls.js"></script>
     <script src = "TextFileRead.js"></script>
 
-    <a href = "../Shoot/Level1/ShootingGame.html" id="loadGame"></a>
-    <object id = "textFile" data = "../../prizes.txt"></object>
-
     <script>
         //function that sets up everything in the scene
         function init() {
@@ -32,58 +29,19 @@
             document.body.appendChild( renderer.domElement );
 
             setupScene(); //Sets up camera, scene, physics engine, ligts, and orbit controls
-
-            //Code for adding the prizes to the scene
-            //local storage gets the prizesString from local storage
-            let prizesEnv = localStorage.getItem('prizes');
-            console.log(prizesEnv);
-            let prizeArr = prizesEnv.split(" "); //splits it into an array
-            let len = prizeArr.length;
-
-            //loops through the array, adding a prize to the environment each time a 1,2 or 3 is detected.
-            for(var i = 0; i < len;i++) {
-
-              if(prizeArr[i] == "1"){
-                loader.load("../Models/sitAlien/sitAlien.glb", function (object) {
-                    let prize1 = object.scene.children[0];
-                    prize1.scale.set(1, 1, 1);
-                    prize1.position.y = 600;
-                    prize1.position.z = -470;
-                    world.add(prize1);
-
-                }) ;
-              }
-
-                if(prizeArr[i] == "2"){
-                    loader.load("../Models/low_poly_glowing_mushroom/scene.gltf", function (object) {
-                        let prize2 = object.scene.children[0];
-                        prize2.scale.set(1, 1, 1);
-                        prize2.position.y = 600;
-                        prize2.position.x = 60;
-                        prize2.position.z = -470;
-                        world.add(prize2);
-
-                    }) ;
-                }
-
-                if(prizeArr[i] == "3"){
-                    loader.load("../../Models/ufo/scene.gltf", function (object) {
-                        let prize3 = object.scene.children[0];
-                        prize3.scale.set(1, 1, 1);
-                        prize3.position.y = 600;
-                        prize3.position.x = 120;
-                        prize3.position.z = -470;
-                        world.add(prize3);
-                    }) ;
-                }
-            }
-
-
-                createPlane(); //Creates the flat area of the carnival
+            setupPrizes();
+            createPlane(); //Creates the flat area of the carnival
             addBarriers(); //creates and adds barriers of carnival
             MakeText();
 
-
+            //If new session don't load prizes, but if returning to menu from game then load prizes
+            let loaded = localStorage.getItem('loadedFrom');
+            if(loaded != "game"){
+                localStorage.setItem('loadedFrom', "home");
+                localStorage.setItem('prizes', "");
+            }else{
+                localStorage.setItem('loadedFrom', "home");
+            }
 
             scene.add(world);
             addMoonStall(); // Adds the moon stall

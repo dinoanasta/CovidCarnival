@@ -172,6 +172,9 @@
             //Setup astronaut
             createAvatar();
             frameNumber = 0;
+            localStorage.setItem('prizes', "");
+
+            localStorage.setItem('loadedFrom', "game");
 
             render();
         };

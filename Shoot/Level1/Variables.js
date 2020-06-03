@@ -91,3 +91,6 @@ var duckBoxArray = [];
 //minimap
 var mapCamera;
 let mapWidth = window.innerWidth/5, mapHeight = window.innerHeight/5;
+
+//Prizes
+let prizesString = "0";
