@@ -3,103 +3,6 @@
 Physijs.scripts.worker = '../../js/physijs_worker.js';
 //Physijs.scripts.ammo = '../../js/ammo.js';
 
-//HUD
-let HUD, arrowSource;
-let windElement;
-
-//FrameRate
-let frameNumber = 0;
-
-//Animation Mixer
-let mixers = [];
-let mixer;
-let avatarAnimation;
-let animationAction;
-
-let prizes = new THREE.Object3D();
-//let prizesString = "";
-
-//Clock For Avatar Animation
-let clock = new THREE.Clock();
-
-//Levels
-let level = "1";
-let nextLevel;
-let ammoCount; //Num of balls
-let score = 0;
-let goal; //How many targets they have to hit to win
-let gameLength; //How long the game lasts
-
-let cubemapURLs;
-let primaryStallMaterial;
-let secondaryBarrierMaterial;
-let ballMaterial;
-
-//Scene and setup
-let playing = true;
-let cubeMap;
-let renderer, scene, camera, box;
-let pos = new THREE.Vector3();
-let shootSound;
-let hitSound;
-let themeSound;
-let textureLoader = new THREE.TextureLoader();
-let loader = new THREE.GLTFLoader();
-let camType = "third";
-let countdown;
-let timeLeft;
-let totalScore = 0;
-
-//PointerLockControls
-let crosshair;
-let controls;
-var objects = [];
-var FPSraycaster;
-var havePointerLock;
-var controlsEnabled = false;
-var prevTime = performance.now();
-var velocity = new THREE.Vector3();
-
-//Mouse Coordinates and raycaster
-let mouseCoords = new THREE.Vector2();
-let raycaster = new THREE.Raycaster();
-
-//Gravity variables
-let xGrav, xDir, xStrength, maxGrav, minGrav, sign;
-let yGrav;
-let signs = [1, -1];
-
-//Avatar
-let avatar;
-let avatarPosition = new THREE.Vector3();
-let AvatarMoveDirection = { x: 0, z: 0 };
-let movementBoundaries = { leftX: -38, rightX: 38, frontZ: -10, backZ: 10 };
-let avatarLocalPos = { x: 0, z: 0 };
-
-//Shooting
-let beenHit = false;
-let ballsArray = [];
-let shotBalls = [];
-let thisBall
-let ball;
-let numBallsShot = 0;
-let avatarHead = new THREE.Vector3();
-let rayx, rayy;
-let rayDirection = new THREE.Vector3();
-let laser;
-
-// Duck
-var duckBox;
-var realDuckModel;
-var duckCoordinates;
-var realDuckModelArray = [];
-var duckBoxArray = [];
-
-//minimap
-var mapCamera;
-let mapWidth = window.innerWidth/5, mapHeight = window.innerHeight/5;
-
-
 function setupScene() {
     scene = new Physijs.Scene;
 
@@ -205,24 +108,44 @@ function setupScene() {
     //Add laser like aiming helper
     laser = new THREE.ArrowHelper(new THREE.Vector3(0, 0, -200).normalize(), avatarHead, 200, 0xff0000, 0.0001, 0.0001);
     scene.add(laser);
+}
 
+function startPlaying(){
+    document.getElementById("GameHUD").style.visibility = 'visible';
+    document.getElementById("preGameHUD").style.visibility = 'hidden';
+
+    //Theme song
+    themeSound = document.getElementById("theme");
+    themeSound.play();
+
+    playing = true;
+
+    //Create balls
+    createBalls();
+
+    setupTimer();
+}
+
+function setupTimer(){
     //Timer
     document.getElementById("timeValue").textContent = gameLength;
 
-    setTimeout( function(){
-            timeLeft = gameLength;
-            countdown = setInterval(function() {
-                timeLeft--;
-                totalScore++;
-                document.getElementById("timeValue").textContent = timeLeft;
-                if (timeLeft <= 0){
-                    clearInterval(countdown);
-                    decideOutcome();
-                }
-            },1000);
-        },
-        1500
-    );
+    if(playing){
+        setTimeout( function(){
+                timeLeft = gameLength;
+                countdown = setInterval(function() {
+                    timeLeft--;
+                    totalScore++;
+                    document.getElementById("timeValue").textContent = timeLeft;
+                    if (timeLeft <= 0){
+                        clearInterval(countdown);
+                        decideOutcome();
+                    }
+                },1000);
+            },
+            1000
+        );
+    }
 }
 
 function setupEventHandlers() {
@@ -233,6 +156,8 @@ function setupEventHandlers() {
     window.addEventListener('resize', onWindowResize, false);
     document.getElementById("restartButton").onclick = resetGame;
     document.getElementById("proceedButton").onclick = resetGame;
+    document.getElementById("playButton").onclick = startPlaying;
+
 }
 
 function handleKeyDown(event) {
@@ -318,8 +243,10 @@ function resetGame(){
     //Setup astronaut
     createAvatar();
 
-    // console.clear();
     playing = true;
+
+    //Start timer
+    setupTimer();
 }
 
 function render() {
@@ -337,6 +264,7 @@ function render() {
         if (frameNumber >= 60) {
             frameNumber = 0;
         }
+
         if (frameNumber >= 0 && frameNumber < 30) {
             //duck.rotation.y+=0.1;
             //realDuckModel.rotation.y+=0.1;
@@ -369,8 +297,9 @@ function render() {
             duckBoxArray[i].position.set(realDuckModelArray[i].position.x, realDuckModelArray[i].position.y, realDuckModelArray[i].position.z);
             duckBoxArray[i].__dirtyPosition = true;
         }
+
+        frameNumber++;
     }
-    frameNumber++;
 
     if (camType == "first") {
         //First personv
@@ -384,12 +313,15 @@ function render() {
         camera.position.set(avatarHead.x, avatarHead.y + 25, avatarHead.z + 60);
         camera.lookAt(0, 0, -100);
         scene.add(laser);
+        camera.remove(crosshair);
     }
 
     //Rotate skybox
     cubeMap.rotation.x += 0.005;
     cubeMap.rotation.y -= 0.005;
     cubeMap.rotation.z += 0.005;
+
+    console.log(totalScore);
 
     scene.simulate();
     //renderer.render(scene, camera);

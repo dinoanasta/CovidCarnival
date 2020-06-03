@@ -15,7 +15,7 @@
     <script src="../../js/Detector.js"></script>
 
     <!-- Game javascript files    -->
-    <script src="GlobalVariables.js"></script>
+    <script src="Variables.js"></script>
     <script src="StallPlatform.js"></script>
     <script src="BallShoot.js"></script>
     <script src="Avatar.js"></script>
@@ -25,9 +25,40 @@
 
     <audio src="../../Resources/Sounds/raygun.mp3" id="raygun"></audio>
     <audio src="../../Resources/Sounds/boom.mp3" id="boom"></audio>
-    <audio autoplay="true" id="theme" src="../../Resources/Sounds/ThemeSong.mp3"></audio>
+    <audio id="theme"  src="../../Resources/Sounds/ThemeSong.mp3"></audio>
 
-    <div id="GameHUD">
+    <div id = "preGameHUD">
+<!--           How to play-->
+
+        <h1>HOW TO PLAY</h1>
+        <br>
+
+        <h2> Controls:</h2>
+        <br>
+        <p>
+            Move the astronaut using the WASD keys (W = forward, A = left, S = back, D = right)<br>
+            Toggle the view between first person and third person by pressing "V"<br>
+            Aim using the mouse and shoot a ball by pressing the left mouse button<br>
+            Hint: look at the wind to improve your accuracy
+        </p>
+        <br>
+
+        <h2>Goal:</h2>
+        <br>
+        <p>
+            Complete all 3 levels in the lowest time possible. Your final score will be the total time taken to complete all 3 levels<br>
+            To proceed to the next level you need to reach the goal before the time runs out and while you still have balls to spare<br>
+            Earn prizes by speeding through the level
+        </p>
+        <br>
+
+        <!--        Play Game button -->
+        <a >
+            <button class= "button" id="playButton" onclick="startPlaying()">PLAY GAME</button>
+        </a>
+    </div>
+
+    <div id="GameHUD" style="visibility: hidden">
         <!--        Game name -->
 <!--        <h1 class="neon" data-text="COVID CARNIVAL"> COVID CARNIVAL </h1>-->
 
@@ -124,21 +155,12 @@
             // renderer.powerPreference = "high-performance";
             document.getElementById( 'viewport' ).appendChild( renderer.domElement );
 
-
-
-            //Theme song
-            themeSound = document.getElementById("theme");
-            themeSound.play();
-
             //Setup scene and graphics
             setupScene();
             setupEventHandlers();
 
             //Set level
-            setLevel("1");
-
-            //Create balls
-            createBalls();
+            setLevel(level);
 
             //Create targets
             createTargets();
@@ -150,10 +172,10 @@
             //Setup astronaut
             createAvatar();
             frameNumber = 0;
-            playing = true;
 
             render();
         };
+
     </script>
 </head>
 
