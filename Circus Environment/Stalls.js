@@ -75,8 +75,6 @@ function addCreditStall(){
     creditStall.rotation.y = -Math.PI/6;
 
     scene.add(creditStall);
-
-
 }
 
 function addBonusStall(){

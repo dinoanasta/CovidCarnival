@@ -1,27 +1,3 @@
-// function aimer(){
-//
-//     // let aimer = new THREE.Shape();
-//     // aimer.moveTo(0, 2);
-//     // aimer.lineTo(0, -2);
-//     //
-//     // aimer.moveTo(2, 0);
-//     // aimer.lineTo(-2, 0);
-//     //
-//     // var extrudeSettings = { amount: 3, bevelEnabled: true, bevelSegments: 2, steps: 2, bevelSize: 1, bevelThickness: 1 };
-//     //
-//     // var geometry = new THREE.ExtrudeBufferGeometry( aimer, extrudeSettings );
-//     //
-//     // var mesh = new THREE.Mesh(
-//     //     geometry,
-//     //     new THREE.MeshStandardMaterial({
-//     //             color: "red"
-//     //         }
-//     //     )
-//     // );
-//     //
-//     // mesh.position.set(rayDirection.x, rayDirection.y, -60);
-//     // scene.add(mesh);
-// }
 function createBalls(){
     let ballMat = new THREE.MeshStandardMaterial({
         map: textureLoader.load('../../Resources/Textures/Dino/' + ballMaterial),
@@ -100,11 +76,9 @@ function onMouseDown(event) {
 
          document.getElementById("ballCountValue").innerHTML = ammoCount-numBallsShot; // changes ammo count on html
      }else{
-         decideOutcome();
+        decideOutcome();
      }
  }
-
-
 }
 
 function deleteBalls(){

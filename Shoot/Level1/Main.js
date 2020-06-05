@@ -205,7 +205,25 @@ function setupScene() {
     //Add laser like aiming helper
     laser = new THREE.ArrowHelper(new THREE.Vector3(0, 0, -200).normalize(), avatarHead, 200, 0xff0000, 0.0001, 0.0001);
     scene.add(laser);
+}
 
+function startPlaying(){
+    document.getElementById("GameHUD").style.visibility = 'visible';
+    document.getElementById("preGameHUD").style.visibility = 'hidden';
+
+    //Theme song
+    themeSound = document.getElementById("theme");
+    themeSound.play();
+
+    playing = true;
+
+    //Create balls
+    createBalls();
+
+    setupTimer();
+}
+
+function setupTimer(){
     //Timer
     document.getElementById("timeValue").textContent = gameLength;
 
@@ -233,6 +251,8 @@ function setupEventHandlers() {
     window.addEventListener('resize', onWindowResize, false);
     document.getElementById("restartButton").onclick = resetGame;
     document.getElementById("proceedButton").onclick = resetGame;
+    document.getElementById("playButton").onclick = startPlaying;
+
 }
 
 function handleKeyDown(event) {
@@ -318,8 +338,10 @@ function resetGame() {
     //Setup astronaut
     createAvatar();
 
-    // console.clear();
     playing = true;
+
+    //Start timer
+    setupTimer();
 }
 
 function render() {
@@ -345,6 +367,7 @@ function render() {
         if (frameNumber >= 60) {
             frameNumber = 0;
         }
+
         if (frameNumber >= 0 && frameNumber < 30) {
             moveForwardTargetsAnimation();
             moveLeftTargetsAnimation();
@@ -399,12 +422,15 @@ function render() {
         camera.position.set(avatarHead.x, avatarHead.y + 25, avatarHead.z + 60);
         camera.lookAt(0, 0, -100);
         scene.add(laser);
+        camera.remove(crosshair);
     }
 
     //Rotate skybox
     cubeMap.rotation.x += 0.005;
     cubeMap.rotation.y -= 0.005;
     cubeMap.rotation.z += 0.005;
+
+    console.log(totalScore);
 
     scene.simulate();
     //renderer.render(scene, camera);

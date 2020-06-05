@@ -7,10 +7,10 @@ let renderer;
 let controls;
 var frameNumber = 0;
 
-
 //EnvironmentPlatform
 let planet;
 let world = new THREE.Object3D();
+let magicMushroom;
 
 //CovidCarnival Text Variable
 let covidCarnivalText;
@@ -101,6 +101,48 @@ function setupScene(){
 
 }
 
+function setupPrizes(){
+
+    //Code for adding the prizes to the scene
+    //local storage gets the prizesString from local storage
+    let prizesEnv = localStorage.getItem('prizes');
+    // console.log(prizesEnv);
+    let prizeArr = prizesEnv.split(","); //splits it into an array
+    let len = prizeArr.length;
+    // console.log(prizeArr);
+
+    //Loops through array and adds all prizes that have been earned
+    for(var i = 0; i < len;i++) {
+        if(prizeArr[i+1] == "1"){
+            loader.load("../Models/ufo/scene.gltf", function (object) {
+                let prize1 = object.scene.children[0];
+                prize1.scale.set(0.15, 0.15, 0.15);
+                prize1.position.set(-150, 280, -100);
+                world.add(prize1);
+
+            }) ;
+        }else if(prizeArr[i+1] == "2"){
+            loader.load("../Models/plush/scene.gltf", function (object) {
+                let prize2 = object.scene.children[0];
+                prize2.scale.set(2, 2, 2);
+                prize2.position.set(0, 280, -100);
+                world.add(prize2);
+
+            }) ;
+        }else if(prizeArr[i+1] == "3"){
+            loader.load("../Models/rocket2/scene.gltf", function (object) {
+                let prize3 = object.scene.children[0];
+                prize3.rotation.x = Math.PI;
+                prize3.scale.set(20, 20, 20);
+                prize3.position.set(150, 220, -100);
+                world.add(prize3);
+            }) ;
+        }
+    }
+
+
+}
+
 //Ray Caster Variables
 var mouse = new THREE.Vector2();
 var raycaster = new THREE.Raycaster();
@@ -116,9 +158,13 @@ function doMouseDown(event) {
 
         let intersects = raycaster.intersectObjects(scene.children);
 
+        //Check which stall has been clicked
         if (intersects[0].object == moonStall) { //check if the raycaster(mouse) click intersects with game stalls and takes player to level
-            document.getElementById("loadGame");
             window.location.href = "../Shoot/Level1/ShootingGame.html";
+        }else if(intersects[0].object == creditStall){
+            window.location.href = "../Credits/Credits.html";
+        }else if(intersects[0].object == bonusStall){
+            window.location.href = "../Bonus Level/TestingGame/game/index.html";
         }
     }
 }
