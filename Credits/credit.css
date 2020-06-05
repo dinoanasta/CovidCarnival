@@ -3,20 +3,29 @@
     font-family: karn;
 }
 
-#Back {
-    top: 0;
-    left: 0;
+.button{
     position: absolute;
-    margin-top: 3vh;
-    margin-left: 3vw;
+
+    display: inline-block;
+
+    width: 40vmin;
+    height: 20vmin;
+
+    border-radius: 10vmin;
+
+    font-family: karn;
+    font-size: 7vmin;
+
+    margin-top: 5vh;
+    margin-left: 5vw;
+    transition-duration: 0.1s;
+
+    background-color: transparent;
+    color: #23c2be;
+    border: 2vmin solid #23c2be;
+
 }
 
-#Backlink {
-    display: inline-block;
-    z-index: 1;
-    font-family: karn;
-    font-size: 10vmin;
-    cursor: pointer;
-    color: #44d4d4;
-    display: inline-block;
+.button:hover{
+    background-color: #e83962;
 }
