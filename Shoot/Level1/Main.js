@@ -3,6 +3,9 @@
 Physijs.scripts.worker = '../../js/physijs_worker.js';
 //Physijs.scripts.ammo = '../../js/ammo.js';
 
+//degrees
+var degrees=0;
+
 //HUD
 let HUD, arrowSource;
 let windElement;
@@ -94,7 +97,7 @@ var duckBoxArray = [];
 
 //minimap
 var mapCamera;
-let mapWidth = window.innerWidth/5, mapHeight = window.innerHeight/5;
+let mapWidth = window.innerWidth / 5, mapHeight = window.innerHeight / 5;
 
 
 function setupScene() {
@@ -109,15 +112,15 @@ function setupScene() {
     );
 
     //PointerLockControls
-    controls = new THREE.PointerLockControls( camera, document.body);
-    controls.addEventListener( 'lock', function () {
+    controls = new THREE.PointerLockControls(camera, document.body);
+    controls.addEventListener('lock', function () {
         console.log("unlocked");
-    } );
+    });
 
-    controls.addEventListener( 'unlock', function () {
+    controls.addEventListener('unlock', function () {
         console.log("unlocked");
-    } );
-    scene.add( controls.getObject() );
+    });
+    scene.add(controls.getObject());
 
     camera.position.set(0, 60, 150);
     camera.lookAt(new THREE.Vector3(0, 0, 0));
@@ -127,21 +130,21 @@ function setupScene() {
         color: "black",
     });
 
-// crosshair size
+    // crosshair size
     var x = 0.1, y = 0.1;
 
     var geometry = new THREE.Geometry();
 
-// crosshair
+    // crosshair
     geometry.vertices.push(new THREE.Vector3(0, y, 0));
     geometry.vertices.push(new THREE.Vector3(0, -y, 0));
     geometry.vertices.push(new THREE.Vector3(0, 0, 0));
     geometry.vertices.push(new THREE.Vector3(x, 0, 0));
     geometry.vertices.push(new THREE.Vector3(-x, 0, 0));
 
-    crosshair = new THREE.Line( geometry, material );
+    crosshair = new THREE.Line(geometry, material);
     // camera.add(crosshair);
-    crosshair.position.set(0,0,-1);
+    crosshair.position.set(0, 0, -1);
 
     mapCamera = new THREE.OrthographicCamera(
         window.innerWidth / -4,		// Left
@@ -149,9 +152,9 @@ function setupScene() {
         window.innerHeight / 4,		// Top
         window.innerHeight / -4,	// Bottom
         -100,            			// Near
-        1000 );           			// Far
-    mapCamera.up = new THREE.Vector3(0,0,-1);
-    mapCamera.lookAt( new THREE.Vector3(0,-1,0) );
+        1000);           			// Far
+    mapCamera.up = new THREE.Vector3(0, 0, -1);
+    mapCamera.lookAt(new THREE.Vector3(0, -1, 0));
     mapCamera.zoom = 100;
     scene.add(mapCamera);
 
@@ -206,18 +209,18 @@ function setupScene() {
     //Timer
     document.getElementById("timeValue").textContent = gameLength;
 
-    setTimeout( function(){
-            timeLeft = gameLength;
-            countdown = setInterval(function() {
-                timeLeft--;
-                totalScore++;
-                document.getElementById("timeValue").textContent = timeLeft;
-                if (timeLeft <= 0){
-                    clearInterval(countdown);
-                    decideOutcome();
-                }
-            },1000);
-        },
+    setTimeout(function () {
+        timeLeft = gameLength;
+        countdown = setInterval(function () {
+            timeLeft--;
+            totalScore++;
+            document.getElementById("timeValue").textContent = timeLeft;
+            if (timeLeft <= 0) {
+                clearInterval(countdown);
+                decideOutcome();
+            }
+        }, 1000);
+    },
         1500
     );
 }
@@ -279,12 +282,12 @@ function handleKeyUp(event) {
 function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
-    mapWidth = window.innerWidth/5;
-    mapHeight = window.innerHeight/5;
+    mapWidth = window.innerWidth / 5;
+    mapHeight = window.innerHeight / 5;
     renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
-function resetGame(){
+function resetGame() {
     //Delete current stuff on scene
     deleteBalls();
     deleteTargets();
@@ -325,54 +328,69 @@ function render() {
     moveAvatar();
     moveLaser(mouseCoords);
 
-    if(playing){
-        //Duck rotations
-        realDuckModelArray.forEach(element => element.rotation.y+=0.05);
-        realDuckModelArray.forEach(element => element.rotation.z+=0.05);
+    // duck4Test.rotation.y+=0.05;
+    // duck4Test.__dirtyRotation = true;
 
+    if (playing) {
+        //Duck rotations
+        // realDuckModelArray.forEach(element => element.rotation.y += 0.05);
+        // realDuckModelArray.forEach(element => element.rotation.z += 0.05);
+
+
+        // duck2Test.rotation.z+=0.01;
+        // duck2Test.__dirtyRotation = true;
+        //duck2Test.__dirtyPosition = true;
+        circleTargetsAnimation();
         //frameNumber animations...
         if (frameNumber >= 60) {
             frameNumber = 0;
         }
         if (frameNumber >= 0 && frameNumber < 30) {
-            //duck.rotation.y+=0.1;
-            //realDuckModel.rotation.y+=0.1;
-            //realDuckModel.position.z+=5;
-            //duck.position.z+=30;
-            realDuckModelArray[0].position.z += 5;
+            moveForwardTargetsAnimation();
+            moveLeftTargetsAnimation();
+            // realDuckModelArray[0].position.z += 5;
 
-            realDuckModelArray[1].position.z += 2;
-            realDuckModelArray[2].position.z += 2;
+            // realDuckModelArray[1].position.z += 2;
+            // realDuckModelArray[2].position.z += 2;
 
-            realDuckModelArray[3].position.z += 7;
-            realDuckModelArray[6].position.z += 7;
-        } else if (frameNumber >= 30 && frameNumber < 60) {
-            //duck.rotation.y-=0.1;
-            //realDuckModel.rotation.y-=0.1;
-            //realDuckModel.position.z-=5;
-            //realDuckModel.position.y-=1;
-            //duck.position.z-=30;
-            realDuckModelArray[0].position.z -= 5;
-
-            realDuckModelArray[1].position.z -= 2;
-            realDuckModelArray[2].position.z -= 2;
-
-            realDuckModelArray[3].position.z -= 7;
-            realDuckModelArray[6].position.z -= 7;
+            // realDuckModelArray[0].position.y += 1;
         }
+        else if (frameNumber >= 30 && frameNumber < 60) {
+            moveBackTargetsAnimation();
+            moveRightTargetsAnimation();
+            // realDuckModelArray[0].position.z -= 5;
+
+            // realDuckModelArray[1].position.z -= 2;
+            // realDuckModelArray[2].position.z -= 2;
+
+            // realDuckModelArray[0].position.y -= 1;
+        }
+        if(degrees>=0 && degrees<360){
+            degrees++;
+        }
+        else if(degrees>=360){
+            degrees=0;
+        }
+        console.log(degrees);
+        frameNumber++;
+        
+
         //rotationRealDucks.rotation.y+=0.1;
 
-        for(let i=0; i<9;i++){
+        for (let i = 0; i < 9; i++) {
             duckBoxArray[i].position.set(realDuckModelArray[i].position.x, realDuckModelArray[i].position.y, realDuckModelArray[i].position.z);
             duckBoxArray[i].__dirtyPosition = true;
         }
+
+        //duckBoxArray[i].__dirtyPosition = true;
+
     }
-    frameNumber++;
+    
 
     if (camType == "first") {
         //First personv
         camera.position.set(avatarHead.x, avatarHead.y, avatarHead.z);
-        rayDirection = rayDirection.set(rayx,rayy, -100);
+        rayDirection = rayDirection.set(rayx, rayy, -100);
         camera.lookAt(rayDirection);
         camera.add(crosshair);
         scene.remove(laser);
@@ -393,14 +411,14 @@ function render() {
 
     // renderer.setViewport( 0, 0, w, h );
     renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.render( scene, camera );
+    renderer.render(scene, camera);
     // renderer.clear();
 
     // minimap (overhead orthogonal camera)
     //  lower_left_x, lower_left_y, viewport_width, viewport_height
     // renderer.setViewport( -80, h - mapHeight -20, mapWidth, mapHeight );
     //
-    renderer.setViewport(window.innerWidth-mapWidth*1.2, window.innerHeight-mapHeight*3, mapWidth, mapHeight );
+    renderer.setViewport(window.innerWidth - mapWidth * 1.2, window.innerHeight - mapHeight * 3, mapWidth, mapHeight);
     // renderer.setSize(mapWidth, mapHeight);
-    renderer.render( scene, mapCamera );
+    renderer.render(scene, mapCamera);
 }

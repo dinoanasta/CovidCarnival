@@ -25,6 +25,8 @@
 function createBalls(){
     let ballMat = new THREE.MeshStandardMaterial({
         map: textureLoader.load('../../Resources/Textures/Dino/' + ballMaterial),
+        opacity: 0.8,
+        transparent: true,
     })
 
     let ballRadius = 3;

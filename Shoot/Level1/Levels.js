@@ -154,7 +154,7 @@ function decideOutcome(){
     if(score>=goal){
         if(level == "1") {
             prizes.push("../../Models/ufo/scene.gltf");
-
+            
             document.getElementById("LevelPassedHUD").style.visibility = 'visible';
             document.getElementById("LevelPassedText").innerHTML = "You win level 1 ! <br> Proceed to level 2?";
             nextLevel = "2";

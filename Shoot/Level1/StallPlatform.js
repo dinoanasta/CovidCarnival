@@ -1,12 +1,12 @@
 function createStallPlatform(){
     let primaryMaterial = new THREE.MeshStandardMaterial({
         map: textureLoader.load('../../Resources/Textures/Dino/' + primaryStallMaterial),
-        //transparent: true,
-        //opacity: 0.9
+        // transparent: true,
+        // opacity: 0.5
     });
 
     let secondaryMaterial =  new THREE.MeshStandardMaterial({
-            map: textureLoader.load('../../Resources/Textures/Dino/' + secondaryBarrierMaterial),
+            map: textureLoader.load('../../Resources/Textures/Dino/' + secondaryBarrierMaterial)
     });
 
     // Base
@@ -90,7 +90,7 @@ function createStallPlatform(){
     let carnivalText;
 
     textLoader.load( '../../Resources/Fonts/helvetiker_bold.typeface.json', function ( font ) {
-        covidGeo = new THREE.TextGeometry( 'COVID', {
+        covidGeo = new THREE.TextGeometry( '  COVID', {
             font: font,
             size: 20,
             height: 5,
@@ -106,7 +106,7 @@ function createStallPlatform(){
             secondaryMaterial
         );
 
-        carnivalGeo = new THREE.TextGeometry( 'CARNIVAL', {
+        carnivalGeo = new THREE.TextGeometry( ' CARNIVAL', {
             font: font,
             size: 20,
             height: 5,
