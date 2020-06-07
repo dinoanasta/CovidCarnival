@@ -32,7 +32,7 @@ var textLoader = new THREE.FontLoader();
 //Moon stall
 let moonStall, moon, moonText;
 let stallHolder = new THREE.Group();
-let sphereCamera;
+let sphereCamera , sphereCamera2;
 let creditStall, bonusStall;
 
 function setupScene(){

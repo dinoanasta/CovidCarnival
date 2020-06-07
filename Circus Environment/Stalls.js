@@ -68,7 +68,29 @@ function addCreditStall(){
 
     })
 
-    creditStall.scale.set(1.3,1.3,1.3);
+ /*   sphereCamera2 = new THREE.CubeCamera(1,3000, 512);
+    sphereCamera2.position.set(0, 100, 0);
+
+    var matBall = textureLoader.load('../Resources/Textures/Dino/redgreenliquid.jpg');
+
+    loader.load("../Models/ufo/scene.gltf", function (object) {
+        let prize2 = object.scene.children[0];
+        matBall.encoding = THREE.sRGBEncoding;
+        matBall.flipY = false;
+
+        prize2.material = new THREE.MeshPhongMaterial({
+            map: matBall,
+            color: 0xff00ff,
+        });
+
+        //prize2.material.envmap = new THREE.MeshBasicMaterial( {envMap: sphereCamera2.renderTarget.texture} );
+        prize2.scale.set(0.5, 0.5, 0.5);
+        prize2.position.set(0, 0, 200);
+        creditStall.add(prize2);
+
+    })*/
+
+    creditStall.scale.set(1.2,1.2,1.2);
     creditStall.position.x = 600;
     creditStall.position.y = 200;
     creditStall.position.z = 300;
@@ -81,7 +103,7 @@ function addBonusStall(){
     bonusStall = makeBonusStall();
 
     textLoader.load('../Resources/Fonts/droid_serif_bold.typeface.json',function (font) {
-        var geoText = new THREE.TextBufferGeometry( "BONUS" , {
+        var geoText = new THREE.TextBufferGeometry( "PRIZES" , {
             font : font,
             size : 50,
             height : 20,
@@ -97,17 +119,18 @@ function addBonusStall(){
         var matText = new THREE.MeshStandardMaterial({ map : textureLoader.load('../Resources/Textures/Dino/liquid.jpg')})
 
         moonText = new THREE.Mesh(geoText,matText);
-        moonText.position.x = -120;
-        moonText.position.y = 250;
-        moonText.position.z = 100;
+        moonText.position.x = -100;
+        moonText.position.y = 500;
+        moonText.scale.set(1.3,1.3,1.3);
+        //moonText.position.z = 100;
         bonusStall.add(moonText);
 
     })
 
     bonusStall.scale.set(1,1,1);
-    bonusStall.position.x = -700;
+    bonusStall.position.x = -500;
     bonusStall.position.y = 200;
-    bonusStall.position.z = 400;
+    bonusStall.position.z = 450;
     bonusStall.rotation.y = Math.PI/6;
 
     scene.add(bonusStall);

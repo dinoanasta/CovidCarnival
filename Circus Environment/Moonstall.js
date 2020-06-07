@@ -56,28 +56,51 @@ function makeCreditsStall(){
 function makeBonusStall(){
     var texture = textureLoader.load('../Resources/Textures/Dino/tealtexture.jpg');
 
-    var stall = makeWall2(texture);
 
-    var wall = makeWall(texture);
-    wall.position.x = 200;
-    wall.position.z = 150;
-    wall.rotation.y = Math.PI/2;
+    /*   var stall = makeWall2(texture);
 
-    var wall2 = makeWall(texture);
-    wall2.position.x = -200;
-    wall2.position.z = 150;
-    wall2.rotation.y = Math.PI/2;
+       var wall = makeWall(texture);
+       wall.position.x = 200;
+       wall.position.z = 150;
+       wall.rotation.y = Math.PI/2;
 
-    var roof = makeRoof(texture);
-    roof.position.y = 185;
-    roof.position.z = 100;
-    roof.rotation.y = Math.PI/4;
+       var wall2 = makeWall(texture);
+       wall2.position.x = -200;
+       wall2.position.z = 150;
+       wall2.rotation.y = Math.PI/2;
 
-    stall.add(wall);
-    stall.add(wall2);
-    stall.add(roof);
+       var roof = makeRoof(texture);
+       roof.position.y = 185;
+       roof.position.z = 100;
+       roof.rotation.y = Math.PI/4;
 
-    return stall;
+       stall.add(wall);
+       stall.add(wall2);
+       stall.add(roof);*/
+
+    var box1Geo = new THREE.BoxBufferGeometry(200,300,150);
+    var box2Geo = new THREE.BoxBufferGeometry(200,200,150);
+    var box3Geo = new THREE.BoxBufferGeometry(200,150,150);
+    var material = new THREE.MeshBasicMaterial({ map : texture});
+
+    var podium = new THREE.Mesh(box1Geo,material);
+    podium.position.y = -100;
+    var box2 = new THREE.Mesh(box2Geo,material);
+    box2.position.x = -200
+    box2.position.y = -50;
+    podium.add(box2);
+
+    var box3 = new THREE.Mesh(box3Geo,material);
+    box3.position.x = 200;
+    box3.position.y = -75;
+    podium.add(box3);
+
+
+  /*  stall.add(box1);
+
+    return stall;*/
+
+    return podium;
 }
 
 function miniGame(){
