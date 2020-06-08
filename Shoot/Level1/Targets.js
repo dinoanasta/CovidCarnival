@@ -173,143 +173,160 @@ function createTargets() {
 }
 
 function configureTargetCollisions() { //collision detection of targets with balls
-    // for (let i = 0; i < 9; i++) {
-    duckBoxArray[0].addEventListener('collision', function (other_object) {
-        if (playing && other_object == shotBalls[numBallsShot - 1] && !beenHit) {
-            beenHit = true;
-            hitSound = document.getElementById("boom");
-            hitSound.play();
+    for (let i = 0; i < 9; i++) {
+        duckBoxArray[i].addEventListener('collision', function (other_object) {
+            if (playing && other_object == shotBalls[numBallsShot - 1] && !beenHit) {
+                beenHit = true;
+                hitSound = document.getElementById("boom");
+                hitSound.play();
 
-            scene.remove(duckBoxArray[0]);
-            scene.remove(realDuckModelArray[0]);
-            score++;
-            document.getElementById("scoreValue").textContent = score;
-            if (score == goal) {
-                decideOutcome();
+                scene.remove(duckBoxArray[i]);
+                scene.remove(realDuckModelArray[i]);
+                score++;
+                document.getElementById("scoreValue").textContent = score;
+                if (score == goal) {
+                    decideOutcome();
+                }
             }
-        }
-    });
+        });
+    }
 
-    duckBoxArray[1].addEventListener('collision', function (other_object) {
-        if (playing && other_object == shotBalls[numBallsShot - 1] && !beenHit) {
-            beenHit = true;
-            hitSound = document.getElementById("boom");
-            hitSound.play();
-            scene.remove(duckBoxArray[1]);
-            scene.remove(realDuckModelArray[1]);
-            score++;
-            document.getElementById("scoreValue").textContent = score;
-            if (score == goal) {
-                decideOutcome();
-            }
-        }
-    });
-
-    duckBoxArray[2].addEventListener('collision', function (other_object) {
-        if (playing && other_object == shotBalls[numBallsShot - 1] && !beenHit) {
-            beenHit = true;
-            hitSound = document.getElementById("boom");
-            hitSound.play();
-            scene.remove(duckBoxArray[2]);
-            scene.remove(realDuckModelArray[2]);
-            score++;
-            document.getElementById("scoreValue").textContent = score;
-            if (score == goal) {
-                decideOutcome();
-            }
-        }
-    });
-
-    duckBoxArray[3].addEventListener('collision', function (other_object) {
-        if (playing && other_object == shotBalls[numBallsShot - 1] && !beenHit) {
-            beenHit = true;
-            hitSound = document.getElementById("boom");
-            hitSound.play();
-            scene.remove(duckBoxArray[3]);
-            scene.remove(realDuckModelArray[3]);
-            score++;
-            document.getElementById("scoreValue").textContent = score;
-            if (score == goal) {
-                decideOutcome();
-            }
-        }
-    });
-
-    duckBoxArray[4].addEventListener('collision', function (other_object) {
-        if (playing && other_object == shotBalls[numBallsShot - 1] && !beenHit) {
-            beenHit = true;
-            hitSound = document.getElementById("boom");
-            hitSound.play();
-            scene.remove(duckBoxArray[4]);
-            scene.remove(realDuckModelArray[4]);
-            score++;
-            document.getElementById("scoreValue").textContent = score;
-            if (score == goal) {
-                decideOutcome();
-            }
-        }
-    });
-
-    duckBoxArray[5].addEventListener('collision', function (other_object) {
-        if (playing && other_object == shotBalls[numBallsShot - 1] && !beenHit) {
-            beenHit = true;
-            hitSound = document.getElementById("boom");
-            hitSound.play();
-            scene.remove(duckBoxArray[5]);
-            scene.remove(realDuckModelArray[5]);
-            score++;
-            document.getElementById("scoreValue").textContent = score;
-            if (score == goal) {
-                decideOutcome();
-            }
-        }
-    });
-
-    duckBoxArray[6].addEventListener('collision', function (other_object) {
-        if (playing && other_object == shotBalls[numBallsShot - 1] && !beenHit) {
-            beenHit = true;
-            hitSound = document.getElementById("boom");
-            hitSound.play();
-            scene.remove(duckBoxArray[6]);
-            scene.remove(realDuckModelArray[6]);
-            score++;
-            document.getElementById("scoreValue").textContent = score;
-            if (score == goal) {
-                decideOutcome();
-            }
-        }
-    });
-
-    duckBoxArray[7].addEventListener('collision', function (other_object) {
-        if (playing && other_object == shotBalls[numBallsShot - 1] && !beenHit) {
-            beenHit = true;
-            hitSound = document.getElementById("boom");
-            hitSound.play();
-            scene.remove(duckBoxArray[7]);
-            scene.remove(realDuckModelArray[7]);
-            score++;
-            document.getElementById("scoreValue").textContent = score;
-            if (score == goal) {
-                decideOutcome();
-            }
-        }
-    });
-
-    duckBoxArray[8].addEventListener('collision', function (other_object) {
-        if (playing && other_object == shotBalls[numBallsShot - 1] && !beenHit) {
-            beenHit = true;
-            hitSound = document.getElementById("boom");
-            hitSound.play();
-            scene.remove(duckBoxArray[8]);
-            scene.remove(realDuckModelArray[8]);
-            score++;
-            document.getElementById("scoreValue").textContent = score;
-            if (score == goal) {
-                decideOutcome();
-            }
-        }
-    });
-    // }
+    // duckBoxArray[0].addEventListener('collision', function (other_object) {
+    //     if (playing && other_object == shotBalls[numBallsShot - 1] && !beenHit) {
+    //         beenHit = true;
+    //         hitSound = document.getElementById("boom");
+    //         hitSound.play();
+    //
+    //         scene.remove(duckBoxArray[0]);
+    //         scene.remove(realDuckModelArray[0]);
+    //         score++;
+    //         document.getElementById("scoreValue").textContent = score;
+    //         if (score == goal) {
+    //             decideOutcome();
+    //         }
+    //     }
+    // });
+    //
+    // duckBoxArray[1].addEventListener('collision', function (other_object) {
+    //     if (playing && other_object == shotBalls[numBallsShot - 1] && !beenHit) {
+    //         beenHit = true;
+    //         hitSound = document.getElementById("boom");
+    //         hitSound.play();
+    //         scene.remove(duckBoxArray[1]);
+    //         scene.remove(realDuckModelArray[1]);
+    //         score++;
+    //         document.getElementById("scoreValue").textContent = score;
+    //         if (score == goal) {
+    //             decideOutcome();
+    //         }
+    //     }
+    // });
+    //
+    // duckBoxArray[2].addEventListener('collision', function (other_object) {
+    //     if (playing && other_object == shotBalls[numBallsShot - 1] && !beenHit) {
+    //         beenHit = true;
+    //         hitSound = document.getElementById("boom");
+    //         hitSound.play();
+    //         scene.remove(duckBoxArray[2]);
+    //         scene.remove(realDuckModelArray[2]);
+    //         score++;
+    //         document.getElementById("scoreValue").textContent = score;
+    //         if (score == goal) {
+    //             decideOutcome();
+    //         }
+    //     }
+    // });
+    //
+    // duckBoxArray[3].addEventListener('collision', function (other_object) {
+    //     if (playing && other_object == shotBalls[numBallsShot - 1] && !beenHit) {
+    //         beenHit = true;
+    //         hitSound = document.getElementById("boom");
+    //         hitSound.play();
+    //         scene.remove(duckBoxArray[3]);
+    //         scene.remove(realDuckModelArray[3]);
+    //         score++;
+    //         document.getElementById("scoreValue").textContent = score;
+    //         if (score == goal) {
+    //             decideOutcome();
+    //         }
+    //     }
+    // });
+    //
+    // duckBoxArray[4].addEventListener('collision', function (other_object) {
+    //     if (playing && other_object == shotBalls[numBallsShot - 1] && !beenHit) {
+    //         beenHit = true;
+    //         hitSound = document.getElementById("boom");
+    //         hitSound.play();
+    //         scene.remove(duckBoxArray[4]);
+    //         scene.remove(realDuckModelArray[4]);
+    //         score++;
+    //         document.getElementById("scoreValue").textContent = score;
+    //         if (score == goal) {
+    //             decideOutcome();
+    //         }
+    //     }
+    // });
+    //
+    // duckBoxArray[5].addEventListener('collision', function (other_object) {
+    //     if (playing && other_object == shotBalls[numBallsShot - 1] && !beenHit) {
+    //         beenHit = true;
+    //         hitSound = document.getElementById("boom");
+    //         hitSound.play();
+    //         scene.remove(duckBoxArray[5]);
+    //         scene.remove(realDuckModelArray[5]);
+    //         score++;
+    //         document.getElementById("scoreValue").textContent = score;
+    //         if (score == goal) {
+    //             decideOutcome();
+    //         }
+    //     }
+    // });
+    //
+    // duckBoxArray[6].addEventListener('collision', function (other_object) {
+    //     if (playing && other_object == shotBalls[numBallsShot - 1] && !beenHit) {
+    //         beenHit = true;
+    //         hitSound = document.getElementById("boom");
+    //         hitSound.play();
+    //         scene.remove(duckBoxArray[6]);
+    //         scene.remove(realDuckModelArray[6]);
+    //         score++;
+    //         document.getElementById("scoreValue").textContent = score;
+    //         if (score == goal) {
+    //             decideOutcome();
+    //         }
+    //     }
+    // });
+    //
+    // duckBoxArray[7].addEventListener('collision', function (other_object) {
+    //     if (playing && other_object == shotBalls[numBallsShot - 1] && !beenHit) {
+    //         beenHit = true;
+    //         hitSound = document.getElementById("boom");
+    //         hitSound.play();
+    //         scene.remove(duckBoxArray[7]);
+    //         scene.remove(realDuckModelArray[7]);
+    //         score++;
+    //         document.getElementById("scoreValue").textContent = score;
+    //         if (score == goal) {
+    //             decideOutcome();
+    //         }
+    //     }
+    // });
+    //
+    // duckBoxArray[8].addEventListener('collision', function (other_object) {
+    //     if (playing && other_object == shotBalls[numBallsShot - 1] && !beenHit) {
+    //         beenHit = true;
+    //         hitSound = document.getElementById("boom");
+    //         hitSound.play();
+    //         scene.remove(duckBoxArray[8]);
+    //         scene.remove(realDuckModelArray[8]);
+    //         score++;
+    //         document.getElementById("scoreValue").textContent = score;
+    //         if (score == goal) {
+    //             decideOutcome();
+    //         }
+    //     }
+    // });
+    // // }
 }
 
 function deleteTargets() { //deletion of targets
@@ -322,33 +339,33 @@ function circleTargetsAnimation() {
     realDuckModelArray[0].rotation.x += 0.1;
     realDuckModelArray[0].position.x = -20 * Math.cos(2 * degrees / ((180 / Math.PI)));
     realDuckModelArray[0].position.y = -20 * Math.sin(2 * degrees / ((180 / Math.PI))) + 30;
-    console.log('x:' + realDuckModelArray[0].position.x + '\ny:' + realDuckModelArray[0].position.y);
+    // console.log('x:' + realDuckModelArray[0].position.x + '\ny:' + realDuckModelArray[0].position.y);
 
     realDuckModelArray[3].rotation.x += 0.1;
     realDuckModelArray[3].position.x = 20 * Math.cos(1 * degrees / ((180 / Math.PI)));
     realDuckModelArray[3].position.y = 20 * Math.sin(1 * degrees / ((180 / Math.PI))) + 30;
-    console.log('x:' + realDuckModelArray[3].position.x + '\ny:' + realDuckModelArray[3].position.y);
+    // console.log('x:' + realDuckModelArray[3].position.x + '\ny:' + realDuckModelArray[3].position.y);
 
     realDuckModelArray[6].rotation.x += 0.1;
     realDuckModelArray[6].position.x = -20 * Math.cos(3 * degrees / ((180 / Math.PI)));
     realDuckModelArray[6].position.y = -20 * Math.sin(3 * degrees / ((180 / Math.PI))) + 30;
-    console.log('x:' + realDuckModelArray[6].position.x + '\ny:' + realDuckModelArray[6].position.y);
+    // console.log('x:' + realDuckModelArray[6].position.x + '\ny:' + realDuckModelArray[6].position.y);
 
     ////top animations
     realDuckModelArray[1].rotation.x += 0.1;
     realDuckModelArray[1].position.x = -20 * Math.cos(1 * degrees / ((180 / Math.PI)));
     realDuckModelArray[1].position.z = -20 * Math.sin(1 * degrees / ((180 / Math.PI))) + 40;
-    console.log('x:' + realDuckModelArray[1].position.x + '\ny:' + realDuckModelArray[1].position.y);
+    // console.log('x:' + realDuckModelArray[1].position.x + '\ny:' + realDuckModelArray[1].position.y);
 
     realDuckModelArray[4].rotation.x += 0.1;
     realDuckModelArray[4].position.x = -20 * Math.cos(2 * degrees / ((180 / Math.PI)));
     realDuckModelArray[4].position.z = -20 * Math.sin(2 * degrees / ((180 / Math.PI))) - 40;
-    console.log('x:' + realDuckModelArray[1].position.x + '\ny:' + realDuckModelArray[1].position.y);
+    // console.log('x:' + realDuckModelArray[1].position.x + '\ny:' + realDuckModelArray[1].position.y);
 
     realDuckModelArray[7].rotation.x += 0.1;
     realDuckModelArray[7].position.x = 20 * Math.cos(3 * degrees / ((180 / Math.PI)));
     realDuckModelArray[7].position.z = 20 * Math.sin(3 * degrees / ((180 / Math.PI))) - 70;
-    console.log('x:' + realDuckModelArray[1].position.x + '\ny:' + realDuckModelArray[1].position.y);
+    // console.log('x:' + realDuckModelArray[1].position.x + '\ny:' + realDuckModelArray[1].position.y);
 
     realDuckModelArray[2].rotation.x+=0.05;
 }

@@ -117,7 +117,7 @@ function setupPrizes(){
             loader.load("../Models/ufo/scene.gltf", function (object) {
                 let prize1 = object.scene.children[0];
                 prize1.scale.set(0.15, 0.15, 0.15);
-                prize1.position.set(-150, 280, -100);
+                prize1.position.set(-500, 100, 450);
                 world.add(prize1);
 
             }) ;
@@ -125,7 +125,7 @@ function setupPrizes(){
             loader.load("../Models/plush/scene.gltf", function (object) {
                 let prize2 = object.scene.children[0];
                 prize2.scale.set(2, 2, 2);
-                prize2.position.set(0, 280, -100);
+                prize2.position.set(-300, 150, 450);
                 world.add(prize2);
 
             }) ;
@@ -134,7 +134,7 @@ function setupPrizes(){
                 let prize3 = object.scene.children[0];
                 prize3.rotation.x = Math.PI;
                 prize3.scale.set(20, 20, 20);
-                prize3.position.set(150, 220, -100);
+                prize3.position.set(-100, 125, 450);
                 world.add(prize3);
             }) ;
         }
@@ -163,8 +163,6 @@ function doMouseDown(event) {
             window.location.href = "../Shoot/Level1/ShootingGame.html";
         }else if(intersects[0].object == creditStall){
             window.location.href = "../Credits/Credits.html";
-        }else if(intersects[0].object == bonusStall){
-            window.location.href = "../Bonus Level/TestingGame/game/index.html";
         }
     }
 }

@@ -85,6 +85,7 @@ function makeBonusStall(){
 
     var podium = new THREE.Mesh(box1Geo,material);
     podium.position.y = -100;
+
     var box2 = new THREE.Mesh(box2Geo,material);
     box2.position.x = -200
     box2.position.y = -50;

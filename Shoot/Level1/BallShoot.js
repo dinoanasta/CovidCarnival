@@ -76,7 +76,12 @@ function onMouseDown(event) {
 
          document.getElementById("ballCountValue").innerHTML = ammoCount-numBallsShot; // changes ammo count on html
      }else{
-        decideOutcome();
+         clearInterval(countdown);
+         setTimeout( function(){
+                 decideOutcome();
+             },
+             500
+         );
      }
  }
 }

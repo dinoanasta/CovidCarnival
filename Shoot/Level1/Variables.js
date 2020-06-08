@@ -1,4 +1,7 @@
 
+//Degrees
+var degrees=0;
+
 //HUD
 let HUD, arrowSource;
 let windElement;

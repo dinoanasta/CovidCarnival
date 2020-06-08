@@ -3,103 +3,6 @@
 Physijs.scripts.worker = '../../js/physijs_worker.js';
 //Physijs.scripts.ammo = '../../js/ammo.js';
 
-//degrees
-var degrees=0;
-
-//HUD
-let HUD, arrowSource;
-let windElement;
-
-//FrameRate
-let frameNumber = 0;
-
-//Animation Mixer
-let mixers = [];
-let mixer;
-let avatarAnimation;
-let animationAction;
-
-//Clock For Avatar Animation
-let clock = new THREE.Clock();
-
-//Levels
-let level = "1";
-let nextLevel;
-let ammoCount; //Num of balls
-let score = 0;
-let goal; //How many targets they have to hit to win
-let gameLength; //How long the game lasts
-
-let cubemapURLs;
-let primaryStallMaterial;
-let secondaryBarrierMaterial;
-let ballMaterial;
-
-//Scene and setup
-let playing = true;
-let cubeMap;
-let renderer, scene, camera, box;
-let pos = new THREE.Vector3();
-let shootSound;
-let hitSound;
-let themeSound;
-let textureLoader = new THREE.TextureLoader();
-let loader = new THREE.GLTFLoader();
-let camType = "third";
-let countdown;
-let timeLeft;
-let totalScore = 0;
-
-//PointerLockControls
-let crosshair;
-let controls;
-var objects = [];
-var FPSraycaster;
-var havePointerLock;
-var controlsEnabled = false;
-var prevTime = performance.now();
-var velocity = new THREE.Vector3();
-
-//Mouse Coordinates and raycaster
-let mouseCoords = new THREE.Vector2();
-let raycaster = new THREE.Raycaster();
-
-//Gravity variables
-let xGrav, xDir, xStrength, maxGrav, minGrav, sign;
-let yGrav;
-let signs = [1, -1];
-
-//Avatar
-let avatar;
-let avatarPosition = new THREE.Vector3();
-let AvatarMoveDirection = { x: 0, z: 0 };
-let movementBoundaries = { leftX: -38, rightX: 38, frontZ: -10, backZ: 10 };
-let avatarLocalPos = { x: 0, z: 0 };
-
-//Shooting
-let beenHit = false;
-let ballsArray = [];
-let shotBalls = [];
-let thisBall
-let ball;
-let numBallsShot = 0;
-let avatarHead = new THREE.Vector3();
-let rayx, rayy;
-let rayDirection = new THREE.Vector3();
-let laser;
-
-// Duck
-var duckBox;
-var realDuckModel;
-var duckCoordinates;
-var realDuckModelArray = [];
-var duckBoxArray = [];
-
-//minimap
-var mapCamera;
-let mapWidth = window.innerWidth / 5, mapHeight = window.innerHeight / 5;
-
-
 function setupScene() {
     scene = new Physijs.Scene;
 
@@ -111,17 +14,6 @@ function setupScene() {
         1000
     );
 
-    //PointerLockControls
-    controls = new THREE.PointerLockControls(camera, document.body);
-    controls.addEventListener('lock', function () {
-        console.log("unlocked");
-    });
-
-    controls.addEventListener('unlock', function () {
-        console.log("unlocked");
-    });
-    scene.add(controls.getObject());
-
     camera.position.set(0, 60, 150);
     camera.lookAt(new THREE.Vector3(0, 0, 0));
     scene.add(camera);
@@ -130,21 +22,21 @@ function setupScene() {
         color: "black",
     });
 
-    // crosshair size
+// crosshair size
     var x = 0.1, y = 0.1;
 
     var geometry = new THREE.Geometry();
 
-    // crosshair
+// crosshair
     geometry.vertices.push(new THREE.Vector3(0, y, 0));
     geometry.vertices.push(new THREE.Vector3(0, -y, 0));
     geometry.vertices.push(new THREE.Vector3(0, 0, 0));
     geometry.vertices.push(new THREE.Vector3(x, 0, 0));
     geometry.vertices.push(new THREE.Vector3(-x, 0, 0));
 
-    crosshair = new THREE.Line(geometry, material);
+    crosshair = new THREE.Line( geometry, material );
     // camera.add(crosshair);
-    crosshair.position.set(0, 0, -1);
+    crosshair.position.set(0,0,-1);
 
     mapCamera = new THREE.OrthographicCamera(
         window.innerWidth / -4,		// Left
@@ -152,9 +44,9 @@ function setupScene() {
         window.innerHeight / 4,		// Top
         window.innerHeight / -4,	// Bottom
         -100,            			// Near
-        1000);           			// Far
-    mapCamera.up = new THREE.Vector3(0, 0, -1);
-    mapCamera.lookAt(new THREE.Vector3(0, -1, 0));
+        1000 );           			// Far
+    mapCamera.up = new THREE.Vector3(0,0,-1);
+    mapCamera.lookAt( new THREE.Vector3(0,-1,0) );
     mapCamera.zoom = 100;
     scene.add(mapCamera);
 
@@ -227,20 +119,22 @@ function setupTimer(){
     //Timer
     document.getElementById("timeValue").textContent = gameLength;
 
-    setTimeout(function () {
-        timeLeft = gameLength;
-        countdown = setInterval(function () {
-            timeLeft--;
-            totalScore++;
-            document.getElementById("timeValue").textContent = timeLeft;
-            if (timeLeft <= 0) {
-                clearInterval(countdown);
-                decideOutcome();
-            }
-        }, 1000);
-    },
-        1500
-    );
+    if(playing){
+        setTimeout( function(){
+                timeLeft = gameLength;
+                countdown = setInterval(function() {
+                    timeLeft--;
+                    totalScore++;
+                    document.getElementById("timeValue").textContent = timeLeft;
+                    if (timeLeft <= 0){
+                        clearInterval(countdown);
+                        decideOutcome();
+                    }
+                },1000);
+            },
+            1000
+        );
+    }
 }
 
 function setupEventHandlers() {
@@ -302,12 +196,12 @@ function handleKeyUp(event) {
 function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
-    mapWidth = window.innerWidth / 5;
-    mapHeight = window.innerHeight / 5;
+    mapWidth = window.innerWidth/5;
+    mapHeight = window.innerHeight/5;
     renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
-function resetGame() {
+function resetGame(){
     //Delete current stuff on scene
     deleteBalls();
     deleteTargets();
@@ -394,7 +288,7 @@ function render() {
         else if(degrees>=360){
             degrees=0;
         }
-        console.log(degrees);
+        // console.log(degrees);
         frameNumber++;
         
 
@@ -429,8 +323,6 @@ function render() {
     cubeMap.rotation.x += 0.005;
     cubeMap.rotation.y -= 0.005;
     cubeMap.rotation.z += 0.005;
-
-    console.log(totalScore);
 
     scene.simulate();
     //renderer.render(scene, camera);

@@ -152,18 +152,17 @@ function decideOutcome(){
 
     if(score>=goal){
         if(level == "1") {
-            prizes.push("../../Models/ufo/scene.gltf");
-            
+            prizesString = prizesString + "," + "1";
             document.getElementById("LevelPassedHUD").style.visibility = 'visible';
             document.getElementById("LevelPassedText").innerHTML = "You win level 1 ! <br> Proceed to level 2?";
             nextLevel = "2";
         }else if(level == "2"){
-            // prizesString = prizesString + " " + "2";
+            prizesString = prizesString + "," + "2";
             document.getElementById("LevelPassedHUD").style.visibility = 'visible';
             document.getElementById("LevelPassedText").innerHTML = "You win level 2 ! <br> Proceed to level 3?";
             nextLevel = "3";
         }else if(level == "3"){
-            // prizesString = prizesString + " " + "3";
+            prizesString = prizesString + "," + "3";
             //Animation Timer:
             setTimeout(function () {
                 setInterval(function () {
@@ -185,6 +184,7 @@ function decideOutcome(){
 
         }
 
+        console.log(prizesString);
         localStorage.setItem('prizes', prizesString);
         level = nextLevel;
 
