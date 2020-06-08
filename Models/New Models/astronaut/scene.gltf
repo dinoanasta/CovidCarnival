@@ -76,7 +76,7 @@
       "byteLength": 19248,
       "byteOffset": 0,
       "name": "floatBufferViews",
-      "target": 34963
+      "crosshair1": 34963
     },
     {
       "buffer": 0,
@@ -84,7 +84,7 @@
       "byteOffset": 19248,
       "byteStride": 8,
       "name": "floatBufferViews",
-      "target": 34962
+      "crosshair1": 34962
     },
     {
       "buffer": 0,
@@ -92,7 +92,7 @@
       "byteOffset": 45280,
       "byteStride": 12,
       "name": "floatBufferViews",
-      "target": 34962
+      "crosshair1": 34962
     }
   ],
   "buffers": [

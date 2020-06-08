@@ -164,7 +164,7 @@ function doMouseDown(event) {
         }else if(intersects[0].object == creditStall){
             window.location.href = "../Credits/Credits.html";
         }else if(intersects[0].object == mushy){
-            window.location.href = "../Bonus Level/bonus.html";
+            window.location.href = "../Bonus Level/Bonus.html";
         }
     }
 }

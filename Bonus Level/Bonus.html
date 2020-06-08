@@ -3,14 +3,18 @@
 	<head>
 		<meta charset="utf-8">
 		<title>BONUS LEVEL</title>
-		<style>
-			body { margin: 0; }
-			canvas { display: block; }
-		</style>
+
 
 		<link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
 			  integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" rel="stylesheet">
 		<link href="bonus.css" rel="stylesheet">
+
+		<script src="../js/three.js"></script>
+		<script src="../js/OrbitControls.js"></script>
+		<script src="../js/GLTFLoader.js"></script>
+		<script src="../js/physi.js"></script>
+		<script src="bonusTargets.js"></script>
+		<script src="bonusMain.js"></script>
 
 		<div id = "preGameHUD">
 			<!--           How to play-->
@@ -48,23 +52,7 @@
 
 		<div id="GameHUD" style="visibility: hidden">
 			<!--        Game name -->
-			<!--        <h1 class="neon" data-text="COVID CARNIVAL"> COVID CARNIVAL </h1>-->
-
-			<!-- Centre level       -->
-			<div class="stats HUDelement" id="centreLevel">
-				<h1 id="levelLabel">Level:</h1>
-				<h1 id="levelValue"> 0 </h1>
-				<br>
-				<h1 id="goalLabel">Goal:</h1>
-				<h1 id="goalValue"> 0 </h1>
-			</div>
-
-			<!--        Ammo top left-->
-			<div class="stats HUDelement" id="topLeftBallCount">
-				<h1 id="ballCountLabel">Ammo Left:</h1>
-				<br>
-				<h1 id="ballCountValue"> </h1>
-			</div>
+			<h1 class="neon" data-text="COVID CARNIVAL"> COVID CARNIVAL </h1>
 
 			<!--        Score bottom left -->
 			<div class="stats HUDelement" id="bottomLeftScore">
@@ -101,26 +89,22 @@
 
 		<script>
 			function init() {
-				renderer = new THREE.WebGLRenderer({ antialias: false });
+				renderer = new THREE.WebGLRenderer({ antialias: false }); //disabling antialias to debug on my machine because its kak slow :/
+				renderer.setClearColor(0x00a0a0);
+				renderer.setPixelRatio(window.devicePixelRatio);
 				renderer.setSize(window.innerWidth, window.innerHeight);
+				renderer.autoClear = false;
 				document.body.appendChild(renderer.domElement);
-
-				document.getElementById("playButton").onclick = startPlaying;
 
 				setupEventHandlers();
 				setupScene();
+				createTargets();
 
-				window.addEventListener('mousemove', onMouseMove, false);
 				render();
 			}
 		</script>
 
 	</head>
 	<body onload="init()">
-		<script src="../js/three.js"></script>
-		<script src="../js/OrbitControls.js"></script>
-		<script src="../js/GLTFLoader.js"></script>
-		<script src="../js/physi.js"></script>
-		<script src="bonusMain.js"></script>
 	</body>
 </html> 

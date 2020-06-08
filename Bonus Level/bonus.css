@@ -24,6 +24,11 @@
 }
 body{
     cursor: none;
+    margin: 0;
+}
+
+canvas {
+    display: block;
 }
 
 #preGameHUD{

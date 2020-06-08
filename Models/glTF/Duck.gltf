@@ -193,21 +193,21 @@
             "buffer": 0,
             "byteOffset": 76768,
             "byteLength": 25272,
-            "target": 34963
+            "crosshair1": 34963
         },
         {
             "buffer": 0,
             "byteOffset": 0,
             "byteLength": 57576,
             "byteStride": 12,
-            "target": 34962
+            "crosshair1": 34962
         },
         {
             "buffer": 0,
             "byteOffset": 57576,
             "byteLength": 19192,
             "byteStride": 8,
-            "target": 34962
+            "crosshair1": 34962
         }
     ],
     "buffers": [

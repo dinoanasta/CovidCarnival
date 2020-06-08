@@ -22,9 +22,15 @@
     src: url('https://fonts.googleapis.com/css?family=Nosifer&display=swap');
     font-family: 'Nosifer', cursive;
 }
+
 body{
     cursor: none;
+    /*margin: 0;*/
 }
+
+/*canvas {*/
+/*    display: block;*/
+/*}*/
 
 #preGameHUD{
     position: fixed;

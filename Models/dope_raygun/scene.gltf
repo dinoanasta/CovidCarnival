@@ -499,7 +499,7 @@
       "byteLength": 101232,
       "byteOffset": 0,
       "name": "floatBufferViews",
-      "target": 34963
+      "crosshair1": 34963
     },
     {
       "buffer": 0,
@@ -507,7 +507,7 @@
       "byteOffset": 101232,
       "byteStride": 8,
       "name": "floatBufferViews",
-      "target": 34962
+      "crosshair1": 34962
     },
     {
       "buffer": 0,
@@ -515,7 +515,7 @@
       "byteOffset": 149416,
       "byteStride": 12,
       "name": "floatBufferViews",
-      "target": 34962
+      "crosshair1": 34962
     },
     {
       "buffer": 0,
@@ -523,7 +523,7 @@
       "byteOffset": 293968,
       "byteStride": 16,
       "name": "floatBufferViews",
-      "target": 34962
+      "crosshair1": 34962
     }
   ],
   "buffers": [
