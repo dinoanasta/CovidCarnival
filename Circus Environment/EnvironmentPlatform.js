@@ -208,8 +208,8 @@ function addBarriers(){ //creates the cylindrical and adds barriers of carnival
 
 }
 
-
-function MakeText(){ //Creates Giant "Covid carnival" text
+//Creates Giant "Covid carnival" text
+function MakeText(){
     //Loads fonts and specifies characteristics
     textLoader.load('../Resources/Fonts/helvetiker_bold.typeface.json',function (font) {
         geoText = new THREE.TextGeometry( "COVID CARNIVAL" , {
@@ -256,7 +256,7 @@ function loadModels(){
     });
 
     //Glowing mushroom
-    loader.load("../Models/low_poly_glowing_mushroom/scene.gltf", function (object) {
+    loader.load("../Models/glowingmushroom/scene.gltf", function (object) {
      magicMushroom = object.scene.children[0];
      magicMushroom.rotation.x = -0.5*Math.PI;
      magicMushroom.position.x = 450;
@@ -299,4 +299,16 @@ function loadModels(){
     // prizes.position.set(0,300,-50);
     // world.add(prizes);
     scene.add(world);
+
+    mushy = new THREE.Mesh(
+        new THREE.BoxGeometry(250, 200, 400),
+        new THREE.MeshStandardMaterial({
+            opacity: 0,
+            transparent: true,
+            // color: "red",
+        }),
+        0
+    );
+    mushy.position.set(1035, 200, 1035);
+    scene.add(mushy);
 }

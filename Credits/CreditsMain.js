@@ -131,7 +131,7 @@ function setupScene() {
             scene.add(lantern);
         });
 
-        loader.load("../Models/low_poly_glowing_mushroom/scene.gltf", function (object) {
+        loader.load("../Models/glowingmushroom/scene.gltf", function (object) {
             let shroom = object.scene.children[0];
             shroom.rotation.x = -0.5 * Math.PI;
             shroom.position.x = 250;

@@ -10,7 +10,7 @@ var frameNumber = 0;
 //EnvironmentPlatform
 let planet;
 let world = new THREE.Object3D();
-let magicMushroom;
+let magicMushroom, mushy;
 
 //CovidCarnival Text Variable
 let covidCarnivalText;
@@ -163,6 +163,8 @@ function doMouseDown(event) {
             window.location.href = "../Shoot/Level1/ShootingGame.html";
         }else if(intersects[0].object == creditStall){
             window.location.href = "../Credits/Credits.html";
+        }else if(intersects[0].object == mushy){
+            window.location.href = "../Bonus Level/bonus.html";
         }
     }
 }
