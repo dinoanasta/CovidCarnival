@@ -72,8 +72,8 @@ function addCreditStall(){
     sphereCamera2.position.set(0, 100, 0);
 
     var matBall = textureLoader.load('../Resources/Textures/Dino/redgreenliquid.jpg');
-
-    loader.load("../Models/ufo/scene.gltf", function (object) {
+*/
+    loader.load("../Models/New Models/astronaut/scene.gltf", function (object) {
         let prize2 = object.scene.children[0];
        // matBall.encoding = THREE.sRGBEncoding;
        // matBall.flipY = false;
@@ -84,12 +84,49 @@ function addCreditStall(){
         });
 
         //prize2.material.envmap = new THREE.MeshBasicMaterial( {envMap: sphereCamera2.renderTarget.texture} );
-        prize2.scale.set(0.5, 0.5, 0.5);
-        prize2.position.set(0, 0, 200);
+        prize2.rotation.z = -Math.PI/10;
+        prize2.scale.set(50, 50, 50);
+        prize2.position.set(150,-150, 300);
         creditStall.add(prize2);
 
-    })
-*/
+    });
+
+    loader.load("../Models/New Models/astronaut/scene.gltf", function (object) {
+        let prize2 = object.scene.children[0];
+        // matBall.encoding = THREE.sRGBEncoding;
+        // matBall.flipY = false;
+
+        prize2.material = new THREE.MeshPhongMaterial({
+            //map: matBall,
+            color: 0xff00ff
+        });
+
+        //prize2.material.envmap = new THREE.MeshBasicMaterial( {envMap: sphereCamera2.renderTarget.texture} );
+        prize2.rotation.z = Math.PI/10;
+        prize2.scale.set(50, 50, 50);
+        prize2.position.set(-150,-150, 300);
+        creditStall.add(prize2);
+
+    });
+
+  /*  loader.load("../Models/retroufo/scene.glb", function (object) {
+        let prize2 = object.scene.children[0];
+        // matBall.encoding = THREE.sRGBEncoding;
+        // matBall.flipY = false;
+
+        prize2.material = new THREE.MeshPhongMaterial({
+            //map: matBall,
+            color: 0xff00ff
+        });
+
+        //prize2.material.envmap = new THREE.MeshBasicMaterial( {envMap: sphereCamera2.renderTarget.texture} );
+        //prize2.rotation.z = 2*Math.PI/3;
+        prize2.scale.set(2.5, 2.5, 2.5);
+        prize2.position.set(0,-150, 10);
+        creditStall.add(prize2);
+
+    });*/
+
     creditStall.scale.set(1.2,1.2,1.2);
     creditStall.position.x = 600;
     creditStall.position.y = 200;
@@ -117,8 +154,10 @@ function addBonusStall(){
         });
 
         var matText = new THREE.MeshStandardMaterial({ map : textureLoader.load('../Resources/Textures/Dino/liquid.jpg')})
+        var refMat = new THREE.MeshBasicMaterial( {envMap: sphereCamera.renderTarget.texture} );
 
-        moonText = new THREE.Mesh(geoText,matText);
+
+        moonText = new THREE.Mesh(geoText,refMat);
         moonText.position.x = -100;
         moonText.position.y = 500;
         moonText.scale.set(1.3,1.3,1.3);
