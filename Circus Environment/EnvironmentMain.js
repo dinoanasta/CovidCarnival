@@ -51,6 +51,10 @@ function setupScene(){
     camera.position.y = 1000;
     camera.position.z = 1500;
 
+    // reflection camera
+    sphereCamera = new THREE.CubeCamera(1,4000, 512);
+    sphereCamera.position.set(-500, 100, 0);
+
     // A light shining from the direction of the camera which moves with the camera.
     light = new THREE.DirectionalLight(0xFFFFFF,0.6);
     light.position.set(0,0,1);
@@ -114,29 +118,32 @@ function setupPrizes(){
     //Loops through array and adds all prizes that have been earned
     for(var i = 0; i < len;i++) {
         if(prizeArr[i+1] == "1"){
-            loader.load("../Models/ufo/scene.gltf", function (object) {
+            addPrize1();
+           /* loader.load("../Models/ufo/scene.gltf", function (object) {
                 let prize1 = object.scene.children[0];
                 prize1.scale.set(0.15, 0.15, 0.15);
-                prize1.position.set(-500, 100, 450);
-                world.add(prize1);
+                prize1.position.set(-500, 300, 450);
+                bonusStall.add(prize1);
 
-            }) ;
+            }) ;*/
         }else if(prizeArr[i+1] == "2"){
-            loader.load("../Models/plush/scene.gltf", function (object) {
+            addPrize2();
+           /* loader.load("../Models/plush/scene.gltf", function (object) {
                 let prize2 = object.scene.children[0];
-                prize2.scale.set(2, 2, 2);
-                prize2.position.set(-300, 150, 450);
+                //prize2.scale.set(2, 2, 2);
+                prize2.position.set(-300, 300, 450);
                 world.add(prize2);
 
-            }) ;
+            }) ;*/
         }else if(prizeArr[i+1] == "3"){
-            loader.load("../Models/rocket2/scene.gltf", function (object) {
+            addPrize3();
+            /*loader.load("../Models/rocket2/scene.gltf", function (object) {
                 let prize3 = object.scene.children[0];
                 prize3.rotation.x = Math.PI;
                 prize3.scale.set(20, 20, 20);
                 prize3.position.set(-100, 125, 450);
                 world.add(prize3);
-            }) ;
+            }) ;*/
         }
     }
 
