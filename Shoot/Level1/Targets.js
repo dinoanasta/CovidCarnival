@@ -342,8 +342,8 @@ function circleTargetsAnimation() {
     // console.log('x:' + realDuckModelArray[0].position.x + '\ny:' + realDuckModelArray[0].position.y);
 
     realDuckModelArray[3].rotation.x += 0.1;
-    realDuckModelArray[3].position.x = 20 * Math.cos(1 * degrees / ((180 / Math.PI)));
-    realDuckModelArray[3].position.y = 20 * Math.sin(1 * degrees / ((180 / Math.PI))) + 30;
+    realDuckModelArray[3].position.x = -20 * Math.cos(1 * degrees / ((180 / Math.PI)));
+    realDuckModelArray[3].position.y = -20 * Math.sin(1 * degrees / ((180 / Math.PI))) + 30;
     // console.log('x:' + realDuckModelArray[3].position.x + '\ny:' + realDuckModelArray[3].position.y);
 
     realDuckModelArray[6].rotation.x += 0.1;
@@ -363,8 +363,8 @@ function circleTargetsAnimation() {
     // console.log('x:' + realDuckModelArray[1].position.x + '\ny:' + realDuckModelArray[1].position.y);
 
     realDuckModelArray[7].rotation.x += 0.1;
-    realDuckModelArray[7].position.x = 20 * Math.cos(3 * degrees / ((180 / Math.PI)));
-    realDuckModelArray[7].position.z = 20 * Math.sin(3 * degrees / ((180 / Math.PI))) - 70;
+    realDuckModelArray[7].position.x = -20 * Math.cos(3 * degrees / ((180 / Math.PI)));
+    realDuckModelArray[7].position.z = -20 * Math.sin(3 * degrees / ((180 / Math.PI))) - 70;
     // console.log('x:' + realDuckModelArray[1].position.x + '\ny:' + realDuckModelArray[1].position.y);
 
     realDuckModelArray[2].rotation.x+=0.05;
