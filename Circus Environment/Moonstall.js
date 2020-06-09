@@ -46,6 +46,7 @@ function makeCreditsStall(){
     roof.position.z = 100;
     roof.rotation.y = Math.PI/4;
 
+    //stall.add(credits());
     stall.add(wall);
     stall.add(wall2);
     stall.add(roof);
@@ -82,16 +83,18 @@ function makeBonusStall(){
     var box2Geo = new THREE.BoxBufferGeometry(200,200,150);
     var box3Geo = new THREE.BoxBufferGeometry(200,150,150);
     var material = new THREE.MeshBasicMaterial({ map : texture});
+    var refMat = new THREE.MeshBasicMaterial( {envMap: sphereCamera.renderTarget.texture} );
 
-    var podium = new THREE.Mesh(box1Geo,material);
+
+    var podium = new THREE.Mesh(box1Geo,refMat);
     podium.position.y = -100;
 
-    var box2 = new THREE.Mesh(box2Geo,material);
+    var box2 = new THREE.Mesh(box2Geo,refMat);
     box2.position.x = -200
     box2.position.y = -50;
     podium.add(box2);
 
-    var box3 = new THREE.Mesh(box3Geo,material);
+    var box3 = new THREE.Mesh(box3Geo,refMat);
     box3.position.x = 200;
     box3.position.y = -75;
     podium.add(box3);
@@ -115,11 +118,7 @@ function miniGame(){
     game.position.y = -100;
     game.position.z = 200;
 
-    sphereCamera = new THREE.CubeCamera(1,3000, 512);
-    sphereCamera.position.set(0, 100, 0);
-
     var geoBall = new THREE.SphereBufferGeometry(30,20,20);
-    var refMat = new THREE.MeshBasicMaterial( {envMap: sphereCamera.renderTarget.texture} );
     var matBall = new THREE.MeshBasicMaterial({map : textureLoader.load('../Resources/Textures/Dino/redgreenliquid.jpg')});
     var ball = new THREE.Mesh(geoBall,matBall);
     ball.position.x = -150;
@@ -156,12 +155,10 @@ function miniGame(){
     ball7.position.z = 100;
 
     var ball8 = ball2.clone();
-    ball8.material = refMat;
     ball8.position.x = -130;
     ball8.position.z = 60;
 
     var ball9 = ball.clone();
-    ball9.material = refMat;
     ball9.position.x = 100;
     ball9.position.z = 100;
 
@@ -202,6 +199,12 @@ function makeWall(texture){
     return new THREE.Mesh(geoWall,matWall);
 }
 
+function credits(){
 
+    var geometry = new THREE.SphereBufferGeometry(200,75,75);
+    var material = new THREE.MeshBasicMaterial( {envMap: sphereCamera.renderTarget.texture} );
+
+    return new THREE.Mesh(geometry,material);
+}
 
 

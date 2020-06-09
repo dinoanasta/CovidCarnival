@@ -18,26 +18,16 @@ function setupScene() {
     camera.lookAt(new THREE.Vector3(0, 0, 0));
     scene.add(camera);
 
-    var material = new THREE.LineBasicMaterial({
-        color: "black",
-    });
+    //Crosshair
+    crosshair1 = new THREE.Mesh(
+        new THREE.PlaneGeometry(5, 0.15),
+        new THREE.MeshBasicMaterial({ color: 0xff0000 })
+    );
+    crosshair1.position.set(0, 0, -20);
+    crosshair2 = crosshair1.clone(true);
+    crosshair2.rotation.z = Math.PI / 2;
 
-// crosshair size
-    var x = 0.1, y = 0.1;
-
-    var geometry = new THREE.Geometry();
-
-// crosshair
-    geometry.vertices.push(new THREE.Vector3(0, y, 0));
-    geometry.vertices.push(new THREE.Vector3(0, -y, 0));
-    geometry.vertices.push(new THREE.Vector3(0, 0, 0));
-    geometry.vertices.push(new THREE.Vector3(x, 0, 0));
-    geometry.vertices.push(new THREE.Vector3(-x, 0, 0));
-
-    crosshair = new THREE.Line( geometry, material );
-    // camera.add(crosshair);
-    crosshair.position.set(0,0,-1);
-
+    //Minimap
     mapCamera = new THREE.OrthographicCamera(
         window.innerWidth / -4,		// Left
         window.innerWidth / 4,		// Right
@@ -100,6 +90,7 @@ function setupScene() {
 }
 
 function startPlaying(){
+    //Show game HUD and hide preGame HUD
     document.getElementById("GameHUD").style.visibility = 'visible';
     document.getElementById("preGameHUD").style.visibility = 'hidden';
 
@@ -112,6 +103,7 @@ function startPlaying(){
     //Create balls
     createBalls();
 
+    //Start timer
     setupTimer();
 }
 
@@ -119,22 +111,20 @@ function setupTimer(){
     //Timer
     document.getElementById("timeValue").textContent = gameLength;
 
-    if(playing){
-        setTimeout( function(){
-                timeLeft = gameLength;
-                countdown = setInterval(function() {
-                    timeLeft--;
-                    totalScore++;
-                    document.getElementById("timeValue").textContent = timeLeft;
-                    if (timeLeft <= 0){
-                        clearInterval(countdown);
-                        decideOutcome();
-                    }
-                },1000);
-            },
-            1000
-        );
-    }
+    setTimeout( function(){
+            timeLeft = gameLength;
+            countdown = setInterval(function() {
+                timeLeft--;
+                totalScore++;
+                document.getElementById("timeValue").textContent = timeLeft;
+                if (timeLeft <= 0){
+                    clearInterval(countdown);
+                    decideOutcome();
+                }
+            },1000);
+        },
+        1000
+    );
 }
 
 function setupEventHandlers() {
@@ -302,21 +292,25 @@ function render() {
         //duckBoxArray[i].__dirtyPosition = true;
 
     }
-    
 
-    if (camType == "first") {
-        //First personv
+    if (camType == "first") { //First person
         camera.position.set(avatarHead.x, avatarHead.y, avatarHead.z);
         rayDirection = rayDirection.set(rayx, rayy, -100);
         camera.lookAt(rayDirection);
-        camera.add(crosshair);
+        //Add crosshair
+        camera.add(crosshair1);
+        camera.add(crosshair2);
+        //Remove laser
         scene.remove(laser);
-    } else if (camType == "third") {
-        //Third person
+    } else if (camType == "third") { //Third person view
+
         camera.position.set(avatarHead.x, avatarHead.y + 25, avatarHead.z + 60);
         camera.lookAt(0, 0, -100);
+        //Add laser
         scene.add(laser);
-        camera.remove(crosshair);
+        //Remove crosshair
+        camera.remove(crosshair1);
+        camera.remove(crosshair2);
     }
 
     //Rotate skybox
@@ -341,18 +335,10 @@ function render() {
     }
 
     scene.simulate();
-    //renderer.render(scene, camera);
 
-    // renderer.setViewport( 0, 0, w, h );
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.render(scene, camera);
-    // renderer.clear();
 
-    // minimap (overhead orthogonal camera)
-    //  lower_left_x, lower_left_y, viewport_width, viewport_height
-    // renderer.setViewport( -80, h - mapHeight -20, mapWidth, mapHeight );
-    //
     renderer.setViewport(window.innerWidth - mapWidth * 1.2, window.innerHeight - mapHeight * 3, mapWidth, mapHeight);
-    // renderer.setSize(mapWidth, mapHeight);
     renderer.render(scene, mapCamera);
 }

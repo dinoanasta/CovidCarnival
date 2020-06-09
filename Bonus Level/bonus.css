@@ -24,9 +24,15 @@
 }
 body{
     cursor: none;
+    margin: 0;
+}
+
+canvas {
+    display: block;
 }
 
 #preGameHUD{
+    padding-top: 5vh;
     position: fixed;
     text-align: center;
     width: 100%;
@@ -50,7 +56,6 @@ body{
 }
 
 #preGameHUD>h2{
-
     margin-top: 0;
     margin-bottom: 0;
     z-index: 1;
@@ -66,10 +71,10 @@ body{
     margin-bottom: 0;
     z-index: 1;
     font-family: karn;
-    font-size: 4vmin;
+    font-size: 5vmin;
     color: #44d4d4;
     display: inline-block;
-    -webkit-text-stroke: 0.1vmin black;
+    -webkit-text-stroke: 0.2vmin black;
 }
 
 #preGameHUD>button{
@@ -82,8 +87,6 @@ body{
     display: inline-block;
     -webkit-text-stroke: 0.1vmin black;
 }
-
-
 
 #GameHUD{
     position: absolute;
@@ -101,55 +104,20 @@ body{
     text-align: center;
     z-index: 1;
     width: 20vw;
-    height: 20vh;
+    height: 30vh;
     background-color: rgba(100,0,0,0.5);
 }
 
 .stats>h1{
     font-family: karn;
     color: #ff0000;
-    font-size: 7vmin;
+    font-size: 10vmin;
 }
 
 .stats>button{
     font-family: karn;
     color: #ff0000;
     font-size: 7vmin;
-}
-
-#centreLevel{
-    top:50%;
-    transform: translateY(-50%);
-    margin-left: 3vw;
-}
-#levelLabel {
-    display: inline-block;
-}
-
-#levelValue {
-    display: inline-block;
-}
-#goalLabel {
-    display: inline-block;
-}
-
-#goalValue {
-    display: inline-block;
-}
-
-#topLeftBallCount {
-    top: 0;
-    left: 0;
-    margin-top: 3vh;
-    margin-left: 3vw;
-}
-
-#ballCountLabel {
-    display: inline-block;
-}
-
-#ballCountValue {
-    display: inline-block;
 }
 
 #bottomLeftScore{
@@ -209,7 +177,8 @@ body{
     filter: blur(15px);
 }
 
-.outcomeHUD {
+#postGameHUD {
+    padding-top: 5vh;
     position: fixed;
     text-align: center;
     width: 100%;
@@ -221,13 +190,17 @@ body{
     cursor: crosshair;
 }
 
-.outcomeHUD>.outcomeText {
+#postGameHUD>h1 {
     z-index: 1;
     font-family: karn;
     font-size: 18vmin;
     color: #44d4d4;
     display: inline-block;
     -webkit-text-stroke: 1vmin black;;
+}
+
+#mainMenuButton{
+    width: 30vw;
 }
 
 .button{
@@ -258,6 +231,9 @@ body{
 .button:hover{
     background-color: #23c2be ;
 }
+
+
+
 
 
 

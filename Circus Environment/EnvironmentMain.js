@@ -51,6 +51,10 @@ function setupScene(){
     camera.position.y = 1000;
     camera.position.z = 1500;
 
+    // reflection camera
+    sphereCamera = new THREE.CubeCamera(1,4000, 512);
+    sphereCamera.position.set(-500, 100, 0);
+
     // A light shining from the direction of the camera which moves with the camera.
     light = new THREE.DirectionalLight(0xFFFFFF,0.6);
     light.position.set(0,0,1);
@@ -168,7 +172,7 @@ function doMouseDown(event) {
         }else if(intersects[0].object == creditStall){
             window.location.href = "../Credits/Credits.html";
         }else if(intersects[0].object == mushy){
-            window.location.href = "../Bonus Level/bonus.html";
+            window.location.href = "../Bonus Level/Bonus.html";
         }
     }
 }

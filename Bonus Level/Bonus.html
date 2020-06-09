@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>BONUS LEVEL</title>
+
+		<link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+			  integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" rel="stylesheet">
+		<link href="bonus.css" rel="stylesheet">
+
+		<script src="../js/three.js"></script>
+		<script src="../js/OrbitControls.js"></script>
+		<script src="../js/GLTFLoader.js"></script>
+		<script src="../js/physi.js"></script>
+		<script src="bonusTargets.js"></script>
+		<script src="bonusMain.js"></script>
+
+		<div id = "preGameHUD">
+			<!--           How to play-->
+
+			<h1>WELCOME TO THE BONUS LEVEL</h1>
+			<br>
+			<br>
+			<br>
+
+			<h2> Controls:</h2>
+			<br>
+			<p>
+				Hold down the left mouse button to look around.<br>
+				Shoot by pressing the space button.
+			</p>
+
+			<br>
+			<br>
+
+			<h2>Goal:</h2>
+			<br>
+			<p>
+				Hit as many targets as possible before the time runs out.<br>
+			</p>
+
+			<br>
+			<br>
+
+			<!--        Play Game button -->
+			<a >
+				<button class= "button" id="playButton">TAKE A TRIP</button>
+			</a>
+		</div>
+
+		<div id="GameHUD" style="visibility: hidden">
+			<!--        Game name -->
+			<h1 class="neon" data-text="COVID CARNIVAL"> COVID CARNIVAL </h1>
+
+			<!--        Score bottom left -->
+			<div class="stats HUDelement" id="bottomLeftScore">
+				<h1 id="scoreLabel">Score: </h1>
+				<br>
+				<h1 id="scoreValue">0</h1>
+			</div>
+
+			<!--        Time bottom right -->
+			<div class="stats HUDelement" id="bottomRightTime">
+				<h1 id="timeLabel">Time: </h1>
+				<br>
+				<h1 id="timeValue"></h1>
+			</div>
+
+		</div>
+
+		<div id="postGameHUD" style="visibility: hidden">
+
+			<h1 id="congrats">Congratulations ! </h1>
+
+			<br>
+			<br>
+
+			<!--        Game Over Text-->
+			<h1 id="gameOverText"></h1>
+
+			<br>
+			<br>
+
+			<!--        Buttons href = "ShootingGame.html" -->
+			<a href="../Circus%20Environment/Environment.html">
+				<button class="button" id="mainMenuButton">RETURN TO REALITY</button>
+			</a>
+
+		</div>
+
+		<script>
+			function init() {
+				renderer = new THREE.WebGLRenderer({ antialias: true }); //disabling antialias to debug on my machine because its kak slow :/
+				// renderer.setClearColor(0x00a0a0);
+				renderer.setPixelRatio(window.devicePixelRatio);
+				renderer.setSize(window.innerWidth, window.innerHeight);
+				document.body.appendChild(renderer.domElement);
+
+				setupScene();
+
+				setupEventHandlers();
+				createTargets();
+
+				render();
+			}
+		</script>
+
+	</head>
+	<body onload="init()">
+	</body>
+</html> 

@@ -1,4 +1,3 @@
-
 function createAvatar(){
     loader.load(
         "../../Models/hiphop/scene.gltf",
@@ -70,7 +69,6 @@ function moveAvatar(){
 
 function deleteAvatar(){
     scene.remove(avatar);
-
     mixers = [];
     AvatarMoveDirection = { x: 0, z: 0 };
     avatarLocalPos = { x: 0, z: 0 };
