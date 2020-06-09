@@ -123,7 +123,6 @@ function setLevel(lvl) {
     windElement.setAttribute('src', arrowSource);
 
     //Level specific skybox
-
     var materials = [];
     for (var i = 0; i < 6; i++) {
         var texture = textureLoader.load(cubemapURLs[i]);

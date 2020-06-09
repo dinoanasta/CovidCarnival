@@ -73,7 +73,7 @@ function addCreditStall(){
 
     var matBall = textureLoader.load('../Resources/Textures/Dino/redgreenliquid.jpg');
 */
-    loader.load("../Models/New Models/astronaut/scene.gltf", function (object) {
+    loader.load("../Models/hiphop/scene.gltf", function (object) {
         let prize2 = object.scene.children[0];
        // matBall.encoding = THREE.sRGBEncoding;
        // matBall.flipY = false;
@@ -91,7 +91,7 @@ function addCreditStall(){
 
     });
 
-    loader.load("../Models/New Models/astronaut/scene.gltf", function (object) {
+    loader.load("../Models/hiphop/scene.gltf", function (object) {
         let prize2 = object.scene.children[0];
         // matBall.encoding = THREE.sRGBEncoding;
         // matBall.flipY = false;
