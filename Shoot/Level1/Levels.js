@@ -37,7 +37,7 @@ function setLevel(lvl) {
             sign = signs[Math.floor(Math.random() * 2)];
 
             ammoCount = 10;
-            goal = 5;
+            goal = 2;
             gameLength = 30;
 
             primaryStallMaterial = "greenfabric.jpg";
@@ -67,7 +67,7 @@ function setLevel(lvl) {
             sign = signs[Math.floor(Math.random() * 2)];
 
             ammoCount = 10;
-            goal = 7;
+            goal = 2;
             gameLength = 30;
 
             primaryStallMaterial = "tealtexture.jpg";
@@ -170,27 +170,25 @@ function decideOutcome(){
 
                 pill.position.y = 70;
                 pill.position.z = 80;
+                pill.position.x = avatarPosition.x;
                 scene.add(pill);
                 pillplay = true;
 
-                //8 second delay before dancing animation occurs
+                //7 second delay before dancing animation occurs
                 setTimeout(function () {
                     setInterval(function () {
                         //Animation and Mixer Code Goes Here
                         animationAction.play();
                         let delta = clock.getDelta();
                         mixers[0].update(delta);
-                        console.log("playing");
                     }, 0);
-                }, 8000);
+                }, 6500);
 
-                //14 second delay to allow pill to drop and animation to play then player gets taken to bonus level
+                //13 second delay to allow pill to drop and animation to play then player gets taken to bonus level
                 setTimeout(function () {
                     prizesArr = prizesString.split(",");
-                    if (prizesArr.length == 2) {
                         window.location.href = "../../Bonus Level/bonus.html";
-                    }
-                }, 14000);
+                }, 13000);
 
 
             } else {
@@ -202,7 +200,6 @@ function decideOutcome(){
                         animationAction.play();
                         let delta = clock.getDelta();
                         mixers[0].update(delta);
-                        console.log("playing");
                     }, 0);
                 }, 200);
 

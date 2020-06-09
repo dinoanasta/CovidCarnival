@@ -11,19 +11,24 @@ function createTargets() {
     );
     duckBox.setCcdMotionThreshold(10); //added to make balls travelling at fast velocities can collide with mesh
     duckCoordinates = [ //target positions
-        new THREE.Vector3(0, 30, 0),    //0
+
+        //Centre
+        new THREE.Vector3(0, 30, -70),    //0
         new THREE.Vector3(0, 50, -70),    //1
-        new THREE.Vector3(30, 15, -70),    //2
 
+        new THREE.Vector3(30, 15, -70),    //2 - back
+
+        //Right
         new THREE.Vector3(25, 30, -40),   //3
-
         new THREE.Vector3(25, 45, -70),   //4
-        new THREE.Vector3(25, 15, -70),   //5
 
-        new THREE.Vector3(-25, 30, -20),  //6
+        new THREE.Vector3(25, 15, -70),   //5 - bottom left/right
 
+        //Left
+        new THREE.Vector3(-25, 30, -40),  //6
         new THREE.Vector3(-25, 45, -70),  //7
-        new THREE.Vector3(-25, 15, -70)   //8
+
+        new THREE.Vector3(-25, 15, -70)   //8 - bottom left/right
     ];
 
     for (let i = 0; i < 9; i++) { //adding physijs box mesh to an array
@@ -336,55 +341,65 @@ function deleteTargets() { //deletion of targets
 }
 
 function circleTargetsAnimation() {
-    realDuckModelArray[0].rotation.x += 0.1;
+
+    //Centre ducks
+
+    realDuckModelArray[0].rotation.y += 0.1;
     realDuckModelArray[0].position.x = 20 * Math.cos(3 * degrees / ((180 / Math.PI)));
-    realDuckModelArray[0].position.y = 20 * Math.sin(3 * degrees / ((180 / Math.PI))) + 30;
-    // console.log('x:' + realDuckModelArray[0].position.x + '\ny:' + realDuckModelArray[0].position.y);
+    realDuckModelArray[0].position.y = -20 * Math.sin( 3 * degrees / ((180 / Math.PI))) + 30;
 
-    realDuckModelArray[3].rotation.x += 0.1;
-    realDuckModelArray[3].position.x = 20 * Math.cos(3 * degrees / ((180 / Math.PI)));
-    realDuckModelArray[3].position.y = 20 * Math.sin(3 * degrees / ((180 / Math.PI))) + 30;
-    // console.log('x:' + realDuckModelArray[3].position.x + '\ny:' + realDuckModelArray[3].position.y);
+    realDuckModelArray[1].rotation.y -= 0.1;
+    realDuckModelArray[1].position.x = -20 * Math.cos(3 * degrees / ((180 / Math.PI)));
+    realDuckModelArray[1].position.y = -20 * Math.sin(3 * degrees / ((180 / Math.PI))) + 30;
 
-    realDuckModelArray[6].rotation.x += 0.1;
-    realDuckModelArray[6].position.x = 20 * Math.cos(3 * degrees / ((180 / Math.PI)));
-    realDuckModelArray[6].position.y = 20 * Math.sin(3 * degrees / ((180 / Math.PI))) + 30;
-    // console.log('x:' + realDuckModelArray[6].position.x + '\ny:' + realDuckModelArray[6].position.y);
 
-    ////top animations
-    realDuckModelArray[1].rotation.x += 0.1;
-    realDuckModelArray[1].position.x = -20 * Math.cos(1 * degrees / ((180 / Math.PI)));
-    realDuckModelArray[1].position.z = -20 * Math.sin(1 * degrees / ((180 / Math.PI))) + 40;
-    // console.log('x:' + realDuckModelArray[1].position.x + '\ny:' + realDuckModelArray[1].position.y);
+    //Right ducks
 
-    realDuckModelArray[4].rotation.x += 0.1;
-    realDuckModelArray[4].position.x = -20 * Math.cos(1 * degrees / ((180 / Math.PI)));
-    realDuckModelArray[4].position.z = -20 * Math.sin(1 * degrees / ((180 / Math.PI))) - 40;
-    // console.log('x:' + realDuckModelArray[1].position.x + '\ny:' + realDuckModelArray[1].position.y);
+    realDuckModelArray[3].rotation.y -= 0.1;
+    realDuckModelArray[3].position.x = 20 * Math.cos(2 * degrees / ((180 / Math.PI))) + 5;
+    realDuckModelArray[3].position.y = -20 * Math.sin(2 * degrees / ((180 / Math.PI))) + 40;
+    realDuckModelArray[3].position.z = -20 * Math.sin(2 * degrees / ((180 / Math.PI))) - 30;
 
-    realDuckModelArray[7].rotation.x += 0.1;
-    realDuckModelArray[7].position.x = -20 * Math.cos(1 * degrees / ((180 / Math.PI)));
-    realDuckModelArray[7].position.z = -20 * Math.sin(1 * degrees / ((180 / Math.PI))) - 70;
-    // console.log('x:' + realDuckModelArray[1].position.x + '\ny:' + realDuckModelArray[1].position.y);
+    realDuckModelArray[4].rotation.y -= 0.1;
+    realDuckModelArray[4].position.x = 20 * Math.cos(2 * degrees / ((180 / Math.PI))) + 20 ;
+    realDuckModelArray[4].position.y = -20 * Math.sin(2 * degrees / ((180 / Math.PI))) + 30;
+    realDuckModelArray[4].position.z = -20 * Math.sin(2 * degrees / ((180 / Math.PI))) + 30;
 
-    realDuckModelArray[2].rotation.x+=0.05;
+
+    //Left ducks
+
+    realDuckModelArray[6].rotation.y += 0.1;
+    realDuckModelArray[6].position.x = -20 * Math.cos(2 * degrees / ((180 / Math.PI))) - 5;
+    realDuckModelArray[6].position.y = -20 * Math.sin(2 * degrees / ((180 / Math.PI))) + 40;
+    realDuckModelArray[6].position.z = -20 * Math.sin(2 * degrees / ((180 / Math.PI))) - 30;
+
+
+    realDuckModelArray[7].rotation.y += 0.1;
+    realDuckModelArray[7].position.x = -20 * Math.cos(2 * degrees / ((180 / Math.PI))) - 20;
+    realDuckModelArray[7].position.y = -20 * Math.sin(2 * degrees / ((180 / Math.PI))) + 30;
+    realDuckModelArray[7].position.z = -20 * Math.sin(2 * degrees / ((180 / Math.PI))) + 30;
+
+
+
+    realDuckModelArray[2].rotation.z+=0.05;
+
 }
 
 
 function moveBackTargetsAnimation() {
     //index 5 & 8
     realDuckModelArray[5].position.z -= 3.5;
-    realDuckModelArray[5].rotation.z -= 0.5;
+    realDuckModelArray[5].rotation.z -= 0.1;
     realDuckModelArray[8].position.z -= 3.5;
-    realDuckModelArray[8].rotation.z += 0.5;
+    realDuckModelArray[8].rotation.z += 0.1;
 }
 
 function moveForwardTargetsAnimation() {
     //index 5 & 8
     realDuckModelArray[5].position.z += 3.5;
-    realDuckModelArray[5].rotation.z -= 0.5;
+    realDuckModelArray[5].rotation.z -= 0.1;
     realDuckModelArray[8].position.z += 3.5;
-    realDuckModelArray[8].rotation.z += 0.5;
+    realDuckModelArray[8].rotation.z += 0.1;
 }
 
 function moveLeftTargetsAnimation() {

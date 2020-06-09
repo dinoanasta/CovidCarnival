@@ -91,7 +91,7 @@
 		<script>
 			function init() {
 				renderer = new THREE.WebGLRenderer({ antialias: true }); //disabling antialias to debug on my machine because its kak slow :/
-				// renderer.setClearColor(0x00a0a0);
+				renderer.setClearColor(0xFFFFFF);
 				renderer.setPixelRatio(window.devicePixelRatio);
 				renderer.setSize(window.innerWidth, window.innerHeight);
 				document.body.appendChild(renderer.domElement);

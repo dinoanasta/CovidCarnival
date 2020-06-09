@@ -49,21 +49,32 @@ function setupScene(){
     camera.position.set(0, 0, -250);
 
     camLight = new THREE.DirectionalLight();
-    camLight.position.set(-100, 100, 1);
 
     camera.add(camLight);
     scene.add(camera);
 
-    //Orbit controls
-    controls = new THREE.OrbitControls(camera, renderer.domElement);
-    controls.enableDamping = true;
-    // controls.enableZoom = true;
-    // controls.enableRotate = true;
-    // controls.mouseButtons = {
-    //     MIDDLE: THREE.MOUSE.DOLLY,
-    //     RIGHT: THREE.MOUSE.ROTATE,
-    //     LEFT: THREE.MOUSE.PAN
-    // }
+    // //Orbit controls
+    // controls = new THREE.OrbitControls(camera, renderer.domElement);
+    // controls.enableDamping = true;
+    // controls.enabled = true;
+    // // controls.enableZoom = true;
+    // // controls.enableRotate = true;
+    // // controls.mouseButtons = {
+    // //     MIDDLE: THREE.MOUSE.DOLLY,
+    // //     RIGHT: THREE.MOUSE.ROTATE,
+    // //     LEFT: THREE.MOUSE.PAN
+    // // }
+
+    controls = new THREE.OrbitControls(camera,renderer.domElement);
+    // controls.maxDistance = 2000;
+    // controls.minDistance = 500;
+    controls.minPolarAngle = 0;
+    controls.maxPolarAngle = 15.9*Math.PI/32;
+    controls.mouseButtons = {
+        MIDDLE: THREE.MOUSE.DOLLY,
+        RIGHT: THREE.MOUSE.ROTATE,
+        LEFT: THREE.MOUSE.PAN
+    }
 
     //Skybox
     const materialArray = [];
@@ -147,7 +158,7 @@ function gameOver(){
 function setupEventHandlers() {
     window.addEventListener('keydown', handleKeyDown, false);
     window.addEventListener('keyup', handleKeyUp, false);
-    window.addEventListener('mousemove', onMouseMove, false);
+    window.addEventListener('mousedown', onMouseDown, false);
     window.addEventListener('resize', onWindowResize, false);
 
     document.getElementById("playButton").onclick = startPlaying;
@@ -159,7 +170,7 @@ function onWindowResize() {
     renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
-function onMouseMove(event) {
+function onMouseDown(event) {
     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
     mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
 }
@@ -220,8 +231,8 @@ function render() {
     skybox.rotation.z += 0.1;
     frameNumber++;
 
-    requestAnimationFrame(render);
     scene.simulate();
+    requestAnimationFrame(render);
     controls.update();
     renderer.render(scene, camera);
 };

@@ -180,7 +180,6 @@ function addBonusStall(){
 }
 
 function addPrize1() {
-
     loader.load("../Models/ufo/scene.gltf", function (object) {
         let prize2 = object.scene.children[0];
         // matBall.encoding = THREE.sRGBEncoding;
@@ -193,15 +192,12 @@ function addPrize1() {
 
         //prize2.material.envmap = new THREE.MeshBasicMaterial( {envMap: sphereCamera2.renderTarget.texture} );
         prize2.scale.set(0.35, 0.35, 0.35);
-        prize2.position.set(0, 240, 0);
+        prize2.position.set(200, 30, 0);
         bonusStall.add(prize2);
-
     });
-
 }
 
 function addPrize2() {
-
     loader.load("../Models/plush/scene.gltf", function (object) {
         let prize2 = object.scene.children[0];
         // matBall.encoding = THREE.sRGBEncoding;
@@ -236,8 +232,7 @@ function addPrize3() {
         //prize2.material.envmap = new THREE.MeshBasicMaterial( {envMap: sphereCamera2.renderTarget.texture} );
         prize2.rotation.x = -Math.PI;
         prize2.scale.set(40, 40, 40);
-        prize2.position.set(200, 0, 0);
-
+        prize2.position.set(0, 240, 0);
         bonusStall.add(prize2);
 
     });
