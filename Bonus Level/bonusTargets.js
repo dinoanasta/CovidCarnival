@@ -1,5 +1,5 @@
 function createTargets() {
-// var bonusScore=0;
+var bonusScore=0;
 //Actual target models
     loader.load('../Models/glowingmushroom/scene.gltf', function (gltf) {
         duck = gltf.scene.children[0];
@@ -77,16 +77,16 @@ function createTargets() {
                 physicsTargetsArray[i].position.z = physicsTargetsArray[i].position.z - 600;
                 duckArray[i].position.z = duckArray[i].position.z - 600;
                 physicsTargetsArray[i].__dirtyPosition = true;
-                // other_object.__dirtyPosition=true;
-                // scene.remove(other_object);
-                // document.getElementById('scoreValue').innerHTML=bonusScore+1;
+                other_object.__dirtyPosition=true;
+                scene.remove(other_object);
+                document.getElementById('scoreValue').innerHTML=bonusScore+1;
             } else if (physicsTargetsArray[i].position.z < 0) {
                 physicsTargetsArray[i].position.z = physicsTargetsArray[i].position.z - 600 * -1;
                 duckArray[i].position.z = duckArray[i].position.z - 600 * -1;
                 physicsTargetsArray[i].__dirtyPosition = true;
-                // other_object.__dirtyPosition=true;
-                // scene.remove(other_object);
-                // document.getElementById('scoreValue').innerHTML=bonusScore+1;
+                other_object.__dirtyPosition=true;
+                scene.remove(other_object);
+                document.getElementById('scoreValue').innerHTML=bonusScore+1;
             }
             ducksKilled++;
             scene.remove(bullet);
