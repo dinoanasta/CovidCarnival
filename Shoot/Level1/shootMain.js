@@ -324,6 +324,22 @@ function render() {
     cubeMap.rotation.y -= 0.005;
     cubeMap.rotation.z += 0.005;
 
+    if(pillplay) { //Pill animation occurs
+        //console.log("added tha pill");
+        //Plays pill animation for 500 frames
+        if (pillFrame >= 0 && pillFrame <= 450) {
+        pill.rotation.y += 0.015;
+        pill.rotation.x += 0.015;
+        pill.position.y -= 0.12;
+        if(pillFrame == 390) { //Plays crunch sound at frame 495
+            hitSound = document.getElementById("boom");
+            hitSound.play();
+            scene.remove(pill);
+        }
+        pillFrame+=1;
+    }
+    }
+
     scene.simulate();
     //renderer.render(scene, camera);
 

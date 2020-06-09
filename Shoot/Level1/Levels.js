@@ -155,33 +155,67 @@ function decideOutcome(){
             prizesString = prizesString + "," + "1";
             document.getElementById("LevelPassedHUD").style.visibility = 'visible';
             document.getElementById("LevelPassedText").innerHTML = "You win level 1 ! <br> Proceed to level 2?";
+
             nextLevel = "2";
         }else if(level == "2"){
             prizesString = prizesString + "," + "2";
             document.getElementById("LevelPassedHUD").style.visibility = 'visible';
             document.getElementById("LevelPassedText").innerHTML = "You win level 2 ! <br> Proceed to level 3?";
             nextLevel = "3";
-        }else if(level == "3"){
+        }else if(level == "3") {
             prizesString = prizesString + "," + "3";
-            //Animation Timer:
-            setTimeout(function () {
-                setInterval(function () {
-                    //Animation and Mixer Code Goes Here
-                    animationAction.play();
-                    let delta = clock.getDelta();
-                    mixers[0].update(delta);
-                    console.log("playing");
-                },0);
-            },200);
+            let prizesArr = prizesString.split(",");
 
-            //Wait 5s while animation plays before showing HUD
-            setTimeout(function () {
-                document.getElementById("proceedButton").style.visibility = 'hidden';
-                document.getElementById("LevelPassedText").innerHTML = "Final score: " + totalScore + "<br>You win ! <br> Return to main menu?";
-                document.getElementById("LevelPassedHUD").style.visibility = 'visible';
+            if (prizesArr.length == 4) {
 
-            },5000);
+                pill.position.y = 70;
+                pill.position.z = 80;
+                scene.add(pill);
+                pillplay = true;
 
+                //8 second delay before dancing animation occurs
+                setTimeout(function () {
+                    setInterval(function () {
+                        //Animation and Mixer Code Goes Here
+                        animationAction.play();
+                        let delta = clock.getDelta();
+                        mixers[0].update(delta);
+                        console.log("playing");
+                    }, 0);
+                }, 8000);
+
+                //14 second delay to allow pill to drop and animation to play then player gets taken to bonus level
+                setTimeout(function () {
+                    prizesArr = prizesString.split(",");
+                    if (prizesArr.length == 2) {
+                        window.location.href = "../../Bonus Level/bonus.html";
+                    }
+                }, 14000);
+
+
+            } else {
+
+                //Animation Timer:
+                setTimeout(function () {
+                    setInterval(function () {
+                        //Animation and Mixer Code Goes Here
+                        animationAction.play();
+                        let delta = clock.getDelta();
+                        mixers[0].update(delta);
+                        console.log("playing");
+                    }, 0);
+                }, 200);
+
+
+                //Wait 5s while animation plays before showing HUD
+                setTimeout(function () {
+                    document.getElementById("proceedButton").style.visibility = 'hidden';
+                    document.getElementById("LevelPassedText").innerHTML = "Final score: " + totalScore + "<br>You win ! <br> Return to main menu?";
+                    document.getElementById("LevelPassedHUD").style.visibility = 'visible';
+
+                }, 5000);
+
+            }
         }
 
         console.log(prizesString);

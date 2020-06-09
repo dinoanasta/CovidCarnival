@@ -105,6 +105,7 @@ function setupPrizes(){
 
     //Code for adding the prizes to the scene
     //local storage gets the prizesString from local storage
+
     let prizesEnv = localStorage.getItem('prizes');
     // console.log(prizesEnv);
     let prizeArr = prizesEnv.split(","); //splits it into an array

@@ -97,3 +97,19 @@ let mapWidth = window.innerWidth/5, mapHeight = window.innerHeight/5;
 
 //Prizes
 let prizesString = "0";
+
+//Pill
+let pill = new THREE.Object3D();
+let pillplay = false;
+let pillFrame = 0;
+var g=new THREE.SphereGeometry(0.1,1,1);
+var m = new THREE.MeshBasicMaterial();
+var sp = new Physijs.SphereMesh(g,m);
+pill.add(sp);
+loader.load("../../Models/capsule/scene.gltf", function (object) {
+    let pillNode = object.scene.children[0];
+    pillNode.scale.set(2,2,2);
+    pill.add(pillNode);
+    //scene.add(pill);
+    console.log("Pill added")
+});;
