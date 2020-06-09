@@ -4,7 +4,6 @@
 		<meta charset="utf-8">
 		<title>BONUS LEVEL</title>
 
-
 		<link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
 			  integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" rel="stylesheet">
 		<link href="bonus.css" rel="stylesheet">
@@ -19,7 +18,7 @@
 		<div id = "preGameHUD">
 			<!--           How to play-->
 
-			<h1>BONUS LEVEL</h1>
+			<h1>WELCOME TO THE BONUS LEVEL</h1>
 			<br>
 			<br>
 			<br>
@@ -40,7 +39,6 @@
 				Hit as many targets as possible before the time runs out.<br>
 			</p>
 
-			<br>
 			<br>
 			<br>
 
@@ -70,34 +68,37 @@
 
 		</div>
 
-		<div class="outcomeHUD stats" id="LevelFailedHUD" style="visibility: hidden">
+		<div id="postGameHUD" style="visibility: hidden">
+
+			<h1 id="congrats">Congratulations ! </h1>
+
+			<br>
+			<br>
+
 			<!--        Game Over Text-->
-			<h1 class="outcomeText" id="LevelFailedText">You lose !<br> Restart ?</h1>
+			<h1 id="gameOverText"></h1>
 
 			<br>
 			<br>
 
 			<!--        Buttons href = "ShootingGame.html" -->
-			<a>
-				<button class=" button" id="restartButton" onclick="resetGame()">Restart</button>
-			</a>
-			<a href="../../Circus%20Environment/Environment.html">
-				<button class="button" id="mainMenuButton">Main Menu</button>
+			<a href="../Circus%20Environment/Environment.html">
+				<button class="button" id="mainMenuButton">RETURN TO REALITY</button>
 			</a>
 
 		</div>
 
 		<script>
 			function init() {
-				renderer = new THREE.WebGLRenderer({ antialias: false }); //disabling antialias to debug on my machine because its kak slow :/
-				renderer.setClearColor(0x00a0a0);
+				renderer = new THREE.WebGLRenderer({ antialias: true }); //disabling antialias to debug on my machine because its kak slow :/
+				// renderer.setClearColor(0x00a0a0);
 				renderer.setPixelRatio(window.devicePixelRatio);
 				renderer.setSize(window.innerWidth, window.innerHeight);
-				renderer.autoClear = false;
 				document.body.appendChild(renderer.domElement);
 
-				setupEventHandlers();
 				setupScene();
+
+				setupEventHandlers();
 				createTargets();
 
 				render();

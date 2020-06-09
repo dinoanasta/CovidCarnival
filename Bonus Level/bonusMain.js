@@ -1,7 +1,7 @@
 Physijs.scripts.worker = '../js/physijs_worker.js';
-// Physijs.scripts.ammo = '../js/ammo.js';
+Physijs.scripts.ammo = '../js/ammo.js';
 
-var initScene, render, renderer, scene, camera, box, crosshair1, crosshair2, bullet, controls, newBullet, physicsTargets;
+var render, renderer, scene, camera, skybox, crosshair1, crosshair2, bullet, controls, newBullet, physicsTargets;
 var camLight;  // A light shining from the direction of the camera; moves with the camera.
 
 var points = 0;
@@ -34,6 +34,7 @@ var coordinates = [
 let timeLeft;
 let playing;
 let countdown;
+let totalScore = 0;
 
 function setupScene(){
     scene = new Physijs.Scene;
@@ -64,7 +65,7 @@ function setupScene(){
     //     LEFT: THREE.MOUSE.PAN
     // }
 
-    //Cubemap
+    //Skybox
     const materialArray = [];
     const texture_ft = new THREE.TextureLoader().load('../Resources/Cubemaps/bonus1/right.png');
     const texture_bk = new THREE.TextureLoader().load('../Resources/Cubemaps/bonus1/left.png');
@@ -82,13 +83,12 @@ function setupScene(){
         materialArray[i].side = THREE.BackSide;
     }
 
-    box = new THREE.Mesh(
+    skybox = new THREE.Mesh(
         new THREE.BoxGeometry(1000, 1000, 1000),
         materialArray,
         0
     );
-    scene.add(box);
-
+    scene.add(skybox);
 
     //Crosshair
     crosshair1 = new THREE.Mesh(
@@ -111,36 +111,43 @@ function startPlaying(){
     document.getElementById("preGameHUD").style.visibility = 'hidden';
 
     playing = true;
+    controls.update();
 
     setupTimer();
 }
 
 function setupTimer(){
     //Timer
-    let length = 60;
+    let length = 5;
 
     document.getElementById("timeValue").textContent = length;
 
-    if(playing){
-        setTimeout( function(){
-                timeLeft = length;
-                countdown = setInterval(function() {
-                    timeLeft--;
-                    document.getElementById("timeValue").textContent = timeLeft;
-                    if (timeLeft <= 0){
-                        clearInterval(countdown);
-                    }
-                },1000);
-            },
-            1000
-        );
-    }
+    setTimeout( function(){
+            timeLeft = length;
+            countdown = setInterval(function() {
+                timeLeft--;
+                document.getElementById("timeValue").textContent = timeLeft;
+                if (timeLeft <= 0){
+                    clearInterval(countdown);
+                    gameOver();
+                }
+            },1000);
+        },
+        1000
+    );
+}
+
+function gameOver(){
+    document.getElementById("GameHUD").style.visibility = 'hidden';
+    document.getElementById("postGameHUD").style.visibility = 'visible';
+
+    document.getElementById("gameOverText").textContent = 'Final score: ' + totalScore;
 }
 
 function setupEventHandlers() {
     window.addEventListener('keydown', handleKeyDown, false);
     window.addEventListener('keyup', handleKeyUp, false);
-    // window.addEventListener('mousemove', onMouseMove, false);
+    window.addEventListener('mousemove', onMouseMove, false);
     window.addEventListener('resize', onWindowResize, false);
 
     document.getElementById("playButton").onclick = startPlaying;
@@ -149,26 +156,23 @@ function setupEventHandlers() {
 function onWindowResize() {
     camera.aspect = window.innerWidth / window.innerHeight;
     camera.updateProjectionMatrix();
-    mapWidth = window.innerWidth/5;
-    mapHeight = window.innerHeight/5;
     renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
-//
-// function onMouseMove(event) {
-//     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
-//     mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
-// }
+function onMouseMove(event) {
+    mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
+    mouse.y = - (event.clientY / window.innerHeight) * 2 + 1;
+}
 
 function handleKeyUp(event){
-    if (event.code === 'Space') {
+    if (event.code == 'Space') {
         //console.log('Space release')
         //scene.remove(bullet);
     }
 }
 
 function handleKeyDown(event){
-    if (event.code === 'Space') {
+    if (event.code == 'Space') {
         //console.log('Space in');
 
         mouseCoords.set(
@@ -200,7 +204,7 @@ function handleKeyDown(event){
 
 function render() {
     // render the scene
-    raycaster.setFromCamera(mouse, camera);
+    raycaster.setFromCamera(mouseCoords, camera);
 
     crosshair1.rotation.z += 0.05;
     crosshair1.rotation.x += 0.05;
@@ -211,9 +215,9 @@ function render() {
         duckArray[i].rotation.x += 0.1;
     }
 
-    box.rotation.x -= 0.01;
-    box.rotation.y += 0.05;
-    box.rotation.z += 0.1;
+    skybox.rotation.x -= 0.01;
+    skybox.rotation.y += 0.05;
+    skybox.rotation.z += 0.1;
     frameNumber++;
 
     requestAnimationFrame(render);

@@ -2843,602 +2843,602 @@
       "channels": [
         {
           "sampler": 0,
-          "target": {
+          "crosshair1": {
             "node": 14,
             "path": "translation"
           }
         },
         {
           "sampler": 1,
-          "target": {
+          "crosshair1": {
             "node": 14,
             "path": "rotation"
           }
         },
         {
           "sampler": 2,
-          "target": {
+          "crosshair1": {
             "node": 13,
             "path": "translation"
           }
         },
         {
           "sampler": 3,
-          "target": {
+          "crosshair1": {
             "node": 13,
             "path": "rotation"
           }
         },
         {
           "sampler": 4,
-          "target": {
+          "crosshair1": {
             "node": 22,
             "path": "rotation"
           }
         },
         {
           "sampler": 5,
-          "target": {
+          "crosshair1": {
             "node": 21,
             "path": "rotation"
           }
         },
         {
           "sampler": 6,
-          "target": {
+          "crosshair1": {
             "node": 20,
             "path": "rotation"
           }
         },
         {
           "sampler": 7,
-          "target": {
+          "crosshair1": {
             "node": 26,
             "path": "translation"
           }
         },
         {
           "sampler": 8,
-          "target": {
+          "crosshair1": {
             "node": 26,
             "path": "rotation"
           }
         },
         {
           "sampler": 9,
-          "target": {
+          "crosshair1": {
             "node": 25,
             "path": "translation"
           }
         },
         {
           "sampler": 10,
-          "target": {
+          "crosshair1": {
             "node": 25,
             "path": "rotation"
           }
         },
         {
           "sampler": 11,
-          "target": {
+          "crosshair1": {
             "node": 24,
             "path": "rotation"
           }
         },
         {
           "sampler": 12,
-          "target": {
+          "crosshair1": {
             "node": 30,
             "path": "translation"
           }
         },
         {
           "sampler": 13,
-          "target": {
+          "crosshair1": {
             "node": 30,
             "path": "rotation"
           }
         },
         {
           "sampler": 14,
-          "target": {
+          "crosshair1": {
             "node": 29,
             "path": "translation"
           }
         },
         {
           "sampler": 15,
-          "target": {
+          "crosshair1": {
             "node": 29,
             "path": "rotation"
           }
         },
         {
           "sampler": 16,
-          "target": {
+          "crosshair1": {
             "node": 28,
             "path": "rotation"
           }
         },
         {
           "sampler": 17,
-          "target": {
+          "crosshair1": {
             "node": 34,
             "path": "translation"
           }
         },
         {
           "sampler": 18,
-          "target": {
+          "crosshair1": {
             "node": 34,
             "path": "rotation"
           }
         },
         {
           "sampler": 19,
-          "target": {
+          "crosshair1": {
             "node": 33,
             "path": "translation"
           }
         },
         {
           "sampler": 20,
-          "target": {
+          "crosshair1": {
             "node": 33,
             "path": "rotation"
           }
         },
         {
           "sampler": 21,
-          "target": {
+          "crosshair1": {
             "node": 32,
             "path": "rotation"
           }
         },
         {
           "sampler": 22,
-          "target": {
+          "crosshair1": {
             "node": 38,
             "path": "translation"
           }
         },
         {
           "sampler": 23,
-          "target": {
+          "crosshair1": {
             "node": 38,
             "path": "rotation"
           }
         },
         {
           "sampler": 24,
-          "target": {
+          "crosshair1": {
             "node": 37,
             "path": "translation"
           }
         },
         {
           "sampler": 25,
-          "target": {
+          "crosshair1": {
             "node": 37,
             "path": "rotation"
           }
         },
         {
           "sampler": 26,
-          "target": {
+          "crosshair1": {
             "node": 36,
             "path": "rotation"
           }
         },
         {
           "sampler": 27,
-          "target": {
+          "crosshair1": {
             "node": 19,
             "path": "translation"
           }
         },
         {
           "sampler": 28,
-          "target": {
+          "crosshair1": {
             "node": 19,
             "path": "rotation"
           }
         },
         {
           "sampler": 29,
-          "target": {
+          "crosshair1": {
             "node": 18,
             "path": "translation"
           }
         },
         {
           "sampler": 30,
-          "target": {
+          "crosshair1": {
             "node": 18,
             "path": "rotation"
           }
         },
         {
           "sampler": 31,
-          "target": {
+          "crosshair1": {
             "node": 17,
             "path": "translation"
           }
         },
         {
           "sampler": 32,
-          "target": {
+          "crosshair1": {
             "node": 17,
             "path": "rotation"
           }
         },
         {
           "sampler": 33,
-          "target": {
+          "crosshair1": {
             "node": 16,
             "path": "rotation"
           }
         },
         {
           "sampler": 34,
-          "target": {
+          "crosshair1": {
             "node": 46,
             "path": "rotation"
           }
         },
         {
           "sampler": 35,
-          "target": {
+          "crosshair1": {
             "node": 45,
             "path": "rotation"
           }
         },
         {
           "sampler": 36,
-          "target": {
+          "crosshair1": {
             "node": 44,
             "path": "rotation"
           }
         },
         {
           "sampler": 37,
-          "target": {
+          "crosshair1": {
             "node": 50,
             "path": "translation"
           }
         },
         {
           "sampler": 38,
-          "target": {
+          "crosshair1": {
             "node": 50,
             "path": "rotation"
           }
         },
         {
           "sampler": 39,
-          "target": {
+          "crosshair1": {
             "node": 49,
             "path": "translation"
           }
         },
         {
           "sampler": 40,
-          "target": {
+          "crosshair1": {
             "node": 49,
             "path": "rotation"
           }
         },
         {
           "sampler": 41,
-          "target": {
+          "crosshair1": {
             "node": 48,
             "path": "rotation"
           }
         },
         {
           "sampler": 42,
-          "target": {
+          "crosshair1": {
             "node": 54,
             "path": "translation"
           }
         },
         {
           "sampler": 43,
-          "target": {
+          "crosshair1": {
             "node": 54,
             "path": "rotation"
           }
         },
         {
           "sampler": 44,
-          "target": {
+          "crosshair1": {
             "node": 53,
             "path": "translation"
           }
         },
         {
           "sampler": 45,
-          "target": {
+          "crosshair1": {
             "node": 53,
             "path": "rotation"
           }
         },
         {
           "sampler": 46,
-          "target": {
+          "crosshair1": {
             "node": 52,
             "path": "rotation"
           }
         },
         {
           "sampler": 47,
-          "target": {
+          "crosshair1": {
             "node": 58,
             "path": "translation"
           }
         },
         {
           "sampler": 48,
-          "target": {
+          "crosshair1": {
             "node": 58,
             "path": "rotation"
           }
         },
         {
           "sampler": 49,
-          "target": {
+          "crosshair1": {
             "node": 57,
             "path": "translation"
           }
         },
         {
           "sampler": 50,
-          "target": {
+          "crosshair1": {
             "node": 57,
             "path": "rotation"
           }
         },
         {
           "sampler": 51,
-          "target": {
+          "crosshair1": {
             "node": 56,
             "path": "rotation"
           }
         },
         {
           "sampler": 52,
-          "target": {
+          "crosshair1": {
             "node": 62,
             "path": "translation"
           }
         },
         {
           "sampler": 53,
-          "target": {
+          "crosshair1": {
             "node": 62,
             "path": "rotation"
           }
         },
         {
           "sampler": 54,
-          "target": {
+          "crosshair1": {
             "node": 61,
             "path": "translation"
           }
         },
         {
           "sampler": 55,
-          "target": {
+          "crosshair1": {
             "node": 61,
             "path": "rotation"
           }
         },
         {
           "sampler": 56,
-          "target": {
+          "crosshair1": {
             "node": 60,
             "path": "rotation"
           }
         },
         {
           "sampler": 57,
-          "target": {
+          "crosshair1": {
             "node": 43,
             "path": "translation"
           }
         },
         {
           "sampler": 58,
-          "target": {
+          "crosshair1": {
             "node": 43,
             "path": "rotation"
           }
         },
         {
           "sampler": 59,
-          "target": {
+          "crosshair1": {
             "node": 42,
             "path": "translation"
           }
         },
         {
           "sampler": 60,
-          "target": {
+          "crosshair1": {
             "node": 42,
             "path": "rotation"
           }
         },
         {
           "sampler": 61,
-          "target": {
+          "crosshair1": {
             "node": 41,
             "path": "translation"
           }
         },
         {
           "sampler": 62,
-          "target": {
+          "crosshair1": {
             "node": 41,
             "path": "rotation"
           }
         },
         {
           "sampler": 63,
-          "target": {
+          "crosshair1": {
             "node": 40,
             "path": "rotation"
           }
         },
         {
           "sampler": 64,
-          "target": {
+          "crosshair1": {
             "node": 12,
             "path": "translation"
           }
         },
         {
           "sampler": 65,
-          "target": {
+          "crosshair1": {
             "node": 12,
             "path": "rotation"
           }
         },
         {
           "sampler": 66,
-          "target": {
+          "crosshair1": {
             "node": 11,
             "path": "translation"
           }
         },
         {
           "sampler": 67,
-          "target": {
+          "crosshair1": {
             "node": 11,
             "path": "rotation"
           }
         },
         {
           "sampler": 68,
-          "target": {
+          "crosshair1": {
             "node": 10,
             "path": "translation"
           }
         },
         {
           "sampler": 69,
-          "target": {
+          "crosshair1": {
             "node": 10,
             "path": "rotation"
           }
         },
         {
           "sampler": 70,
-          "target": {
+          "crosshair1": {
             "node": 67,
             "path": "translation"
           }
         },
         {
           "sampler": 71,
-          "target": {
+          "crosshair1": {
             "node": 67,
             "path": "rotation"
           }
         },
         {
           "sampler": 72,
-          "target": {
+          "crosshair1": {
             "node": 66,
             "path": "translation"
           }
         },
         {
           "sampler": 73,
-          "target": {
+          "crosshair1": {
             "node": 66,
             "path": "rotation"
           }
         },
         {
           "sampler": 74,
-          "target": {
+          "crosshair1": {
             "node": 65,
             "path": "translation"
           }
         },
         {
           "sampler": 75,
-          "target": {
+          "crosshair1": {
             "node": 65,
             "path": "rotation"
           }
         },
         {
           "sampler": 76,
-          "target": {
+          "crosshair1": {
             "node": 64,
             "path": "rotation"
           }
         },
         {
           "sampler": 77,
-          "target": {
+          "crosshair1": {
             "node": 72,
             "path": "translation"
           }
         },
         {
           "sampler": 78,
-          "target": {
+          "crosshair1": {
             "node": 72,
             "path": "rotation"
           }
         },
         {
           "sampler": 79,
-          "target": {
+          "crosshair1": {
             "node": 71,
             "path": "translation"
           }
         },
         {
           "sampler": 80,
-          "target": {
+          "crosshair1": {
             "node": 71,
             "path": "rotation"
           }
         },
         {
           "sampler": 81,
-          "target": {
+          "crosshair1": {
             "node": 70,
             "path": "translation"
           }
         },
         {
           "sampler": 82,
-          "target": {
+          "crosshair1": {
             "node": 70,
             "path": "rotation"
           }
         },
         {
           "sampler": 83,
-          "target": {
+          "crosshair1": {
             "node": 69,
             "path": "rotation"
           }
         },
         {
           "sampler": 84,
-          "target": {
+          "crosshair1": {
             "node": 9,
             "path": "translation"
           }
         },
         {
           "sampler": 85,
-          "target": {
+          "crosshair1": {
             "node": 9,
             "path": "rotation"
           }
@@ -3896,14 +3896,14 @@
       "byteOffset": 0,
       "byteStride": 8,
       "name": "shortBufferViews",
-      "target": 34962
+      "crosshair1": 34962
     },
     {
       "buffer": 0,
       "byteLength": 19248,
       "byteOffset": 26032,
       "name": "floatBufferViews",
-      "target": 34963
+      "crosshair1": 34963
     },
     {
       "buffer": 0,
@@ -3911,7 +3911,7 @@
       "byteOffset": 45280,
       "byteStride": 8,
       "name": "floatBufferViews",
-      "target": 34962
+      "crosshair1": 34962
     },
     {
       "buffer": 0,
@@ -3919,7 +3919,7 @@
       "byteOffset": 71312,
       "byteStride": 12,
       "name": "floatBufferViews",
-      "target": 34962
+      "crosshair1": 34962
     },
     {
       "buffer": 0,
@@ -3927,7 +3927,7 @@
       "byteOffset": 149408,
       "byteStride": 16,
       "name": "floatBufferViews",
-      "target": 34962
+      "crosshair1": 34962
     },
     {
       "buffer": 0,

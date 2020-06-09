@@ -73,7 +73,6 @@ function createTargets() {
 
     for (let i = 0; i < 9; i++) {
         physicsTargetsArray[i].addEventListener('collision', function (other_object, relative_velocity, relative_rotation, contact_normal) {
-            console.log("hello my friend")
             if (physicsTargetsArray[i].position.z > 0) {
                 physicsTargetsArray[i].position.z = physicsTargetsArray[i].position.z - 600;
                 duckArray[i].position.z = duckArray[i].position.z - 600;
@@ -90,6 +89,9 @@ function createTargets() {
                 // document.getElementById('scoreValue').innerHTML=bonusScore+1;
             }
             ducksKilled++;
+            scene.remove(bullet);
+            totalScore = ducksKilled * 1000;
+            document.getElementById("scoreValue").textContent = totalScore;
         });
     }
 
