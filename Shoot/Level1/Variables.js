@@ -47,7 +47,7 @@ let timeLeft;
 let totalScore = 0;
 
 //PointerLockControls
-let crosshair;
+let crosshair, crosshair1, crosshair2;
 let controls;
 var objects = [];
 var FPSraycaster;

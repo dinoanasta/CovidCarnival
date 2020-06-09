@@ -25,12 +25,12 @@
 
 body{
     cursor: none;
-    /*margin: 0;*/
+    margin: 0;
 }
 
-/*canvas {*/
-/*    display: block;*/
-/*}*/
+canvas {
+    display: block;
+}
 
 #preGameHUD{
     position: fixed;
