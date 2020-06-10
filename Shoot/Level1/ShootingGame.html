@@ -152,7 +152,7 @@
             renderer.setSize(window.innerWidth, window.innerHeight);
             //renderer.shadowMap.enabled = true; //disabling this option to debug on my machine because its kak slow :/
             //renderer.shadowMap.type = THREE.PCFSoftShadowMap; //disabling this option to debug on my machine because its kak slow :/
-            renderer.autoClear = false;
+            renderer.autoClear = false; // used for minimap , allows both cameras to be rendered
             // renderer.powerPreference = "high-performance";
             document.getElementById('viewport').appendChild(renderer.domElement);
 

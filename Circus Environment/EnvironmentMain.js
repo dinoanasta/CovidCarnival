@@ -29,7 +29,7 @@ var textureLoader = new THREE.TextureLoader();
 var loader = new THREE.GLTFLoader();
 var textLoader = new THREE.FontLoader();
 
-//Moon stall
+//Stalls
 let moonStall, moon, moonText;
 let stallHolder = new THREE.Group();
 let sphereCamera , sphereCamera2;
@@ -234,5 +234,5 @@ function animate () {
     requestAnimationFrame( animate );
     controls.update(); //Updates the orbit controls
     renderer.render( scene, camera ); //Renders the scene
-    sphereCamera.update( renderer, scene );
+    sphereCamera.update( renderer, scene );//updates reflection camera
 };

@@ -339,6 +339,7 @@ function render() {
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.render(scene, camera);
 
+    //minimap
     renderer.setViewport(window.innerWidth - mapWidth * 1.2, window.innerHeight - mapHeight * 3, mapWidth, mapHeight);
     renderer.render(scene, mapCamera);
 }

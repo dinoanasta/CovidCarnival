@@ -1,4 +1,7 @@
 function makeStall(){
+    //creates basic structure of play stall
+    //extra features are added in Stalls.js
+
     var texture = textureLoader.load('../Resources/Textures/Dino/neontexture1.jpg');
 
     var stall = makeWall2(texture);
@@ -27,6 +30,9 @@ function makeStall(){
 }
 
 function makeCreditsStall(){
+    //creates basic structure of credits stall
+    //extra features are added in Stalls.js
+
     var texture = textureLoader.load('../Resources/Textures/Dino/greenfabric.jpg');
 
     var stall = makeWall2(texture);
@@ -55,29 +61,13 @@ function makeCreditsStall(){
 }
 
 function makeBonusStall(){
+    //creates basic structure of bonus stall
+    //this stall is the prize podium
+    //has a reflective texture
+    //extra features are added in Stalls.js
+
+
     var texture = textureLoader.load('../Resources/Textures/Dino/tealtexture.jpg');
-
-
-    /*   var stall = makeWall2(texture);
-
-       var wall = makeWall(texture);
-       wall.position.x = 200;
-       wall.position.z = 150;
-       wall.rotation.y = Math.PI/2;
-
-       var wall2 = makeWall(texture);
-       wall2.position.x = -200;
-       wall2.position.z = 150;
-       wall2.rotation.y = Math.PI/2;
-
-       var roof = makeRoof(texture);
-       roof.position.y = 185;
-       roof.position.z = 100;
-       roof.rotation.y = Math.PI/4;
-
-       stall.add(wall);
-       stall.add(wall2);
-       stall.add(roof);*/
 
     var box1Geo = new THREE.BoxBufferGeometry(200,300,150);
     var box2Geo = new THREE.BoxBufferGeometry(200,200,150);
@@ -99,18 +89,15 @@ function makeBonusStall(){
     box3.position.y = -75;
     podium.add(box3);
 
-
-  /*  stall.add(box1);
-
-    return stall;*/
-
     return podium;
 }
 
 function miniGame(){
 
+    //creates a mini game that resembles the actual game
+    // displayed in play stall
+
     var geoWall1 = new THREE.BoxBufferGeometry(400,100,50);
-    // var geoWall2 = new THREE.BoxBufferGeometry(300,150,10);
     var matWall = new THREE.MeshLambertMaterial({color: 0xFFFFFF,
         map : textureLoader.load('../Resources/Textures/Dino/greenfluid2.jpg')});
 
@@ -177,6 +164,8 @@ function miniGame(){
 
 function makeRoof(texture){
 
+    //basic roof stucture of the stalls
+
     var geometry = new THREE.ConeGeometry(350,75,4);
     var material = new THREE.MeshBasicMaterial({ map : texture});
 
@@ -184,6 +173,8 @@ function makeRoof(texture){
 }
 
 function makeWall2(texture){
+
+    //basic back wall structure of the stalls
 
     var geoWall = new THREE.CubeGeometry(400,300,10);
     var matWall = new THREE.MeshBasicMaterial({ map : texture});
@@ -193,18 +184,13 @@ function makeWall2(texture){
 
 function makeWall(texture){
 
+    //basic side wall structure of the stalls
+
     var geoWall = new THREE.CubeGeometry(300,300,10);
     var matWall = new THREE.MeshBasicMaterial({ map : texture});
 
     return new THREE.Mesh(geoWall,matWall);
 }
 
-function credits(){
-
-    var geometry = new THREE.SphereBufferGeometry(200,75,75);
-    var material = new THREE.MeshBasicMaterial( {envMap: sphereCamera.renderTarget.texture} );
-
-    return new THREE.Mesh(geometry,material);
-}
 
 
