@@ -27,7 +27,7 @@ let cylinder1, cylinder2,cylinder3,cylinder4;
 //Loaders
 var textureLoader = new THREE.TextureLoader();
 var loader = new THREE.GLTFLoader();
-var textLoader = new THREE.FontLoader();
+var fontLoader = new THREE.FontLoader();
 
 //Stalls
 let moonStall, moon, moonText;
@@ -165,7 +165,6 @@ function updateFrame() {
     planet.rotation.y += 0.1;
 
     cubeMap.rotation.y += 0.001;
-    // covidCarnivalText.rotation.y += 0.5;
 
     // planet2.rotation.x += 0.06;
     // planet2.rotation.y += 0.06;
@@ -176,6 +175,8 @@ function updateFrame() {
 function animate () {
     frameNumber++;
     updateFrame();
+
+    // covidCarnivalText.rotation.y += 0.5;
 
     if (frameNumber >= 30) {
         frameNumber = 0;
@@ -229,7 +230,6 @@ function animate () {
 
 
     scene.simulate(); //Runs the scene
-    moon.rotation.y += 0.01; //Rotates the moon atop the Moon stall
 
     requestAnimationFrame( animate );
     controls.update(); //Updates the orbit controls

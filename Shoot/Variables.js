@@ -19,7 +19,7 @@ let animationAction;
 let clock = new THREE.Clock();
 
 //Levels
-let level = "3";
+let level = "1";
 let nextLevel;
 let ammoCount; //Num of balls
 let score = 0;

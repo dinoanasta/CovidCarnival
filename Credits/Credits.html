@@ -21,7 +21,11 @@
             renderer.setPixelRatio( window.devicePixelRatio);
             renderer.setSize(window.innerWidth,window.innerHeight);
             document.body.appendChild( renderer.domElement );
+
+            window.addEventListener('resize', onWindowResize, false);
+
             setupScene();
+            animate();
             //loadModels(); // loads all relevant models
            //window.addEventListener('resize', onWindowResize, false);
            // animate();

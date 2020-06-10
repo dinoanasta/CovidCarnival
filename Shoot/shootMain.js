@@ -295,17 +295,33 @@ function render() {
 
     //Pill animation occurs when player wins all 3 levels
     if(pillplay) {
-        //Plays pill animation for 500 frames
-        if (pillFrame >= 0 && pillFrame <= 450) {
-            pill.rotation.y += 0.015;
-            pill.rotation.x += 0.015;
-            pill.position.y -= 0.12;
-            if(pillFrame == 390) { //Plays crunch sound at frame 495
-                hitSound = document.getElementById("boom");
-                hitSound.play();
-                scene.remove(pill);
-            }
-            pillFrame+=1;
+        //Plays pill animation until its in the avatar
+        pill.rotation.y += 0.015;
+        pill.rotation.x += 0.015;
+        pill.position.y -= 0.20;
+        if(pill.position.y <= 15) { //Plays crunch sound
+            hitSound = document.getElementById("boom");
+            hitSound.play();
+            scene.remove(pill);
+            pillplay = false;
+
+            setInterval(function () {
+                //Animation and Mixer Code Goes Here
+                animationAction.play();
+                let delta = clock.getDelta();
+                mixers[0].update(delta);
+            }, 0);
+
+            //14 second delay to allow pill to drop and animation to play then player gets taken to bonus level
+            setTimeout(function () {
+                document.getElementById("proceedButton").style.visibility = 'hidden';
+                document.getElementById("LevelPassedText").innerHTML = "Final score: " + totalScore + "<br>You qualify for the <br> bonus level !";
+
+                document.getElementById("mainMenuButtonPassed").innerHTML = "BONUS LEVEL";
+                document.getElementById("mainMenuAnchor").href = "../Bonus Level/Bonus.html"
+
+                document.getElementById("LevelPassedHUD").style.visibility = 'visible';
+            }, 5000);
         }
     }
 

@@ -41,8 +41,8 @@ function setLevel(lvl) {
             sign = signs[Math.floor(Math.random() * 2)];
 
             //Level 2 game length, ammo count and goal
-            ammoCount = 10;
-            goal = 2;
+            ammoCount = 7;
+            goal = 3;
             gameLength = 30;
 
             //Level 2 materials
@@ -70,13 +70,15 @@ function setLevel(lvl) {
 
             break;
         case "3":
+            renderer.shadowMap.enabled = false; //disabling this o       tion to debug on my machine because its kak slow :/
+
             numLevel3++;
 
             sign = signs[Math.floor(Math.random() * 2)];
 
             //Level 3 game length, ammo count and goal
-            ammoCount = 10;
-            goal = 2;
+            ammoCount = 5;
+            goal = 3;
             gameLength = 30;
 
             //Level 3 materials
@@ -194,33 +196,13 @@ function decideOutcome(){
             let prizesArr = prizesString.split(",");
 
             if (prizesArr.length == 4) { //Qualified
+
                 //Add pill
                 pill.position.y = 70;
-                pill.position.z = 80;
+                pill.position.z = avatarPosition.z;
                 pill.position.x = avatarPosition.x;
                 scene.add(pill);
                 pillplay = true;
-
-                //8 second delay before dancing animation occurs
-                setTimeout(function () {
-                    setInterval(function () {
-                        //Animation and Mixer Code Goes Here
-                        animationAction.play();
-                        let delta = clock.getDelta();
-                        mixers[0].update(delta);
-                    }, 0);
-                }, 8000);
-
-                //14 second delay to allow pill to drop and animation to play then player gets taken to bonus level
-                setTimeout(function () {
-                    document.getElementById("proceedButton").style.visibility = 'hidden';
-                    document.getElementById("LevelPassedText").innerHTML = "Final score: " + totalScore + "<br>You qualify for the <br> bonus level !";
-
-                    document.getElementById("mainMenuButtonPassed").innerHTML = "BONUS LEVEL";
-                    document.getElementById("mainMenuAnchor").href = "../Bonus Level/Bonus.html"
-
-                    document.getElementById("LevelPassedHUD").style.visibility = 'visible';
-                }, 14000);
 
             } else { //Did not qualify
 

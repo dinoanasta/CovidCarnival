@@ -2,9 +2,9 @@ function createTargets() {
     duckBox = new Physijs.BoxMesh( //physijs mesh for collision detection
         new THREE.BoxGeometry(10, 10, 10),
         new THREE.MeshStandardMaterial({
-            opacity: 0.7,
+            opacity: 0,
             transparent: true,
-            color: "red"
+            // color: "red"
         }),
         0
     );

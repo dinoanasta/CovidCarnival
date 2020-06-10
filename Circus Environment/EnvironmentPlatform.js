@@ -229,16 +229,17 @@ function MakeText(){
             map: textureLoader.load('../Resources/Textures/Dino/redfoil.jpg'),
         });
 
+
         //Create 3D "Covid Carnival" text mesh
-        covidCarnivalText = new Physijs.Mesh(geoText,matText);
+        covidCarnivalText = new THREE.Mesh(geoText,matText);
 
         //scales and sets positions of text
-        covidCarnivalText.scale.set(2,2,2);
-        covidCarnivalText.position.x = -200;
-        covidCarnivalText.position.y = 400;
+        covidCarnivalText.scale.set(5,5,5);
+        covidCarnivalText.position.x = -500;
+        covidCarnivalText.position.y = 850;
         covidCarnivalText.position.z = 0;
 
-        world.add(covidCarnivalText); //adds text to world
+        scene.add(covidCarnivalText); //adds text to world
     })
 }
 
