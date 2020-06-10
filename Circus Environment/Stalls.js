@@ -106,6 +106,16 @@ function addCreditStall(){
 
     });
 
+    loader.load("../Models/robotUFO/scene.gltf", function (object) {
+        let globe = object.scene.children[0];
+
+        globe.scale.set(0.25, 0.25, 0.25);
+        globe.position.set(0,-100, 150);
+        creditStall.add(globe);
+    });
+
+
+
     creditStall.scale.set(1.2,1.2,1.2);
     creditStall.position.x = 600;
     creditStall.position.y = 200;
@@ -173,7 +183,7 @@ function addPrize1() {
         });
 
         prize1.scale.set(0.35, 0.35, 0.35);
-        prize1.position.set(200, 30, 0);
+        prize1.position.set(200, 80, 0);
         bonusStall.add(prize1);
     });
 }
@@ -208,7 +218,7 @@ function addPrize3() {
 
         prize3.rotation.x = -Math.PI;
         prize3.scale.set(40, 40, 40);
-        prize3.position.set(0, 240, 0);
+        prize3.position.set(0, 150, 0);
         bonusStall.add(prize3);
 
     });

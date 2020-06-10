@@ -1,0 +1,290 @@
+@font-face {
+    src: url("../Resources/Fonts/you-murderer/youmurdererbb_reg.ttf");
+    font-family: ym;
+}
+
+@font-face {
+    src: url("../Resources/Fonts/welcome-to-texas/WelcometoTexas.ttf");
+    font-family: texas;
+}
+
+@font-face {
+    src: url("../Resources/Fonts/carnivalee-freakshow/CarnevaleeFreakshow.ttf");
+    font-family: carnival;
+}
+
+@font-face {
+    src: url("../Resources/Fonts/vtc-karnival/VTC-Karnival-Fat.ttf");
+    font-family: karn;
+}
+
+@font-face {
+    src: url('https://fonts.googleapis.com/css?family=Nosifer&display=swap');
+    font-family: 'Nosifer', cursive;
+}
+
+body{
+    cursor: none;
+    margin: 0;
+}
+
+canvas {
+    display: block;
+}
+
+#preGameHUD{
+    position: fixed;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background-color: rgba(128,0,0,0.8);
+    user-select: none;
+    cursor: crosshair;
+}
+
+#preGameHUD>h1{
+    margin-top: 0;
+    margin-bottom: 0;
+    z-index: 1;
+    font-family: karn;
+    font-size: 14vmin;
+    max-height: 7vh;
+    color: #44d4d4;
+    display: inline-block;
+    -webkit-text-stroke: 1vmin black;;
+}
+
+#preGameHUD>h2{
+
+    margin-top: 0;
+    margin-bottom: 0;
+    z-index: 1;
+    font-family: karn;
+    font-size: 7vmin;
+    color: #44d4d4;
+    display: inline-block;
+    -webkit-text-stroke: 0.5vmin black;
+}
+
+#preGameHUD>p{
+    margin-top: 0;
+    margin-bottom: 0;
+    z-index: 1;
+    font-family: karn;
+    font-size: 4vmin;
+    color: #44d4d4;
+    display: inline-block;
+    -webkit-text-stroke: 0.2vmin black;
+}
+
+#preGameHUD>button{
+    float: top;
+    float: right;
+    z-index: 1;
+    font-family: karn;
+    font-size: 4vmin;
+    color: #44d4d4;
+    display: inline-block;
+    -webkit-text-stroke: 0.1vmin black;
+}
+
+
+
+#GameHUD{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    z-index: 1;
+    background-color: rgba(0,0,0,0);
+    visibility: visible;
+    user-select: none;
+}
+
+.HUDelement{
+    position: absolute;
+    text-align: center;
+    z-index: 1;
+    width: 20vw;
+    height: 20vh;
+    background-color: rgba(100,0,0,0.5);
+}
+
+.stats>h1{
+    font-family: karn;
+    color: #ff0000;
+    font-size: 7vmin;
+}
+
+.stats>button{
+    font-family: karn;
+    color: #ff0000;
+    font-size: 7vmin;
+}
+
+#centreLevel{
+    top:50%;
+    transform: translateY(-50%);
+    margin-left: 3vw;
+}
+#levelLabel {
+    display: inline-block;
+}
+
+#levelValue {
+    display: inline-block;
+}
+#goalLabel {
+    display: inline-block;
+}
+
+#goalValue {
+    display: inline-block;
+}
+
+#topLeftBallCount {
+    top: 0;
+    left: 0;
+    margin-top: 3vh;
+    margin-left: 3vw;
+}
+
+#ballCountLabel {
+    display: inline-block;
+}
+
+#ballCountValue {
+    display: inline-block;
+}
+
+#topRightWind {
+    top: 0;
+    right: 0;
+    margin-top: 3vh;
+    margin-right: 3vw;
+}
+
+#windLabel {
+    display: inline-block;
+}
+
+#windStrength {
+    display: inline-block;
+}
+
+#windIcon{
+    display: inline-block;
+    margin-top: 0.1vh;
+    height: 10vh;
+}
+
+#bottomLeftScore{
+    bottom: 0;
+    left: 0;
+    margin-bottom: 3vh;
+    margin-left: 3vw;
+}
+
+#scoreLabel {
+    display: inline-block;
+}
+
+#scoreValue{
+    display: inline-block;
+}
+
+#bottomRightTime {
+    bottom: 0;
+    right: 0;
+    margin-bottom: 3vh;
+    margin-right: 3vw;
+}
+
+#timeLabel {
+    display: inline-block;
+}
+
+#timeValue {
+    display: inline-block;
+}
+
+.neon{
+    font-family: karn;
+    position: fixed;
+    margin-top: 1vh;
+    width: 100vw;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 2vw;
+    font-size: 8vw;
+    color: #ffffff;
+    text-shadow: 0 0 2vw #ff005b;
+}
+
+.neon:after{
+    content: attr(data-text);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 20px;
+    z-index: -1;
+    color: #ff005b;
+    filter: blur(15px);
+}
+
+.outcomeHUD {
+    position: fixed;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background-color: rgba(128,0,0,0.8);
+    visibility: hidden;
+    user-select: none;
+    cursor: crosshair;
+}
+
+.outcomeHUD>.outcomeText {
+    z-index: 1;
+    font-family: karn;
+    font-size: 18vmin;
+    color: #44d4d4;
+    display: inline-block;
+    -webkit-text-stroke: 1vmin black;;
+}
+
+.button{
+    display: inline-block;
+
+    width: 40vmin;
+    height: 20vmin;
+
+    border-radius: 10vmin;
+
+    font-family: karn;
+    color: #ff0000;
+    font-size: 7vmin;
+
+    margin-top: 1vh;
+    margin-left: 5vw;
+    margin-right: 5vw;
+
+    transition-duration: 0.1s;
+    /*cursor: crosshair;*/
+
+    background-color: transparent;
+    color: black;
+    border: 2vmin solid black;
+
+}
+
+.button:hover{
+    background-color: #23c2be ;
+}
+
+
+

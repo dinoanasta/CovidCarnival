@@ -145,7 +145,7 @@ function doMouseDown(event) {
 
         //Check which stall has been clicked
         if (intersects[0].object == moonStall) { //check if the raycaster(mouse) click intersects with game stalls and takes player to level
-            window.location.href = "../Shoot/Level1/ShootingGame.html";
+            window.location.href = "../Shoot/ShootingGame.html";
         }else if(intersects[0].object == creditStall){
             window.location.href = "../Credits/Credits.html";
         }else if(intersects[0].object == mushy){

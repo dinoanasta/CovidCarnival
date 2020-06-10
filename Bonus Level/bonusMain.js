@@ -112,7 +112,7 @@ function startPlaying(){
 
 function setupTimer(){
     //Timer
-    let length = 5;
+    let length = 45;
 
     document.getElementById("timeValue").textContent = length;
 
