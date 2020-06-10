@@ -13,7 +13,7 @@ function addMoonStall(){
     moon.position.z = 100;
 
     //Play game text above stall
-    textLoader.load('../Resources/Fonts/droid_serif_bold.typeface.json',function (font) {
+    fontLoader.load('../Resources/Fonts/droid_serif_bold.typeface.json',function (font) {
         var geoText = new THREE.TextBufferGeometry( "PLAY GAME" , {
             font : font,
             size : 50,
@@ -53,7 +53,7 @@ function addCreditStall(){
     creditStall = makeCreditsStall();
 
     //Credits text above stall
-    textLoader.load('../Resources/Fonts/droid_serif_bold.typeface.json',function (font) {
+    fontLoader.load('../Resources/Fonts/droid_serif_bold.typeface.json',function (font) {
         var geoText = new THREE.TextBufferGeometry( "CREDITS" , {
             font : font,
             size : 50,
@@ -135,7 +135,7 @@ function addBonusStall(){
 
     //prizes text above stall
     //this text is reflective
-    textLoader.load('../Resources/Fonts/droid_serif_bold.typeface.json',function (font) {
+    fontLoader.load('../Resources/Fonts/droid_serif_bold.typeface.json',function (font) {
         var geoText = new THREE.TextBufferGeometry( "PRIZES" , {
             font : font,
             size : 50,

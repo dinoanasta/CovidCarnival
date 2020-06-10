@@ -1,15 +1,17 @@
 function createStallPlatform(){
+    //Level specific primary material
     let primaryMaterial = new THREE.MeshStandardMaterial({
         map: textureLoader.load('../Resources/Textures/Dino/' + primaryStallMaterial),
         // transparent: true,
         // opacity: 0.5
     });
 
+    //Level specific secondary material
     let secondaryMaterial =  new THREE.MeshStandardMaterial({
             map: textureLoader.load('../Resources/Textures/Dino/' + secondaryBarrierMaterial)
     });
 
-    // Base
+    //Base
     let baseSize = {width: 100, height: 2, depth:200}
     let base = new Physijs.BoxMesh(
         new THREE.BoxGeometry(100, 2, 200),
@@ -31,7 +33,7 @@ function createStallPlatform(){
     shooterBarrier.receiveShadow = true;
     base.add(shooterBarrier);
 
-    //Far
+    //Far wall
     let farSize = {width: 100, height: 50, depth:5};
     let far = new Physijs.BoxMesh(
         new THREE.CubeGeometry(100,50,5),
@@ -53,7 +55,7 @@ function createStallPlatform(){
     near.castShadow = true;
     near.receiveShadow = true;
 
-    //Left Panel
+    //Left wall
     let leftSize = {width: 5, height: 50, depth:200};
     let left = new Physijs.BoxMesh(
         new THREE.CubeGeometry(5,50,200),
@@ -64,7 +66,7 @@ function createStallPlatform(){
     left.castShadow = true;
     left.receiveShadow = true;
 
-    //Right Panel
+    //Right wall
     let rightSize = {width: 5, height: 50, depth:200};
     let right = new Physijs.BoxMesh(
         new THREE.CubeGeometry(5,50,200),
@@ -75,21 +77,20 @@ function createStallPlatform(){
     right.castShadow = true;
     right.receiveShadow = true;
 
-    //Add all panels to base
+    //Add all walls to base
     base.add( far );
     base.add(near);
     base.add(left);
     base.add(right);
 
-    //Text
-    var textLoader = new THREE.FontLoader();
-
+    //3D Covid Carnival Text
     let covidGeo;
-    let carnivalGeo;
     let covidText;
+
+    let carnivalGeo;
     let carnivalText;
 
-    textLoader.load( '../Resources/Fonts/helvetiker_bold.typeface.json', function ( font ) {
+    fontLoader.load( '../Resources/Fonts/helvetiker_bold.typeface.json', function (font ) {
         covidGeo = new THREE.TextGeometry( '  COVID', {
             font: font,
             size: 20,
@@ -125,12 +126,12 @@ function createStallPlatform(){
         covidText.position.set(-60,85,-100);
         carnivalText.position.set(-80,55,-100);
 
-
+        //Add text to base
         base.add(covidText);
         base.add(carnivalText);
     } );
 
-    //Text physi plane
+    //Physijs plane to make it seem like balls bounce off the text
     let textPlane = new Physijs.PlaneMesh(
         new THREE.PlaneGeometry(160, 80),
         new THREE.MeshStandardMaterial({
@@ -143,7 +144,7 @@ function createStallPlatform(){
     textPlane.position.set(0, 90, -92);
     base.add(textPlane);
 
-    //Add rocket model
+    //Rocket model on shooter barrier
     loader.load(
         "../Models/rocket/scene.gltf",
         function (object) {
@@ -163,7 +164,8 @@ function createStallPlatform(){
             scene.add(rocketModel);
         }
     );
-    //Rocket physiBox
+
+    //Rocket physics box
     let rocketBox =new Physijs.BoxMesh(
         new THREE.BoxGeometry(8, 14, 8),
         new THREE.MeshStandardMaterial({
@@ -177,5 +179,4 @@ function createStallPlatform(){
 
     //Add base to scene
     scene.add(base);
-
 }

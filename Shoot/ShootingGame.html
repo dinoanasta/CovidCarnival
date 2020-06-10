@@ -9,6 +9,8 @@
         integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <link href="style.css" rel="stylesheet">
 
+
+<!--    Libraries -->
     <script src="../js/three.js"></script>
     <script src="../js/physi.js"></script>
     <script src="../js/GLTFLoader.js"></script>
@@ -150,8 +152,8 @@
             renderer.setClearColor(0x00a0a0);
             renderer.setPixelRatio(window.devicePixelRatio);
             renderer.setSize(window.innerWidth, window.innerHeight);
-            //renderer.shadowMap.enabled = true; //disabling this option to debug on my machine because its kak slow :/
-            //renderer.shadowMap.type = THREE.PCFSoftShadowMap; //disabling this option to debug on my machine because its kak slow :/
+            renderer.shadowMap.enabled = true; //disabling this option to debug on my machine because its kak slow :/
+            renderer.shadowMap.type = THREE.PCFSoftShadowMap; //disabling this option to debug on my machine because its kak slow :/
             renderer.autoClear = false; // used for minimap , allows both cameras to be rendered
             // renderer.powerPreference = "high-performance";
             document.getElementById('viewport').appendChild(renderer.domElement);
@@ -172,9 +174,14 @@
 
             //Setup astronaut
             createAvatar();
+
+            //Initialise frame number
             frameNumber = 0;
+
+            //Initialise local storage
             localStorage.setItem('prizes', prizesString);
 
+            //Tells Environment that the game has been played
             localStorage.setItem('loadedFrom', "game");
 
             render();

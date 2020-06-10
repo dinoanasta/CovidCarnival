@@ -17,7 +17,7 @@ function setLevel(lvl) {
 
             //Light blue galaxy
             cubemapURLs = [
-                // right, left, top, bottom, front, back
+                //right, left, top, bottom, front, back
                 "../Resources/CubeMaps/lightblue/right.png",
                 "../Resources/CubeMaps/lightblue/left.png",
                 "../Resources/CubeMaps/lightblue/top.png",
@@ -40,17 +40,19 @@ function setLevel(lvl) {
 
             sign = signs[Math.floor(Math.random() * 2)];
 
+            //Level 2 game length, ammo count and goal
             ammoCount = 10;
             goal = 2;
             gameLength = 30;
 
+            //Level 2 materials
             primaryStallMaterial = "greenfabric.jpg";
             secondaryBarrierMaterial = "blueleather.jpg";
             ballMaterial = "fractal.jpg";
 
             //Blue galaxy
             cubemapURLs = [
-            //     right, left, top, bottom, front, back
+                //right, left, top, bottom, front, back
                 "../Resources/CubeMaps/blue/right.png",
                 "../Resources/CubeMaps/blue/left.png",
                 "../Resources/CubeMaps/blue/top.png",
@@ -60,8 +62,8 @@ function setLevel(lvl) {
             ];
 
             //Level 2 gravity
-            maxGrav = 50;
-            minGrav = 30;
+            maxGrav = 60;
+            minGrav = 40;
             xGrav = sign * ((Math.random() * (maxGrav - minGrav)) + minGrav);
             yGrav = -30;
             scene.setGravity(new THREE.Vector3(xGrav, yGrav, 0));
@@ -72,17 +74,19 @@ function setLevel(lvl) {
 
             sign = signs[Math.floor(Math.random() * 2)];
 
+            //Level 3 game length, ammo count and goal
             ammoCount = 10;
             goal = 2;
             gameLength = 30;
 
+            //Level 3 materials
             primaryStallMaterial = "tealtexture.jpg";
             secondaryBarrierMaterial = "redhex.jpg";
             ballMaterial = "trippyred.jpg"
 
             //Red galaxy
             cubemapURLs = [
-                // right, left, top, bottom, front, back
+                //right, left, top, bottom, front, back
                 "../Resources/CubeMaps/red/bkg3_right1.png",
                 "../Resources/CubeMaps/red/bkg3_left2.png",
                 "../Resources/CubeMaps/red/bkg3_top3.png",
@@ -92,8 +96,8 @@ function setLevel(lvl) {
             ];
 
             //Level 3 gravity
-            maxGrav = 60;
-            minGrav = 40;
+            maxGrav = 80;
+            minGrav = 60;
             xGrav = sign * ((Math.random() * (maxGrav - minGrav)) + minGrav);
             yGrav = -50;
             scene.setGravity(new THREE.Vector3(xGrav, yGrav, 0));
@@ -116,7 +120,6 @@ function setLevel(lvl) {
         xStrength = "strong";
     }
     console.log(xGrav, xDir, xStrength);
-
 
     document.getElementById('windStrength').innerHTML = xStrength;
     windElement = document.getElementById("windIcon");
@@ -154,33 +157,44 @@ function decideOutcome(){
     playing = false;
     clearInterval(countdown);
 
+    //Hide gameHUD
     document.getElementById("GameHUD").style.visibility = 'hidden';
 
+    //If they've reached the goal
     if(score>=goal){
-        if(level == "1") {
+        if(level == "1"){
+            //Earn a prize if level is completed on first attempt
             if(numLevel1==1){
                 prizesString = prizesString + "," + "1";
             }
+
+            //Display outcomeHUD
             document.getElementById("LevelPassedHUD").style.visibility = 'visible';
             document.getElementById("LevelPassedText").innerHTML = "You win level 1 ! <br> Proceed to level 2?";
 
             nextLevel = "2";
         }else if(level == "2"){
+            //Earn a prize if level is completed on first attempt
             if(numLevel2==1){
                 prizesString = prizesString + "," + "2";
             }
+
+            //Display outcomeHUD
             document.getElementById("LevelPassedHUD").style.visibility = 'visible';
             document.getElementById("LevelPassedText").innerHTML = "You win level 2 ! <br> Proceed to level 3?";
+
             nextLevel = "3";
-        }else if(level == "3") {
+        }else if(level == "3"){
+            //Earn a prize if level is completed on first attempt
             if(numLevel3==1){
                 prizesString = prizesString + "," + "3";
             }
 
+            //Set prizes array to check if they've qualified for the bonus level
             let prizesArr = prizesString.split(",");
 
-            if (prizesArr.length == 4 && numLevel1==1 && numLevel2==1 && numLevel3==1) {
-
+            if (prizesArr.length == 4) { //Qualified
+                //Add pill
                 pill.position.y = 70;
                 pill.position.z = 80;
                 pill.position.x = avatarPosition.x;
@@ -208,7 +222,7 @@ function decideOutcome(){
                     document.getElementById("LevelPassedHUD").style.visibility = 'visible';
                 }, 14000);
 
-            } else {
+            } else { //Did not qualify
 
                 //Animation Timer:
                 setTimeout(function () {
@@ -236,15 +250,20 @@ function decideOutcome(){
             }
         }
 
+        //Set local storage prizes
         localStorage.setItem('prizes', prizesString);
+
+        //Set next level
         level = nextLevel;
 
     }else{
         if(ammoCount - numBallsShot <= 0){
+            //If they've run out of ammo
             document.getElementById("LevelFailedText").innerHTML = "Out of balls <br> You lose level " + level + " ! <br> Restart ?" ;
             document.getElementById("mainMenuAnchor").href = "../Circus%20Environment/Environment.html";
             document.getElementById("LevelFailedHUD").style.visibility = 'visible';
         }else{
+            //If they've run out of time
             document.getElementById("LevelFailedText").innerHTML = "Time up <br> You lose level " + level + " ! <br> Restart ?" ;
             document.getElementById("mainMenuAnchor").href = "../Circus%20Environment/Environment.html";
             document.getElementById("LevelFailedHUD").style.visibility = 'visible';

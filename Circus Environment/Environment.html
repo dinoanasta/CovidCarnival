@@ -27,13 +27,14 @@
             renderer.setSize(window.innerWidth,window.innerHeight);
             document.body.appendChild( renderer.domElement );
 
-            setupScene(); //Sets up camera, scene, physics engine, ligts, and orbit controls
+            setupScene(); //Sets up camera, scene, physics engine, lights, and orbit controls
             setupPrizes();
             createPlane(); //Creates the flat area of the carnival
             addBarriers(); //creates and adds barriers of carnival
             MakeText();
 
-            //If new session don't load prizes, but if returning to menu from game then load prizes
+            //If it's a new session then don't load prizes because none  have been won,
+            // but if returning to menu from game then load prizes
             let loaded = localStorage.getItem('loadedFrom');
             if(loaded != "game"){
                 localStorage.setItem('loadedFrom', "home");

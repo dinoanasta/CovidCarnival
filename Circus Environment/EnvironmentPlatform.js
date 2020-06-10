@@ -211,7 +211,7 @@ function addBarriers(){ //creates the cylindrical and adds barriers of carnival
 //Creates Giant "Covid carnival" text
 function MakeText(){
     //Loads fonts and specifies characteristics
-    textLoader.load('../Resources/Fonts/helvetiker_bold.typeface.json',function (font) {
+    fontLoader.load('../Resources/Fonts/helvetiker_bold.typeface.json',function (font) {
         geoText = new THREE.TextGeometry( "COVID CARNIVAL" , {
             font : font,
             size : 20,
