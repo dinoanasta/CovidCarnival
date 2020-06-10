@@ -53,28 +53,11 @@ function setupScene(){
     camera.add(camLight);
     scene.add(camera);
 
-    // //Orbit controls
-    // controls = new THREE.OrbitControls(camera, renderer.domElement);
-    // controls.enableDamping = true;
-    // controls.enabled = true;
-    // // controls.enableZoom = true;
-    // // controls.enableRotate = true;
-    // // controls.mouseButtons = {
-    // //     MIDDLE: THREE.MOUSE.DOLLY,
-    // //     RIGHT: THREE.MOUSE.ROTATE,
-    // //     LEFT: THREE.MOUSE.PAN
-    // // }
-
-    controls = new THREE.OrbitControls(camera,renderer.domElement);
-    // controls.maxDistance = 2000;
-    // controls.minDistance = 500;
-    controls.minPolarAngle = 0;
-    controls.maxPolarAngle = 15.9*Math.PI/32;
-    controls.mouseButtons = {
-        MIDDLE: THREE.MOUSE.DOLLY,
-        RIGHT: THREE.MOUSE.ROTATE,
-        LEFT: THREE.MOUSE.PAN
-    }
+    //Orbit controls
+    controls = new THREE.OrbitControls(camera, document.querySelector('.playing'));
+    controls.enableDamping = true;
+    controls.enableZoom = false;
+    controls.enablePan = false;
 
     //Skybox
     const materialArray = [];
