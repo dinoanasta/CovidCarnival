@@ -106,6 +106,11 @@ function startPlaying() {
     document.getElementById("GameHUD").style.visibility = 'visible';
     document.getElementById("preGameHUD").style.visibility = 'hidden';
 
+    //Theme song
+    let anthem = document.getElementById("AnthemAtDusk");
+    anthem.play();
+
+
     playing = true;
     controls.update();
 
