@@ -228,7 +228,7 @@ function render() {
         degrees = 0;
     }
 
-    //animations for the mushrooms travling in circle like form
+    //animations for the mushrooms travelling in circle like form
     rotationAnimation();
 
     scene.simulate();

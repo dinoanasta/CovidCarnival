@@ -107,7 +107,7 @@ function addCreditStall(){
     });
 
     loader.load("../Models/robotUFO/scene.gltf", function (object) {
-        let globe = object.scene.children[0];
+        globe = object.scene.children[0];
 
         globe.scale.set(0.25, 0.25, 0.25);
         globe.position.set(0,-100, 150);
@@ -149,9 +149,7 @@ function addBonusStall(){
 
         });
 
-        var matText = new THREE.MeshStandardMaterial({ map : textureLoader.load('../Resources/Textures/Dino/liquid.jpg')})
         var refMat = new THREE.MeshBasicMaterial( {envMap: sphereCamera.renderTarget.texture} );
-
 
         var text = new THREE.Mesh(geoText,refMat);
         text.position.x = -100;
@@ -169,14 +167,13 @@ function addBonusStall(){
 
     //adds stall to scene
     scene.add(bonusStall);
-
 }
 
 function addPrize1() {
 
     //adds level 1 prize to bonus stall
     loader.load("../Models/ufo/scene.gltf", function (object) {
-        let prize1 = object.scene.children[0];
+        prize1 = object.scene.children[0];
 
         prize1.material = new THREE.MeshPhongMaterial({
             color: 0xff00ff
@@ -192,7 +189,7 @@ function addPrize2() {
 
     //adds level 2 prize to bonus stall
     loader.load("../Models/plush/scene.gltf", function (object) {
-        let prize2 = object.scene.children[0];
+        prize2 = object.scene.children[0];
 
         prize2.material = new THREE.MeshPhongMaterial({
             color: 0xff00ff
@@ -210,7 +207,7 @@ function addPrize3() {
 
     //adds level 3 prize to bonus stall
     loader.load("../Models/rocket2/scene.gltf", function (object) {
-        let prize3 = object.scene.children[0];
+        prize3 = object.scene.children[0];
 
         prize3.material = new THREE.MeshPhongMaterial({
             color: 0xff00ff

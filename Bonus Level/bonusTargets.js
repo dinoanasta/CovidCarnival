@@ -126,7 +126,8 @@ function rotationAnimation() {
     physicsTargetsArray[8].position.y = 400 * Math.sin((degrees - 90) * (Math.PI / 180));
 
 
-    //doing this to ensure balls dont go through the object and miss the collision detection code since the ball is travelling at a fast velocity
+    //doing this to ensure balls dont go through the object and miss the collision detection code
+    // since the ball is travelling at a fast velocity
     for (let index = 0; index < 9; index++) {
         physicsTargetsArray[index].__dirtyPosition=true;
     }

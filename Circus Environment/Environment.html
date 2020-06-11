@@ -16,6 +16,16 @@
     <script src = "Moonstall.js"></script>
     <script src = "Stalls.js"></script>
 
+    <style>
+        body{
+            margin: 0;
+        }
+
+        canvas {
+            display: block;
+        }
+    </style>
+
     <script>
         //function that sets up everything in the scene
         function init() {
@@ -31,10 +41,11 @@
             setupPrizes();
             createPlane(); //Creates the flat area of the carnival
             addBarriers(); //creates and adds barriers of carnival
-            MakeText();
+            MakeText(); //Creates "COVID CARNIVAL" text
 
-            //If it's a new session then don't load prizes because none  have been won,
+            // If it's a new session then don't load prizes because none  have been won,
             // but if returning to menu from game then load prizes
+            // Allows user to refresh page once without losing prizes
             let loaded = localStorage.getItem('loadedFrom');
             if(loaded != "game"){
                 localStorage.setItem('loadedFrom', "home");

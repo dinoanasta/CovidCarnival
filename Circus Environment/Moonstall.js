@@ -72,9 +72,7 @@ function makeBonusStall(){
     var box1Geo = new THREE.BoxBufferGeometry(200,300,150);
     var box2Geo = new THREE.BoxBufferGeometry(200,200,150);
     var box3Geo = new THREE.BoxBufferGeometry(200,150,150);
-    var material = new THREE.MeshBasicMaterial({ map : texture});
     var refMat = new THREE.MeshBasicMaterial( {envMap: sphereCamera.renderTarget.texture} );
-
 
     var podium = new THREE.Mesh(box1Geo,refMat);
     podium.position.y = -100;

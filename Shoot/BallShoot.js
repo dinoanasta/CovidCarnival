@@ -80,7 +80,7 @@ function onMouseDown(event) {
          setTimeout( function(){
                  decideOutcome();
              },
-             500
+             1000
          );
      }
  }

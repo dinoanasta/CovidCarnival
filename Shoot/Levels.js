@@ -195,6 +195,8 @@ function decideOutcome(){
             //Set prizes array to check if they've qualified for the bonus level
             let prizesArr = prizesString.split(",");
 
+            console.log(prizesArr);
+
             if (prizesArr.length == 4) { //Qualified
 
                 //Add pill
@@ -220,7 +222,7 @@ function decideOutcome(){
                 //Wait 5s while animation plays before showing HUD
                 setTimeout(function () {
                     document.getElementById("proceedButton").style.visibility = 'hidden';
-                    document.getElementById("LevelPassedText").innerHTML = "You win ! <br> Final score: " + totalScore + "<br> Return to main menu?";
+                    document.getElementById("LevelPassedText").innerHTML = "You win ! <br> Final score: " + totalScore;
 
                     document.getElementById("mainMenuAnchor").href = "../Circus%20Environment/Environment.html";
                     document.getElementById("mainMenuButtonPassed").innerHTML = "MAIN MENU";

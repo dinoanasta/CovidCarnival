@@ -7,11 +7,9 @@ function createPlane() { //Creates the flat area of the carnival
         map: textureLoader.load('../Resources/Textures/Dino/redblocks.jpg')
     });
 
-    let surfaceGeometry = new THREE.BoxGeometry(1000,1000); //makes the size of the plane 1000x1000
-    let groundShape = new Physijs.BoxMesh(surfaceGeometry,surfaceMaterial,0);
-    groundShape.rotation.x = -0.5*Math.PI; //rotates the plain -90 degrees
-
-    // scene.add(groundShape);
+    let surfaceGeometry = new THREE.BoxGeometry(1000, 50,1000); //makes the size of the plane 1000x1000
+    let groundShape = new THREE.Mesh(surfaceGeometry,surfaceMaterial,0);
+    groundShape.position.y = -25;
     world.add(groundShape);
 }
 
@@ -60,25 +58,25 @@ function CreateBarrier(StartX,StartY, StartZ) { //creates barriers of carnival
 
     //Creates Each cylinder with the above geometry and different materials and adds it to the wholebarrier Object 3D container
 
-    cylinder1 = new Physijs.CylinderMesh(geo,mat1,0);
+    cylinder1 = new THREE.Mesh(geo,mat1,0);
     cylinder1.position.x = StartX;
     cylinder1.position.y = StartY;
     cylinder1.position.z = StartZ;
     wholeBarrier.add(cylinder1);
 
-    cylinder2 = new Physijs.CylinderMesh(geo,mat2,0);
+    cylinder2 = new THREE.Mesh(geo,mat2,0);
     cylinder2.position.x = StartX+40;
     cylinder2.position.y = StartY;
     cylinder2.position.z = StartZ+30;
     wholeBarrier.add(cylinder2);
 
-    cylinder3 = new Physijs.CylinderMesh(geo,mat3,0);
+    cylinder3 = new THREE.Mesh(geo,mat3,0);
     cylinder3.position.x = StartX+80;
     cylinder3.position.y = StartY;
     cylinder3.position.z = StartZ;
     wholeBarrier.add(cylinder3);
 
-    cylinder4 = new Physijs.CylinderMesh(geo,mat4,0);
+    cylinder4 = new THREE.Mesh(geo,mat4,0);
     cylinder4.position.x = StartX+40;
     cylinder4.position.y = StartY;
     cylinder4.position.z = StartZ-30;
@@ -125,7 +123,7 @@ function addBarriers(){ //creates the cylindrical and adds barriers of carnival
         map: textureLoader.load("../Resources/Textures/Dino/redfoil.jpg")
     });
 
-    tbarrier1 = new Physijs.BoxMesh(
+    tbarrier1 = new THREE.Mesh(
         tbGeo,
         tbMesh,
         0);
@@ -135,17 +133,8 @@ function addBarriers(){ //creates the cylindrical and adds barriers of carnival
     world.add(tbarrier1);
     // scene.add(tbarrier1);
 
-    // var coverGeo = new THREE.BoxGeometry(750,50); //Creates a cover texture for each of the wall barriers
-    // var ctexture1 = textureLoader.load("../Resources/Textures/Dino/yellowlego.jpg");
-    // var cMesh1 = new THREE.MeshLambertMaterial({map:ctexture1});
-    // cover1 = new THREE.Mesh(coverGeo,cMesh1);
-    // cover1.position.z = -465;
-    // cover1.position.x = -10;
-    // cover1.position.y =25;
-    // world.add(cover1);
-    // // scene.add(cover1);
 
-    tbarrier2 = new Physijs.BoxMesh(
+    tbarrier2 = new THREE.Mesh(
         tbGeo,
         tbMesh,
         0);
@@ -155,16 +144,8 @@ function addBarriers(){ //creates the cylindrical and adds barriers of carnival
     world.add(tbarrier2);
     // scene.add(tbarrier2);
 
-    // var ctexture2 = textureLoader.load("../Resources/Textures/Razeen/abstract2.jpg");
-    // var cMesh2 = new THREE.MeshLambertMaterial({map:ctexture2});
-    // cover2 = new THREE.Mesh(coverGeo,cMesh2);
-    // cover2.position.z = 465;
-    // cover2.position.x = -10;
-    // cover2.position.y =25;
-    // world.add(cover2);
-    // // scene.add(cover2);
 
-    tbarrier3 = new Physijs.BoxMesh(
+    tbarrier3 = new THREE.Mesh(
         tbGeo,
         tbMesh,
         0);
@@ -175,17 +156,8 @@ function addBarriers(){ //creates the cylindrical and adds barriers of carnival
     world.add(tbarrier3);
     // scene.add(tbarrier3);
 
-    // var ctexture3 = new THREE.TextureLoader().load("../Resources/Textures/Razeen/love.jpg");
-    // var cMesh3 = new THREE.MeshLambertMaterial({map:ctexture3});
-    // cover3 = new THREE.Mesh(coverGeo,cMesh3);
-    // //cover3.position.z = 210;
-    // cover3.rotation.y = -0.5*Math.PI;
-    // cover3.position.x = -465;
-    // cover3.position.y =25;
-    // world.add(cover3);
-    // // scene.add(cover3);
 
-    tbarrier4 = new Physijs.BoxMesh(
+    tbarrier4 = new THREE.Mesh(
         tbGeo,
         tbMesh,
         0);
@@ -195,16 +167,6 @@ function addBarriers(){ //creates the cylindrical and adds barriers of carnival
     tbarrier4.position.y = 25;
     // scene.add(tbarrier4);
     world.add(tbarrier4);
-
-    // var ctexture4 = new THREE.TextureLoader().load("../Resources/Textures/Razeen/astronaut.jpg");
-    // var cMesh4 = new THREE.MeshLambertMaterial({map:ctexture4});
-    // cover4 = new THREE.Mesh(coverGeo,cMesh4);
-    // //cover3.position.z = 210;
-    // cover4.rotation.y = -0.5*Math.PI;
-    // cover4.position.x = 465;
-    // cover4.position.y =25;
-    // // scene.add(cover4);
-    // world.add(cover4);
 
 }
 
@@ -235,9 +197,7 @@ function MakeText(){
 
         //scales and sets positions of text
         covidCarnivalText.scale.set(5,5,5);
-        covidCarnivalText.position.x = -500;
-        covidCarnivalText.position.y = 850;
-        covidCarnivalText.position.z = 0;
+        covidCarnivalText.position.set(0,850, 0);
 
         scene.add(covidCarnivalText); //adds text to world
     })
@@ -301,6 +261,8 @@ function loadModels(){
     // world.add(prizes);
     scene.add(world);
 
+
+    //Clickable mushroom box
     mushy = new THREE.Mesh(
         new THREE.BoxGeometry(250, 200, 400),
         new THREE.MeshStandardMaterial({
@@ -312,4 +274,23 @@ function loadModels(){
     );
     mushy.position.set(1035, 200, 1035);
     scene.add(mushy);
+}
+
+function rotateObjects(){
+    covidCarnivalText.rotation.y += 0.025;
+
+    globe.rotation.z += 0.05;
+
+    if(prize1  != null){
+        prize1.rotation.z += 0.05;
+
+    }
+    if(prize2  != null){
+        prize2.rotation.z += 0.05;
+
+    }
+    if(prize3  != null){
+        prize3.rotation.y += 0.05;
+
+    }
 }

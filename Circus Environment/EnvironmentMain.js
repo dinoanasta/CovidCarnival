@@ -1,6 +1,3 @@
-Physijs.scripts.worker =  '../js/physijs_worker.js';
-Physijs.scripts.ammo = '../js/ammo.js';
-
 //Scene Variables
 let light, scene, camera, ambientLight;
 let renderer;
@@ -12,8 +9,12 @@ let planet;
 let world = new THREE.Object3D();
 let magicMushroom, mushy;
 
+//Prizes
+let prize1, prize2, prize3;
+
 //CovidCarnival Text Variable
 let covidCarnivalText;
+let covidTextArray = [];
 var geoText;
 var matText;
 
@@ -34,10 +35,10 @@ let moonStall, moon, moonText;
 let stallHolder = new THREE.Group();
 let sphereCamera , sphereCamera2;
 let creditStall, bonusStall;
+let globe;
 
 function setupScene(){
-    scene = new Physijs.Scene;
-    scene.setGravity(new THREE.Vector3(0,-10,0));
+    scene = new THREE.Scene;
 
     //Creation of camera
     camera = new THREE.PerspectiveCamera(
@@ -52,7 +53,7 @@ function setupScene(){
     camera.position.z = 1500;
 
     // reflection camera
-    sphereCamera = new THREE.CubeCamera(1,4000, 512);
+    sphereCamera = new THREE.CubeCamera(1,4000, 1080);
     sphereCamera.position.set(-500, 100, 0);
 
     // A light shining from the direction of the camera which moves with the camera.
@@ -73,8 +74,8 @@ function setupScene(){
     controls.maxPolarAngle = 15.9*Math.PI/32;
     controls.mouseButtons = {
         MIDDLE: THREE.MOUSE.DOLLY,
-        RIGHT: THREE.MOUSE.ROTATE,
-        LEFT: THREE.MOUSE.PAN
+        RIGHT: THREE.MOUSE.PAN,
+        LEFT: THREE.MOUSE.ROTATE
     }
 
     var textureURLs = [  // URLs of the six faces of the cubeMap map
@@ -107,14 +108,15 @@ function setupScene(){
 
 function setupPrizes(){
 
+    deletePrizes();
     //Code for adding the prizes to the scene
-    //local storage gets the prizesString from local storage
+    //Gets the prizesString from local storage
 
     let prizesEnv = localStorage.getItem('prizes');
     // console.log(prizesEnv);
     let prizeArr = prizesEnv.split(","); //splits it into an array
     let len = prizeArr.length;
-    // console.log(prizeArr);
+    console.log(prizeArr);
 
     //Loops through array and adds all prizes that have been earned
     for(var i = 0; i < len;i++) {
@@ -160,23 +162,19 @@ function onWindowResize() {
     renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
-function updateFrame() {
+//Animates the entire scene
+function animate () {
+    requestAnimationFrame(animate);
+
     planet.rotation.x += 0.1;
     planet.rotation.y += 0.1;
 
     cubeMap.rotation.y += 0.001;
 
-    // planet2.rotation.x += 0.06;
-    // planet2.rotation.y += 0.06;
-
-}
-
-//Animates the entire scene
-function animate () {
     frameNumber++;
-    updateFrame();
 
-    // covidCarnivalText.rotation.y += 0.5;
+
+    rotateObjects();
 
     if (frameNumber >= 30) {
         frameNumber = 0;
@@ -228,11 +226,13 @@ function animate () {
 
     }
 
-
-    scene.simulate(); //Runs the scene
-
-    requestAnimationFrame( animate );
     controls.update(); //Updates the orbit controls
     renderer.render( scene, camera ); //Renders the scene
     sphereCamera.update( renderer, scene );//updates reflection camera
 };
+
+function deletePrizes(){
+    scene.remove(prize1);
+    scene.remove(prize2);
+    scene.remove(prize3);
+}
