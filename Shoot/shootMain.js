@@ -196,7 +196,6 @@ function resetGame(){
     deleteAvatar();
     frameNumber = 0;
 
-
     //Hide outcomeHUD and show gameHUD
     document.getElementById("LevelPassedHUD").style.visibility = 'hidden';
     document.getElementById("LevelFailedHUD").style.visibility = 'hidden';
@@ -224,8 +223,9 @@ function resetGame(){
 
     playing = true;
 
+    clearInterval(countdown);
     //Start timer
-    setupTimer();
+    startPlaying();
 }
 
 function render() {

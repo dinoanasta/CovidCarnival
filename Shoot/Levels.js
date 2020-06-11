@@ -197,7 +197,7 @@ function decideOutcome(){
 
             console.log(prizesArr);
 
-            if (prizesArr.length == 4) { //Qualified
+            if (prizesArr.length == 4 && totalScore<30) { //Qualified
 
                 //Add pill
                 pill.position.y = 70;
