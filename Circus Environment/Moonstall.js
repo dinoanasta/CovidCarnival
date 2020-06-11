@@ -2,21 +2,21 @@ function makeStall(){
     //creates basic structure of play stall
     //extra features are added in Stalls.js
 
-    var texture = textureLoader.load('../Resources/Textures/Dino/neontexture1.jpg');
+    moonStallTexture = textureLoader.load('../Resources/Textures/Dino/neontexture1.jpg');
 
-    var stall = makeWall2(texture);
+    var stall = makeWall2(moonStallTexture);
 
-    var wall = makeWall(texture);
+    var wall = makeWall(moonStallTexture);
     wall.position.x = 200;
     wall.position.z = 150;
     wall.rotation.y = Math.PI/2;
 
-    var wall2 = makeWall(texture);
+    var wall2 = makeWall(moonStallTexture);
     wall2.position.x = -200;
     wall2.position.z = 150;
     wall2.rotation.y = Math.PI/2;
 
-    var roof = makeRoof(texture);
+    var roof = makeRoof(moonStallTexture);
     roof.position.y = 185;
     roof.position.z = 100;
     roof.rotation.y = Math.PI/4;
@@ -33,21 +33,21 @@ function makeCreditsStall(){
     //creates basic structure of credits stall
     //extra features are added in Stalls.js
 
-    var texture = textureLoader.load('../Resources/Textures/Dino/greenfabric.jpg');
+    creditStallTexture = textureLoader.load('../Resources/Textures/Dino/greenfabric.jpg');
 
-    var stall = makeWall2(texture);
+    var stall = makeWall2(creditStallTexture);
 
-    var wall = makeWall(texture);
+    var wall = makeWall(creditStallTexture);
     wall.position.x = 200;
     wall.position.z = 150;
     wall.rotation.y = Math.PI/2;
 
-    var wall2 = makeWall(texture);
+    var wall2 = makeWall(creditStallTexture);
     wall2.position.x = -200;
     wall2.position.z = 150;
     wall2.rotation.y = Math.PI/2;
 
-    var roof = makeRoof(texture);
+    var roof = makeRoof(creditStallTexture);
     roof.position.y = 185;
     roof.position.z = 100;
     roof.rotation.y = Math.PI/4;
@@ -65,9 +65,6 @@ function makeBonusStall(){
     //this stall is the prize podium
     //has a reflective texture
     //extra features are added in Stalls.js
-
-
-    var texture = textureLoader.load('../Resources/Textures/Dino/tealtexture.jpg');
 
     var box1Geo = new THREE.BoxBufferGeometry(200,300,150);
     var box2Geo = new THREE.BoxBufferGeometry(200,200,150);

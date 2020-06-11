@@ -36,6 +36,7 @@ let stallHolder = new THREE.Group();
 let sphereCamera , sphereCamera2;
 let creditStall, bonusStall;
 let globe;
+let moonStallTexture, creditStallTexture;
 
 function setupScene(){
     scene = new THREE.Scene;
@@ -154,6 +155,23 @@ function doMouseDown(event) {
             window.location.href = "../Bonus Level/Bonus.html";
         }
     }
+}
+
+function doMouseMove(event) {
+        mouse.x = (event.clientX / window.innerWidth) * 2 - 1; //gets the mouse co-oridnates and converts it to clip-coordinates
+        mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
+
+        // update the picking ray with the camera and mouse position
+        raycaster.setFromCamera(mouse, camera);
+
+        let intersects = raycaster.intersectObjects(scene.children);
+
+        //Check which stall has been clicked
+        if (intersects[0].object == moonStall) { //check if the raycaster(mouse) click intersects with game stalls and takes player to level
+            moonStall.material.set(THREE.MeshLambertMaterial({color: "red"}));
+        }else if(intersects[0].object == creditStall){
+            creditStall.material.set(THREE.MeshLambertMaterial({color: "red"}));
+        }
 }
 
 function onWindowResize() {

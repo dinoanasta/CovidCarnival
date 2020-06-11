@@ -60,11 +60,11 @@
             addBonusStall();//Adds the bonus stall
             loadModels(); // loads all relevant models (mushroom 1 and 2 and lantern)
             window.addEventListener("mousedown",doMouseDown,false);
+            window.addEventListener("mousemove",doMouseMove,false);
+
             window.addEventListener('resize', onWindowResize, false);
 
-            setTimeout(function(){
-                animate(); //Animates and renders the scene
-            }, 2000);
+            animate(); //Animates and renders the scene
         }
     </script>
 

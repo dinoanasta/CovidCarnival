@@ -99,17 +99,16 @@ function setupScene() {
 
     scene.add(crosshair1);
     scene.add(crosshair2);
+
+    //Theme song
+    let anthem = document.getElementById("AnthemAtDusk");
+    anthem.play();
 }
 
 
 function startPlaying() {
     document.getElementById("GameHUD").style.visibility = 'visible';
     document.getElementById("preGameHUD").style.visibility = 'hidden';
-
-    //Theme song
-    let anthem = document.getElementById("AnthemAtDusk");
-    anthem.play();
-
 
     playing = true;
     controls.update();

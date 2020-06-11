@@ -3,6 +3,14 @@
     font-family: karn;
 }
 
+body{
+    margin: 0;
+}
+
+canvas {
+    display: block;
+}
+
 .button{
     position: absolute;
 
