@@ -22,7 +22,7 @@ function createTargets() {
         new THREE.BoxGeometry(70, 70, 70),
         new THREE.MeshPhongMaterial({
             opacity: 0,
-            transparent: false,
+            transparent: true,
             // color: "red"
         }),
         1
