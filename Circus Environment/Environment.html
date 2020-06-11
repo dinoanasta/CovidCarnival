@@ -62,7 +62,9 @@
             window.addEventListener("mousedown",doMouseDown,false);
             window.addEventListener('resize', onWindowResize, false);
 
-            animate(); //Animates and renders the scene
+            setTimeout(function(){
+                animate(); //Animates and renders the scene
+            }, 2000);
         }
     </script>
 
