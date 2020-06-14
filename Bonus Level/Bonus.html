@@ -103,6 +103,9 @@
 				setupEventHandlers();
 				createTargets();
 
+				//Tells Environment that the game has been played
+				localStorage.setItem('loadedFrom', "game");
+
 				render();
 			}
 		</script>

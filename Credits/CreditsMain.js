@@ -52,7 +52,6 @@ function setupScene() {
     }
 
     var textureURLs = [  // URLs of the six faces of the cubeMap map
-
         "../Resources/CubeMaps/skybox (2)/right.png",
         "../Resources/CubeMaps/skybox (2)/left.png",
         "../Resources/CubeMaps/skybox (2)/top.png",

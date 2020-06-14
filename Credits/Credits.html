@@ -24,6 +24,9 @@
 
             window.addEventListener('resize', onWindowResize, false);
 
+            //Tells Environment that the game has been played
+            localStorage.setItem('loadedFrom', "game");
+
             setupScene();
             animate();
             //loadModels(); // loads all relevant models
