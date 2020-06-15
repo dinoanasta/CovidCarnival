@@ -1,3 +1,4 @@
+//creating balls with textures and physics
 function createBalls(){
     let ballMat = new THREE.MeshStandardMaterial({
         map: textureLoader.load('../Resources/Textures/Dino/' + ballMaterial),
@@ -17,7 +18,7 @@ function createBalls(){
         ballsArray.push(ball.clone());
     }
 }
-
+//creating the laser pointer for player to aim at targets
 function moveLaser (mouseCoords){
     avatarHead.set(avatarPosition.x, avatarPosition.y +25, avatarPosition.z-5);
 
@@ -30,7 +31,7 @@ function moveLaser (mouseCoords){
     laser.setDirection(rayDirection);
     laser.setLength(200, 0.00001, 0.00001);
 }
-
+//used to assign values to the x and y values of the mouse client variables
 function onMouseMove(event){
     mouseCoords.set(
         (event.clientX / window.innerWidth) * 2 - 1,
@@ -38,7 +39,7 @@ function onMouseMove(event){
     );
     moveLaser(mouseCoords);
 }
-
+//when mouse is clicked ball is fired at desired location based off the raycaster and mouse client coordinates
 function onMouseDown(event) {
  if(playing){
      if(numBallsShot < ammoCount){
@@ -53,6 +54,7 @@ function onMouseDown(event) {
              -(event.clientY / window.innerHeight) * 2 + 1
          );
 
+         //setting coordinates for avatar head for the raycaster coordinates
          avatarHead.set(avatarPosition.x, avatarPosition.y +25, avatarPosition.z-5);
 
          rayx = mouseCoords.x*200;
@@ -85,7 +87,7 @@ function onMouseDown(event) {
      }
  }
 }
-
+//sets the balls variables to null
 function deleteBalls(){
     ballsArray = [];
     shotBalls = [];

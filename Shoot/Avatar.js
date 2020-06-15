@@ -1,3 +1,4 @@
+//function used to create avatar and set its location in the stall
 function createAvatar(){
     loader.load(
         "../Models/hiphop/scene.gltf",
@@ -31,6 +32,7 @@ function createAvatar(){
     );
 }
 
+//function used to move avatar based off the keys pressed on the keyboard 
 function moveAvatar(){
     let moveX =  AvatarMoveDirection.x;
     let moveZ =  AvatarMoveDirection.z;
@@ -67,6 +69,7 @@ function moveAvatar(){
     }
 }
 
+//used to set all avatar related variables to null
 function deleteAvatar(){
     scene.remove(avatar);
     mixers = [];
