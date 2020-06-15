@@ -37,7 +37,7 @@ function moveAvatar(){
     let moveX =  AvatarMoveDirection.x;
     let moveZ =  AvatarMoveDirection.z;
 
-    if(moveX==1){
+    if(moveX==1){ //Move right
         if(avatarLocalPos.x + moveX*2 < movementBoundaries.rightX){
             avatar.position.x += moveX*2;
             avatarLocalPos.x += moveX*2;
@@ -45,21 +45,21 @@ function moveAvatar(){
 
             avatarPosition.set(avatar.position.x, avatar.position.y, avatar.position.z);
         }
-    }else if(moveX==-1 ){
+    }else if(moveX==-1 ){ //Move left
         if(avatarLocalPos.x + moveX*2 > movementBoundaries.leftX) {
             avatar.position.x += moveX*2;
             avatarLocalPos.x += moveX*2;
 
             avatarPosition.set(avatar.position.x, avatar.position.y, avatar.position.z);
         }
-    }else if(moveZ==-1){
+    }else if(moveZ==-1){ //Move backwards
         if(avatarLocalPos.z + moveZ*2 > movementBoundaries.frontZ) {
             avatar.position.z += moveZ*2;
             avatarLocalPos.z += moveZ*2;
 
             avatarPosition.set(avatar.position.x, avatar.position.y, avatar.position.z);
         }
-    }else if(moveZ==1){
+    }else if(moveZ==1){ //Move forwards
         if(avatarLocalPos.z + moveZ*2 < movementBoundaries.backZ) {
             avatar.position.z += moveZ*2;
             avatarLocalPos.z += moveZ*2;
