@@ -187,6 +187,8 @@ function decideOutcome(){
 
             nextLevel = "3";
         }else if(level == "3"){
+            camType = "third";
+
             //Earn a prize if level is completed on first attempt
             if(numLevel3==1){
                 prizesString = prizesString + "," + "3";
@@ -198,7 +200,6 @@ function decideOutcome(){
             console.log(prizesArr);
 
             if (prizesArr.length == 4 && totalScore<30) { //Qualified
-
                 //Add pill
                 pill.position.y = 70;
                 pill.position.z = avatarPosition.z;
