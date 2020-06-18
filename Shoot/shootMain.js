@@ -318,7 +318,7 @@ function render() {
                 document.getElementById("LevelPassedText").innerHTML = "Final score: " + totalScore + "<br>You qualify for the <br> bonus level !";
 
                 document.getElementById("mainMenuButtonPassed").innerHTML = "BONUS LEVEL";
-                document.getElementById("mainMenuAnchor").href = "../Bonus Level/Bonus.html"
+                document.getElementById("mainMenuAnchor").href = "../Bonus/Bonus.html"
 
                 document.getElementById("LevelPassedHUD").style.visibility = 'visible';
             }, 5000);

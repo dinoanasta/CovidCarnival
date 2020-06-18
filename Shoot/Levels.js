@@ -224,7 +224,7 @@ function decideOutcome(){
                     document.getElementById("proceedButton").style.visibility = 'hidden';
                     document.getElementById("LevelPassedText").innerHTML = "You win ! <br> Final score: " + totalScore;
 
-                    document.getElementById("mainMenuAnchor").href = "../Circus%20Environment/Environment.html";
+                    document.getElementById("mainMenuAnchor").href = "../Environment/Environment.html";
                     document.getElementById("mainMenuButtonPassed").innerHTML = "MAIN MENU";
 
                     document.getElementById("LevelPassedHUD").style.visibility = 'visible';
@@ -244,12 +244,12 @@ function decideOutcome(){
         if(ammoCount - numBallsShot <= 0){
             //If they've run out of ammo
             document.getElementById("LevelFailedText").innerHTML = "Out of balls <br> You lose level " + level + " ! <br> Restart ?" ;
-            document.getElementById("mainMenuAnchor").href = "../Circus%20Environment/Environment.html";
+            document.getElementById("mainMenuAnchor").href = "../Environment/Environment.html";
             document.getElementById("LevelFailedHUD").style.visibility = 'visible';
         }else{
             //If they've run out of time
             document.getElementById("LevelFailedText").innerHTML = "Time up <br> You lose level " + level + " ! <br> Restart ?" ;
-            document.getElementById("mainMenuAnchor").href = "../Circus%20Environment/Environment.html";
+            document.getElementById("mainMenuAnchor").href = "../Environment/Environment.html";
             document.getElementById("LevelFailedHUD").style.visibility = 'visible';
         }
     }

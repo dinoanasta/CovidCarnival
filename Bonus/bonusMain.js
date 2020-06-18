@@ -63,12 +63,12 @@ function setupScene() {
 
     //Skybox
     const materialArray = [];
-    const texture_ft = new THREE.TextureLoader().load('../Resources/Cubemaps/bonus1/right.png');
-    const texture_bk = new THREE.TextureLoader().load('../Resources/Cubemaps/bonus1/left.png');
-    const texture_up = new THREE.TextureLoader().load('../Resources/Cubemaps/bonus1/top.png');
-    const texture_dn = new THREE.TextureLoader().load('../Resources/Cubemaps/bonus1/bottom.png');
-    const texture_rt = new THREE.TextureLoader().load('../Resources/Cubemaps/bonus1/front.png');
-    const texture_lf = new THREE.TextureLoader().load('../Resources/Cubemaps/bonus1/back.png');
+    const texture_ft = new THREE.TextureLoader().load('../Resources/CubeMaps/bonus1/right.png');
+    const texture_bk = new THREE.TextureLoader().load('../Resources/CubeMaps/bonus1/left.png');
+    const texture_up = new THREE.TextureLoader().load('../Resources/CubeMaps/bonus1/top.png');
+    const texture_dn = new THREE.TextureLoader().load('../Resources/CubeMaps/bonus1/bottom.png');
+    const texture_rt = new THREE.TextureLoader().load('../Resources/CubeMaps/bonus1/front.png');
+    const texture_lf = new THREE.TextureLoader().load('../Resources/CubeMaps/bonus1/back.png');
     materialArray.push(new THREE.MeshBasicMaterial({ map: texture_ft }));
     materialArray.push(new THREE.MeshBasicMaterial({ map: texture_bk }));
     materialArray.push(new THREE.MeshBasicMaterial({ map: texture_up }));
