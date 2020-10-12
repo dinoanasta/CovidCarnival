@@ -115,20 +115,23 @@ function setupPrizes(){
 
     let prizesEnv = localStorage.getItem('prizes');
     // console.log(prizesEnv);
-    let prizeArr = prizesEnv.split(","); //splits it into an array
-    let len = prizeArr.length;
-    console.log(prizeArr);
-
-    //Loops through array and adds all prizes that have been earned
-    for(var i = 0; i < len;i++) {
-        if(prizeArr[i+1] == "1"){
-            addPrize1();
-        }else if(prizeArr[i+1] == "2"){
-            addPrize2();
-        }else if(prizeArr[i+1] == "3"){
-            addPrize3();
+    if(prizesEnv != null){
+        let prizeArr = prizesEnv.split(","); //splits it into an array
+        let len = prizeArr.length;
+        console.log(prizeArr);
+    
+        //Loops through array and adds all prizes that have been earned
+        for(var i = 0; i < len;i++) {
+            if(prizeArr[i+1] == "1"){
+                addPrize1();
+            }else if(prizeArr[i+1] == "2"){
+                addPrize2();
+            }else if(prizeArr[i+1] == "3"){
+                addPrize3();
+            }
         }
     }
+
 }
 
 //Ray Caster Variables
