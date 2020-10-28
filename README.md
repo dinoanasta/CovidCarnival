@@ -1,2 +1,2 @@
 
-![Alt text](GitHubResources/Environment.jpg?raw=true "Title")
+![Alt text](GitHubResources/Environment.png?raw=true "Title")
